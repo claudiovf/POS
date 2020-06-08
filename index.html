@@ -24,37 +24,41 @@
             </div>
             <div class="main-categ">
                 <button class="categ-drinks">DRINKS</button>
-                <button class="categ-hotdrinks">HOT DRINKS</button>
+                <button class="categ-colddrinks">COLD DRINKS</button>
                 <button class="categ-brunch">BRUNCH</button>
                 <button class="categ-allday">ALL DAY</button>
                 <button class="categ-pastries">PASTRIES</button>
                 <button class="categ-sweets">SWEETS</button>
             </div>
-            <div class="main-items">
-                <button class="categ-drinks">DRINKS</button>
-                <button class="categ-hotdrinks">HOT DRINKS</button>
-                <button class="categ-brunch">BRUNCH</button>
-                <button class="categ-allday">ALL DAY</button>
-                <button class="categ-pastries">PASTRIES</button>
-                <button class="categ-sweets">SWEETS</button>
+            <div class="form-container">
+                <form id="add-form" class="add-product">
+                        <div class="product-id">Product ID <div>00001</div></div>
+                        <label for="add-category" class="add-categ">Category</label>
+                            <select id="add-category" name="category">
+                                <option value="drinks">Drinks</option>
+                                <option value="cold-drinks">Cold Drinks</option>
+                                <option value="brunch">Brunch</option>
+                                <option value="all-day">All Day Menu</option>
+                                <option value="pastries">Pastries</option>
+                                <option value="sweets">Sweets</option>
+                            </select>
+                        <label for="product-name" class="add-name">Product Name</label>
+                            <input id="product-name" class="input-form" type="text" name="product-name">
+                    
+                    <div class="price-cost">
+                        <label for="add-price" class="add-price" name="price"> </label>
+                        <div class="price-div">&nbspPrice $
+                            <input id="add-price" class="input-form" type="number"> 
+                        </div>
+                        <label for="add-cost" class="add-cost" name="cost"></label>
+                        <div class="cost-div">&nbspCost $
+                            <input id="add-cost" class="input-form" type="number"> 
+                        </div>
+                    </div>
+                    <label for="add-submit" class="add-submit" name="add-submit"></label>
+                    <button id="add-submit" type="submit" class="add-submit-btn" >ADD</button>
+                </form>
             </div>
-            <div class="main-pay">
-                <button class="categ-drinks">DRINKS</button>
-                <button class="categ-hotdrinks">HOT DRINKS</button>
-                <button class="categ-brunch">BRUNCH</button>
-                <button class="categ-allday">ALL DAY</button>
-                <button class="categ-pastries">PASTRIES</button>
-                <button class="categ-sweets">SWEETS</button>
-            </div>
-            <div class="main-cart">
-                <div class="order">ORDER</div>
-                <div class="order-items">
-                    <p>1x Latte</p>
-                    <p>1x Cupcake</p>
-                    <p>1x sandwich</p>
-                </div>
-            </div>
-            <button class="checkout">CHECKOUT</button>   
         </main>
 
         <script src="main.js" type="text/javascript"></script>

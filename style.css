@@ -29,7 +29,7 @@ body {
     box-shadow: 2px 2px 1px 0.2px rgba(0, 0, 0, 0.041);
     margin: 0;
     font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.753);
+    color: rgba(255, 255, 255, 0.8);
 }
 .nav-menu {
     height: 100%;
@@ -202,3 +202,136 @@ body {
     height: 100%;
     width: 100%;
 }
+
+
+/* ------------------------
+START OF ADD NEW PRODUCT
+------------------------ */
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.103);
+    grid-area: items;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1.5rem;
+}
+
+.add-product {
+    height: 100%;
+    width: 100%;
+    padding: 0rem 0 1rem 4rem;
+    /* background-color: rgba(64, 224, 208, 0.452); */
+    font-size: 2rem;
+    font-family: "Lato Light";
+    color: rgba(255, 255, 255, 0.904);
+    letter-spacing: 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.add-head {
+    align-self: center;
+    height: 2rem;
+}
+
+.product-id div {
+    color: rgb(20, 204, 158);
+}
+
+.add-product input {
+    width: 50%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgb(20, 204, 158);
+    font-size: 2rem;
+    font-family: "Lato Light";
+    color: rgb(20, 204, 158);
+    letter-spacing: 2px;
+    font-stretch: wider;
+    transition: all 0.3s ease-out;
+}
+.add-product input:focus {
+    outline: none;
+    border-bottom: 2px solid rgb(179, 74, 32);
+    color: rgb(179, 74, 32);
+    
+}
+
+#add-category {
+    width: 50%;
+    height: 4rem;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.904);
+    border: 2px solid rgb(20, 204, 158);
+    transition: all 0.3s ease-out;
+}
+#add-category:focus {
+    outline: none;
+    border: 2px solid rgb(179, 74, 32);
+}
+.price-cost {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+}
+.price-cost input::-webkit-outer-spin-button, 
+.price-cost input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.price-div {
+    width: 40%;
+    height: auto;
+    margin-right: 2rem;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.904);
+    border: 2px solid rgb(20, 204, 158);
+    transition: all 0.3s ease-out;
+}
+#add-price:focus {
+    color: rgb(179, 74, 32);
+}
+.cost-div {
+    width: 40%;
+    height: auto;
+    margin-right: 2rem;
+    background-color: transparent;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.904);
+    border: 2px solid rgb(20, 204, 158);
+    transition: all 0.3s ease-out;
+}
+#add-cost:focus {
+   color: rgb(179, 74, 32);
+}
+#add-price, #add-cost {
+    border: none;
+    height: 4rem;
+    font-size: 2rem;
+    color: rgb(20, 204, 158);
+}
+.add-submit {
+    display: none;
+}
+.add-submit-btn {
+    height: 6rem;
+    position: relative;
+    font-family: "Lato";
+    font-size: 2rem;
+    width: 85%;
+    border: none;
+    background-color: rgb(20, 204, 158);
+    transition: all 0.1s ease-out;
+}
+.add-submit-btn:focus {
+    outline: none;
+    font-size: 2.2rem;
+}
+
