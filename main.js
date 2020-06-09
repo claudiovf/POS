@@ -27,7 +27,7 @@ function categDisplay(){
         mainItems.innerHTML = '';
         orderItemList.innerHTML = '';
         orderPrice.innerHTML = '';
-        orderTotal.innerHTML = '';
+        textTotal.innerHTML = 0;
     }
 };
 
