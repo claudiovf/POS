@@ -65,12 +65,12 @@ body button:active {
     height: 100vh;
     display: grid;
     grid-template-columns: 13% 13%  49% 25%;
-    grid-template-rows: 5rem 1fr 2fr 10rem;
+    grid-template-rows: 5rem 1fr 1fr 1fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
-        "menu categ items pay"
         "menu categ items cart"
-        "menu categ items checkout";
+        "menu categ items cart"
+        "menu categ items pay";
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -95,11 +95,10 @@ body button:active {
 .main-menu button {
     height: 5rem;
     width: 90%;;
-    border-radius: 10px;
     margin-top: 0.4rem;
     color: rgb(20, 204, 158);
-    background-color: rgba(5, 75, 57, 1);
-    border: 3px solid rgba(5, 75, 57, 1);
+    background-color: rgba(5, 75, 57, 0.726);
+    border: 1px solid rgba(5, 75, 57, 1);
     cursor: pointer;
     transition: background-color 0.1s ease;
 }
@@ -114,7 +113,6 @@ body button:active {
     align-items: center;
     border-right: 2px solid rgba(5, 75, 57, 0.8);
     visibility: none;
-    transition: all 0.1s ease;
 }
 .categ-active {
     visibility: visible;
@@ -127,11 +125,10 @@ body button:active {
 .main-categ button {
     height: 5rem;
     width: 90%;
-    border-radius: 10px;
     margin-top: 0.4rem;
     color: rgb(20, 204, 158);
-    background-color: rgb(179, 74, 32);
-    border: 3px solid rgb(179, 74, 32);
+    background-color: rgba(179, 74, 32, 0.712);
+    border: 1px solid rgb(179, 74, 32);
     color: rgb(241, 173, 146);
     cursor: pointer;
 }
@@ -145,9 +142,7 @@ body button:active {
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
-    border-right: 2px solid rgba(5, 75, 57, 0.8);
     display: none;
-    transition: display 0.1s ease;
 }
 .main-active {
     display: flex;
@@ -155,11 +150,10 @@ body button:active {
 .main-items button {
     height: 11rem;
     width: 23%;
-    border-radius: 10px;
     margin: 0.5rem 0rem 0rem 0.5rem;
-    background-color: rgb(212, 212, 212);
-    border: 3px solid rgb(212, 212, 212);
-    color: rgb(82, 82, 82);
+    background-color: rgba(212, 212, 212, 0.377);
+    border: 1px solid rgb(212, 212, 212);
+    color: rgb(201, 201, 201);
 }
 .main-pay {
     grid-area: pay;
@@ -174,14 +168,17 @@ body button:active {
     border-bottom: 2px solid rgba(5, 75, 57, 0.8);
     display: none;
 }
+.main-pay-active {
+    display: flex;
+}
+
 .main-pay button {
     height: 5rem;
     width: 48%;
-    border-radius: 10px;
     margin: 0.3rem 0rem 0rem 0.3rem;
-    background-color: rgb(228, 149, 149);
-    border: 3px solid rgb(228, 149, 149);
-    color: rgb(82, 82, 82);
+    border: 1px solid rgb(179, 74, 32);
+    background-color: rgb(26, 26, 26);
+    color: rgb(179, 74, 32);
 }
 .main-cart {
     grid-area: cart;
@@ -194,6 +191,18 @@ body button:active {
     align-items: center;
     display: none;
 }
+.main-cart-active {
+    display: flex;
+
+}
+.order-items-wrap {
+    height: 75%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    background-color: rgb(199, 199, 199);
+}
 .order {
     height: 10%;
     width: 100%;
@@ -203,7 +212,7 @@ body button:active {
     text-align: center;
     align-content: center;
     background-color: rgb(199, 199, 199);
-    display: none;
+    color: rgba(0, 0, 0, 0.774);
 }
 .order-items {
     list-style: none;
@@ -212,24 +221,69 @@ body button:active {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    height: 90%;
-    width: 100%;
+    height: 100%;
+    width: 70%;
     background-color: rgb(199, 199, 199);
     font-family: monospace;
-    font-size: 1.5rem;
+    font-size: 12px;
 }
-.order-items p{
-    margin-left: 2rem;
-    height: 1rem;
+.order-items div{
+    padding-left: 2rem;
+    background-color: rgb(199, 199, 199);
+    height: 30px;
+    width: 100%;
+    display: flex;
+}
+.order-price {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+    width: 30%;
+    background-color: rgb(199, 199, 199);
+    font-family: monospace;
+    font-size: 12px;
+}
+.order-price div{
+    background-color: rgb(199, 199, 199);
+    height: 30px;
+    width: 100%;
+    display: flex;
+}
+.order-total {
+    height: 15%;
+    width: 100%;
+    color: rgb(20, 204, 158);
+    background-color: rgba(5, 75, 57, 0.726);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.order-total div{
+    font-size: 1.5rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.order-total p{
+    font-size: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
 }
 
-.checkout {
-    background-color: rgba(255, 166, 0, 0.76);
-    grid-area: checkout;
-    height: 100%;
-    width: 100%;
-    display: none;
-}
+
+
+
 
 
 /* ------------------------
