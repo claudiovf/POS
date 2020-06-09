@@ -16,6 +16,12 @@ body {
     scroll-behavior: smooth;
     font-family: "lato";
 }
+body button:focus {
+    outline: none;
+}
+body button:active {
+    outline: none;
+}
 .header {
     background-color: rgb(7, 54, 42);
     width: 100vw;
@@ -93,19 +99,31 @@ body {
     margin-top: 0.4rem;
     color: rgb(20, 204, 158);
     background-color: rgba(5, 75, 57, 1);
-    border: 3px solid rgba(5, 75, 57, 1)
+    border: 3px solid rgba(5, 75, 57, 1);
+    cursor: pointer;
+    transition: background-color 0.1s ease;
 }
 .main-categ {
     grid-area: categ;
     /* background-color: rgba(32, 42, 178, 0.548); */
     height: 100%;
     width: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     border-right: 2px solid rgba(5, 75, 57, 0.8);
+    visibility: none;
+    transition: all 0.1s ease;
 }
+.categ-active {
+    visibility: visible;
+    display: flex;
+}
+.active {
+    background-color: rgb(129, 53, 22);
+}
+
 .main-categ button {
     height: 5rem;
     width: 90%;
@@ -115,6 +133,7 @@ body {
     background-color: rgb(179, 74, 32);
     border: 3px solid rgb(179, 74, 32);
     color: rgb(241, 173, 146);
+    cursor: pointer;
 }
 .main-items {
     grid-area: items;
@@ -127,6 +146,11 @@ body {
     align-items: flex-start;
     align-content: flex-start;
     border-right: 2px solid rgba(5, 75, 57, 0.8);
+    display: none;
+    transition: display 0.1s ease;
+}
+.main-active {
+    display: flex;
 }
 .main-items button {
     height: 11rem;
@@ -148,6 +172,7 @@ body {
     align-items: flex-start;
     align-content: flex-start;
     border-bottom: 2px solid rgba(5, 75, 57, 0.8);
+    display: none;
 }
 .main-pay button {
     height: 5rem;
@@ -167,6 +192,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    display: none;
 }
 .order {
     height: 10%;
@@ -177,6 +203,7 @@ body {
     text-align: center;
     align-content: center;
     background-color: rgb(199, 199, 199);
+    display: none;
 }
 .order-items {
     list-style: none;
@@ -201,6 +228,7 @@ body {
     grid-area: checkout;
     height: 100%;
     width: 100%;
+    display: none;
 }
 
 

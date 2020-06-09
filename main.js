@@ -1,4 +1,50 @@
 
+let menuNew = document.querySelector('.menu-new');
+let mainCateg = document.querySelector('.main-categ')
+let mainItems = document.querySelector('.main-items');
+let categOption = document.querySelector('.main-categ');
+
+function categDisplay(){
+    mainCateg.classList.toggle('categ-active');
+    mainItems.classList.toggle('main-active');
+
+    if(menuNew.textContent == "NEW") { 
+        menuNew.textContent = "CANCEL ORDER"
+        menuNew.style.color = "rgb(241, 173, 146)";
+    }else{
+        menuNew.textContent = "NEW";
+        menuNew.style.color = "rgb(20, 204, 158)";
+    }
+};
+
+menuNew.addEventListener('click', categDisplay)
+
+
+function showItems(event){
+    let categ = event.target.id;
+    console.log(event.target, categ);
+
+    let categItems =  db.filter(function(item) {
+        return item.category == categ;
+        });
+        
+    console.log(categItems);
+    
+    for (let i = 0; i < categItems.length; i++) {
+        let item = categItems[i];
+        let itemButton = document.createElement('button');
+        let itemDisplay = document.createTextNode(item.name);
+        itemButton.appendChild(itemDisplay);
+        mainItems.appendChild(itemButton);
+    }
+};
+
+categOption.addEventListener('click', showItems);
+
+
+
+
+// START OF ADD NEW PRODUCT FORM
 
 let productsList = [];
 let db = [];
@@ -65,8 +111,5 @@ event.preventDefault();
 }, false);
 
 
-// let drinks =  db.filter(function(drink) {
-// 	return drink.category == "drinks";
-// });
-
+// END OF ADD NEW PRODUCT FORM
 
