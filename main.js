@@ -48,13 +48,14 @@ $('#add-price').on('blur', function() {
 
 function categDisplay(){
     if(mainCateg.classList.contains('stock-active')){
-        mainCateg.classList.remove('stock-active')
+        mainCateg.classList.remove('stock-active');
         mainContent.classList.replace('main-content-form', 'main-content');
         formContainer.classList.remove('form-container-active');
         orderItemsWrap.classList.remove('main-cart-active');
         mainCart.classList.remove('main-cart-active');
-        mainCateg.innerHTML = '';
+        mainItems.classList.remove('main-active');
     }
+
     mainCateg.classList.toggle('categ-active');
     mainItems.classList.toggle('main-active');
 
@@ -74,7 +75,7 @@ function categDisplay(){
         menuNew.textContent = "CANCEL ORDER"
         menuNew.style.color = "rgb(241, 173, 146)";
         orderItemsWrap.classList.remove('main-cart-active');
-    }else{
+    }
         menuNew.textContent = "NEW";
         menuNew.style.color = "rgb(20, 204, 158)";
         mainPay.classList.remove('main-pay-active');
@@ -86,7 +87,7 @@ function categDisplay(){
         orderItemsWrap.innerHTML = '';
         orderPrice.innerHTML = '';
         textTotal.innerHTML = '0';
-    }
+    
 };
 
 menuNew.addEventListener('click', categDisplay);
@@ -148,13 +149,13 @@ function showItems(event){
         });
         
     console.log(categItems, categ);
+    mainContent.classList.replace('main-content-form', 'main-content');
 
     if(event.target.innerHTML == 'ADD NEW') {
         mainItems.innerHTML = '';
         mainContent.classList.replace('main-content','main-content-form');
         formContainer.classList.add('form-container-active');
         mainAddon.innerHTML = '';
-        mainItems.innerHTML = '';
         orderItemsWrap.innerHTML = '';
         mainPay.classList.remove('main-pay-active');
         mainCart.classList.remove('main-cart-active');
@@ -162,10 +163,11 @@ function showItems(event){
         mainAddon.classList.remove('addon-active');
         console.log(event.target.innerHTML);
     }
-
+    
         mainPay.classList.add('main-pay-active');
         mainCart.classList.add('main-cart-active');
         orderItemsWrap.classList.add('main-cart-active');
+        
         
         
 
@@ -242,24 +244,24 @@ document.getElementById('add-submit').addEventListener('click', function(event) 
         newProduct.cost = document.getElementById('add-cost').value;
 
 
-    function export2txt() {
+    // function export2txt() {
         
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
-            type: "text/plain"
-        }));
-        a.setAttribute("download", "db.json");
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-    }
+    //     const a = document.createElement("a");
+    //     a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
+    //         type: "text/plain"
+    //     }));
+    //     a.setAttribute("download", "db.json");
+    //     document.body.appendChild(a);
+    //     a.click();
+    //     document.body.removeChild(a);
+    // }
 
 
 productsList.push(newProduct);
 db.push(newProduct);
 console.log(productsList);
 
-export2txt();
+// export2txt();
 
 document.getElementById('product-name').value = '';
 document.getElementById('add-price').value = '';
