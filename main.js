@@ -16,6 +16,20 @@ function categDisplay(){
     mainCateg.classList.toggle('categ-active');
     mainItems.classList.toggle('main-active');
 
+    mainCateg.innerHTML = '';
+    for (let i = 0; i < db.length; i++) {
+        let categ = db[i];
+        if(!(mainCateg.innerHTML.includes(db[i].category))) {    
+            let categButton = document.createElement('button');
+            categButton.classList.add('categ');
+            let categName = db[i].category;
+            let categDisplay = document.createTextNode(categ.category);
+            categButton.appendChild(categDisplay);
+            mainCateg.appendChild(categButton);
+        }
+    }
+
+
     if(menuNew.textContent == "NEW") { 
         menuNew.textContent = "CANCEL ORDER"
         menuNew.style.color = "rgb(241, 173, 146)";
@@ -36,15 +50,17 @@ function categDisplay(){
 menuNew.addEventListener('click', categDisplay)
 
 
+
+
 function showItems(event){
-    let categ = event.target.id;
+    let categ = event.target.innerHTML;
     console.log(event.target, categ);
 
     let categItems =  db.filter(function(item) {
         return item.category == categ;
         });
         
-    console.log(categItems);
+    console.log(categItems, categ);
 
     mainPay.classList.add('main-pay-active');
     mainCart.classList.add('main-cart-active');
@@ -70,7 +86,7 @@ function addToOrder(event) {
     let itemSel = event.target.innerHTML;
     console.log(itemSel, event.target.innerHTML.length);
 
-    if(event.target.innerHTML.length < 40) {
+    if(event.target.innerHTML.length < 40 && event.target.innerHTML.length > 0 ) {
 
         mainAddon.classList.add('addon-active');
         let itemBox = document.createElement('div');
@@ -90,13 +106,6 @@ function addToOrder(event) {
             let itemPrice = db[i].price;
             let itemName = db[i].name;
             
-            
-
-            // if(orderTotal.innerHTML == '') {
-            //     let totalSend = document.createElement('div')
-            //     totalSend.textContent = 0;
-            //     totalSend.classList.add('total-text');
-            //     orderTotal.appendChild(totalSend);
 
             if(itemSel == itemName) {
                 let priceSend = document.createElement('div');
@@ -157,28 +166,32 @@ document.getElementById('add-submit').addEventListener('click', function(event) 
         newProduct.price = document.getElementById('add-price').value;
         newProduct.cost = document.getElementById('add-cost').value;
 
-    // function export2txt() {
 
-    //     const a = document.createElement("a");
-    //     a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
-    //         type: "text/plain"
-    //     }));
-    //     a.setAttribute("download", "db.json");
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    // }
+    function export2txt() {
+        
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
+            type: "text/plain"
+        }));
+        a.setAttribute("download", "db.json");
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+
+
 productsList.push(newProduct);
 db.push(newProduct);
 console.log(productsList);
 
-//   export2txt();
+export2txt();
 
 document.getElementById('product-name').value = '';
 document.getElementById('add-price').value = '';
 document.getElementById('add-cost').value = '';
 
 event.preventDefault();
+
 
 
 }, false);
