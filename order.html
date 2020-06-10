@@ -20,15 +20,46 @@
             <div class="main-menu">
                 <button class="menu-new" type="button">NEW</button>
                 <button class="menu-orders">ORDERS</button>
-                <button class="menu-reports">REPORTS</button>
+                <button class="menu-stock">STOCK</button>
             </div>
-            <div class="main-categ">
+            <div class="main-categ"></div>
+            <div class="main-stock"></div>
 
-            </div>
+
             <div class="main-items"></div>
-            <div class="main-addon">
+            <div class="main-addon"></div>
 
+            <div class="form-container">
+                <form id="add-form" class="add-product">
+                        <div class="product-id">Product ID <div class="product-id-number">00001</div></div>
+                        <label for="add-category" class="add-categ">Category</label>
+                            <select id="add-category" name="category" autofocus>
+                                <option value="Drinks">Drinks</option>
+                                <option value="Cold Drinks">Cold Drinks</option>
+                                <option value="Brunch">Brunch</option>
+                                <option value="All Day">All Day Menu</option>
+                                <option value="Pastries">Pastries</option>
+                                <option value="Sweets">Sweets</option>
+                            </select>
+                        <label for="product-name" class="add-name">Product Name</label>
+                            <input id="product-name" class="input-form" type="text" name="product-name" autocomplete="off">
+                    
+                    <div class="price-cost">
+                        <label for="add-price" class="add-price" name="price"> </label>
+                        <div class="price-div">&nbspPrice $
+                            <input id="add-price" class="input-form" type="number"> 
+                        </div>
+                        <label for="add-cost" class="add-cost" name="cost"></label>
+                        <div class="cost-div">&nbspCost $
+                            <input id="add-cost" class="input-form" type="number"> 
+                        </div>
+                    </div>
+                    <label for="add-submit" class="add-submit" name="add-submit"></label>
+                    <button id="add-submit" type="submit" class="add-submit-btn" >ADD</button>
+                </form>
             </div>
+
+            
             <div class="main-pay">
 
             </div>
