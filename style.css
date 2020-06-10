@@ -70,7 +70,7 @@ body button:active {
         "spacer  spacer spacer spacer"
         "menu categ items cart"
         "menu categ items cart"
-        "menu categ items pay";
+        "menu categ addon pay";
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -91,6 +91,7 @@ body button:active {
     justify-content: flex-start;
     align-items: center;
     border-right: 2px solid rgba(5, 75, 57, 0.8);
+
 }
 .main-menu button {
     height: 5rem;
@@ -155,6 +156,17 @@ body button:active {
     border: 1px solid rgb(212, 212, 212);
     color: rgb(201, 201, 201);
 }
+
+.main-addon {
+    height: 100%;
+    width: 100%;
+    grid-area: addon;
+    background-color: rgba(255, 140, 0, 0.685);
+    display: none;
+}
+.addon-active {
+    display: flex;
+}
 .main-pay {
     grid-area: pay;
     /* background-color: rgba(178, 32, 64, 0.705); */
@@ -184,6 +196,7 @@ body button:active {
     grid-area: cart;
     /* background-color: rgba(35, 99, 22, 0.705); */
     height: 100%;
+    max-height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -195,14 +208,7 @@ body button:active {
     display: flex;
 
 }
-.order-items-wrap {
-    height: 75%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    overflow: scroll;
-    background-color: rgb(199, 199, 199);
-}
+
 .order {
     height: 10%;
     width: 100%;
@@ -214,29 +220,61 @@ body button:active {
     background-color: rgb(199, 199, 199);
     color: rgba(0, 0, 0, 0.774);
 }
+.order-items-wrap {
+    min-height: 75%;
+    height: auto;
+    z-index: 999;
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: rgb(199, 199, 199);
+    overflow: scroll;
+}
 .order-items {
     list-style: none;
     margin: 0;
+    display: flex;
+    flex-direction: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: 
+        "item-name item-price"
+        "addons blank";
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 4rem;
+    width: 100%;
+    background-color: rgb(199, 199, 199);
+    font-family: monospace;
+    font-size: 12px;
+}
+.order-items-name {
+    list-style: none;
+    margin: 0;
+    grid-area: item-name;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     height: 100%;
-    width: 70%;
+    width: 100%;
     background-color: rgb(199, 199, 199);
     font-family: monospace;
     font-size: 12px;
 }
-.order-items div{
+/* .order-items div{
     padding-left: 2rem;
     background-color: rgb(199, 199, 199);
     height: 30px;
     width: 100%;
     display: flex;
-}
+} */
 .order-price {
     list-style: none;
     margin: 0;
+    grid-area: item-price;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -247,12 +285,12 @@ body button:active {
     font-family: monospace;
     font-size: 12px;
 }
-.order-price div{
+/* .order-price div{
     background-color: rgb(199, 199, 199);
     height: 30px;
     width: 100%;
     display: flex;
-}
+} */
 .order-total {
     height: 15%;
     width: 100%;
