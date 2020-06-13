@@ -46,20 +46,26 @@ $('#add-price').on('blur', function() {
   });
 
 
-function categDisplay(){
-    if(mainCateg.classList.contains('stock-active')){
-        mainCateg.classList.remove('stock-active');
-        mainContent.classList.replace('main-content-form', 'main-content');
-        formContainer.classList.remove('form-container-active');
-        orderItemsWrap.classList.remove('main-cart-active');
-        mainCart.classList.remove('main-cart-active');
-        mainItems.classList.remove('main-active');
-    }
 
+  function clearAll() {
+    mainCateg.classList.remove('stock-active');
+    mainContent.classList.replace('main-content-form', 'main-content');
+    formContainer.classList.remove('form-container-active');
+    orderItemsWrap.classList.remove('main-cart-active');
+    mainCart.classList.remove('main-cart-active');
+    mainItems.classList.remove('main-active');
+}
+function startNewOrder() {
     mainCateg.classList.toggle('categ-active');
-    mainItems.classList.toggle('main-active');
-
+    mainItems.classList.add('main-active');
+    mainCart.classList.add('main-cart-active');
+    orderItemsWrap.classList.add('main-cart-active');
     mainCateg.innerHTML = '';
+    menuNew.textContent = "CANCEL ORDER";
+    menuNew.style.color = "rgb(241, 173, 146)";
+    console.log(menuNew.textContent);
+}
+function createCategButtons() {
     for (let i = 0; i < db.length; i++) {
         let categ = db[i];
         if(!(mainCateg.innerHTML.includes(db[i].category))) {    
@@ -71,11 +77,17 @@ function categDisplay(){
             mainCateg.appendChild(categButton);
         }
     }
+}
+
+function switchButtonName() {
     if(mainCateg.classList.contains('categ-active')) { 
-        menuNew.textContent = "CANCEL ORDER"
+        menuNew.innerHTML = "CANCEL ORDER";
         menuNew.style.color = "rgb(241, 173, 146)";
-        orderItemsWrap.classList.remove('main-cart-active');
-    }
+        menuStock.toggleAttribute('disabled');
+        menuStock.style.color = "gray";
+        menuStock.style.opacity = 0.8;
+        
+    }else{
         menuNew.textContent = "NEW";
         menuNew.style.color = "rgb(20, 204, 158)";
         mainPay.classList.remove('main-pay-active');
@@ -87,10 +99,20 @@ function categDisplay(){
         orderItemsWrap.innerHTML = '';
         orderPrice.innerHTML = '';
         textTotal.innerHTML = '0';
-    
+        menuStock.toggleAttribute('disabled');
+        menuStock.style.color = "rgb(20, 204, 158)";
+        menuStock.style.opacity = 1;
+    }
+}
+function categDisplay(){
+    clearAll();
+    startNewOrder();
+    createCategButtons();
+    switchButtonName();
 };
-
 menuNew.addEventListener('click', categDisplay);
+
+
 
 function stockDisplay(){
     mainCateg.classList.toggle('stock-active');
@@ -100,6 +122,7 @@ function stockDisplay(){
         mainCateg.classList.remove('categ-active');
         mainItems.innerHTML = '';
         orderItemsWrap.classList.remove('main-cart-active');
+        
     }else if(mainContent.classList.contains('main-content-form')) {
         mainItems.innerHTML = '';
         mainCateg.classList.remove('stock-active');
