@@ -15,6 +15,9 @@ let mainAddon = document.querySelector('.main-addon');
 let menuStock = document.querySelector('.menu-stock');
 let addNewBtn = document.querySelector('.categ');
 let formContainer = document.querySelector('.form-container');
+let formAddCategoryBtn = document.querySelector('.form-add-category');
+let formAddCategoryOverlay = document.querySelector('.form-add-category-overlay');
+
 
 let productsList = [];
 let db = [];
@@ -36,6 +39,7 @@ $('#add-price').on('blur', function() {
       minimumFractionDigits: 2
     });
   });
+
   $('#add-cost').on('blur', function() {
     const value = this.value.replace(/,/g, '');
     this.value = parseFloat(value).toLocaleString('en-US', {
@@ -54,6 +58,7 @@ $('#add-price').on('blur', function() {
     orderItemsWrap.classList.remove('main-cart-active');
     mainCart.classList.remove('main-cart-active');
     mainItems.classList.remove('main-active');
+    mainCateg.classList.remove('stock-active');
 }
 function startNewOrder() {
     mainCateg.classList.toggle('categ-active');
@@ -62,7 +67,6 @@ function startNewOrder() {
     orderItemsWrap.classList.add('main-cart-active');
     mainCateg.innerHTML = '';
     menuNew.textContent = "CANCEL ORDER";
-    menuNew.style.color = "rgb(241, 173, 146)";
     console.log(menuNew.textContent);
 }
 function createCategButtons() {
@@ -71,7 +75,6 @@ function createCategButtons() {
         if(!(mainCateg.innerHTML.includes(db[i].category))) {    
             let categButton = document.createElement('button');
             categButton.classList.add('categ');
-            let categName = db[i].category;
             let categDisplay = document.createTextNode(categ.category);
             categButton.appendChild(categDisplay);
             mainCateg.appendChild(categButton);
@@ -114,114 +117,128 @@ menuNew.addEventListener('click', categDisplay);
 
 
 
-function stockDisplay(){
-    mainCateg.classList.toggle('stock-active');
-    
-
-    if(mainCateg.classList.contains('categ-active')){
-        mainCateg.classList.remove('categ-active');
-        mainItems.innerHTML = '';
-        orderItemsWrap.classList.remove('main-cart-active');
-        
-    }else if(mainContent.classList.contains('main-content-form')) {
-        mainItems.innerHTML = '';
-        mainCateg.classList.remove('stock-active');
-        mainContent.classList.replace('main-content-form', 'main-content');
-        formContainer.classList.remove('form-container-active');
-        orderItemsWrap.classList.remove('main-cart-active');
-        
+function toggleStock() {
+    if(mainCateg.classList.contains('stock-active')) {
+        clearAll();
+    }else{
+        mainCateg.classList.toggle('stock-active');
+        mainItems.classList.toggle('main-active');
     }
-   
-    mainItems.classList.toggle('main-active');
+}
 
-    menuNew.textContent = "NEW";
-        menuNew.style.color = "rgb(20, 204, 158)";
-        mainPay.classList.remove('main-pay-active');
-        mainCart.classList.remove('main-cart-active');
-        mainAddon.classList.remove('addon-active');
-        mainAddon.innerHTML = '';
-        mainItems.innerHTML = '';
-        orderItemsWrap.innerHTML = '';
-        orderPrice.innerHTML = '';
-        textTotal.innerHTML = '0';
-
+function addNewStockButton() {
     mainCateg.innerHTML = '';   
     let addStockButton = document.createElement('button');
     addStockButton.classList.add('add-stock-btn');
     addStockButton.innerHTML = "ADD NEW";
-    // addStockButton.appendChild(addStockDisplay);
     mainCateg.appendChild(addStockButton);
-
+}
+function lookupStockButton(){
     let stockLookButton = document.createElement('button');
     stockLookButton.classList.add('stock-look-btn');
     stockLookButton.innerHTML = 'STOCK LOOKUP';
-    // addStockButton.appendChild(stockLookDisplay);
     mainCateg.appendChild(stockLookButton);
-
 }
 
+function stockDisplay(){
+    toggleStock();
+    addNewStockButton();
+    lookupStockButton();
+}
 menuStock.addEventListener('click', stockDisplay);
 
 
-function showItems(event){
+
+function displayForm() {
+    mainItems.innerHTML = '';
+    mainContent.classList.replace('main-content','main-content-form');
+    formContainer.classList.add('form-container-active');
+    mainAddon.innerHTML = '';
+    orderItemsWrap.innerHTML = '';
+    mainPay.classList.remove('main-pay-active');
+    mainCart.classList.remove('main-cart-active');
+    orderItemsWrap.classList.remove('main-cart-active');
+    mainAddon.classList.remove('addon-active');
+    console.log(event.target.innerHTML);
+}
+
+
+function prepareItemsArea(){
+    mainPay.classList.add('main-pay-active');
+    mainCart.classList.add('main-cart-active');
+    orderItemsWrap.classList.add('main-cart-active');
+}
+
+
+function categBoxSelect(event){
+    //Identify Button Selected
     let categ = event.target.innerHTML;
     console.log(event.target, categ);
 
     let categItems =  db.filter(function(item) {
         return item.category == categ;
         });
-        
+    //-------------------------------
+
     console.log(categItems, categ);
+
+
     mainContent.classList.replace('main-content-form', 'main-content');
 
+
+    // Settings categ box options are added here
     if(event.target.innerHTML == 'ADD NEW') {
-        mainItems.innerHTML = '';
-        mainContent.classList.replace('main-content','main-content-form');
-        formContainer.classList.add('form-container-active');
-        mainAddon.innerHTML = '';
-        orderItemsWrap.innerHTML = '';
-        mainPay.classList.remove('main-pay-active');
-        mainCart.classList.remove('main-cart-active');
-        orderItemsWrap.classList.remove('main-cart-active');
-        mainAddon.classList.remove('addon-active');
-        console.log(event.target.innerHTML);
+        displayForm();
+
+        for (let i = 0; i < db.length; i++) {
+            let item = db[i].category;
+
+             if(!(document.getElementById('add-category').innerHTML.includes(item))) {
+                let categOptionInForm = document.createElement('option');
+                categOptionInForm.textContent = item;
+                categOptionInForm.value = item;
+                document.getElementById('add-category').appendChild(categOptionInForm);
+                console.log("hello", item, categItems, document.getElementById('add-category').innerText);
+             }else{
+                 console.log(item);
+             };
+        };
     }
-    
-        mainPay.classList.add('main-pay-active');
-        mainCart.classList.add('main-cart-active');
-        orderItemsWrap.classList.add('main-cart-active');
-        
-        
-        
+    //--------------------------------
 
-        mainItems.innerHTML = '';
-        for (let i = 0; i < categItems.length; i++) {
-            let item = categItems[i];
-            let itemButton = document.createElement('button');
-            itemButton.classList.add('button-class');
-            let itemDisplay = document.createTextNode(item.name);
-            itemButton.appendChild(itemDisplay);
-            mainItems.appendChild(itemButton);
-        }
-    
+    prepareItemsArea();
 
+    // Create and Display Item Buttons
+    mainItems.innerHTML = '';
+    for (let i = 0; i < categItems.length; i++) {
+        let item = categItems[i];
+        let itemButton = document.createElement('button');
+        itemButton.classList.add('button-class');
+        let itemDisplay = document.createTextNode(item.name);
+        itemButton.appendChild(itemDisplay);
+        mainItems.appendChild(itemButton);
+    }
 };
-categOption.addEventListener('click', showItems);
+categOption.addEventListener('click', categBoxSelect);
+
+
 
 
 
 function addToOrder(event) {
+    //item Selection
     let itemSel = event.target.innerHTML;
     console.log(itemSel, event.target.innerHTML.length);
 
+    // ignore blank spaces
     if(event.target.innerHTML.length < 40 && event.target.innerHTML.length > 0 ) {
-        orderItemsWrap.classList.add('main-cart-active');
-        mainAddon.classList.add('addon-active');
+        
+        //create ITEMPRICE div
         let itemBox = document.createElement('div');
         itemBox.classList.add('order-items');
         orderItemsWrap.appendChild(itemBox);
 
-        
+        //add 1x to Item Name
         let itemText = "1 x " + itemSel;
         let cartItem = document.createElement('div');
         cartItem.textContent = itemText;
@@ -230,17 +247,19 @@ function addToOrder(event) {
 
         console.log(itemSel, cartItem);
 
+        //find item price
         for (let i = 0; i < db.length; i++) {
             let itemPrice = db[i].price;
             let itemName = db[i].name;
             
-
+            //match and add price to ITEMPRICE div
             if(itemSel == itemName) {
                 let priceSend = document.createElement('div');
                 priceSend.classList.add('order-price');
                 priceSend.textContent = itemPrice;
                 itemBox.appendChild(priceSend);
                 
+                // add selection price to Total Amount
                 let currentTotal = orderTotal.firstChild.textContent;
                 
                 let newTotal = Number(textTotal.innerHTML) + Number(itemPrice);
@@ -257,9 +276,7 @@ mainItems.addEventListener('click', addToOrder);
 
 
 
-
-document.getElementById('add-submit').addEventListener('click', function(event) {
-    let inputs = document.querySelectorAll('.input-form');
+function submitForm(event) {
     let newProduct = {};
         newProduct.category = document.getElementById('add-category').value;
         newProduct.name = document.getElementById('product-name').value;
@@ -267,6 +284,11 @@ document.getElementById('add-submit').addEventListener('click', function(event) 
         newProduct.cost = document.getElementById('add-cost').value;
 
 
+productsList.push(newProduct);
+db.push(newProduct);
+console.log(productsList);
+
+   // DownloadFuntion for manualy updating db
     // function export2txt() {
         
     //     const a = document.createElement("a");
@@ -278,14 +300,10 @@ document.getElementById('add-submit').addEventListener('click', function(event) 
     //     a.click();
     //     document.body.removeChild(a);
     // }
-
-
-productsList.push(newProduct);
-db.push(newProduct);
-console.log(productsList);
-
 // export2txt();
 
+
+//Clear Form
 document.getElementById('product-name').value = '';
 document.getElementById('add-price').value = '';
 document.getElementById('add-cost').value = '';
@@ -294,8 +312,28 @@ event.preventDefault();
 
 
 
-}, false);
+}
+
+document.getElementById('add-submit').addEventListener('click', submitForm, false);
 
 
 // END OF ADD NEW PRODUCT FORM
+
+function addNewCategory() {
+    formAddCategoryOverlay.classList.add('category-overlay-active');
+    document.querySelector('.new-categ-cancel').addEventListener('click', function() {
+        formAddCategoryOverlay.classList.remove('category-overlay-active');
+    });
+    document.querySelector('.new-categ-submit').addEventListener('click', function() {
+        let categOptionInForm = document.createElement('option');
+                categOptionInForm.textContent = document.querySelector('.new-categ-overlay').value;
+                categOptionInForm.value = document.querySelector('.new-categ-overlay').value;;
+                document.getElementById('add-category').appendChild(categOptionInForm);
+                console.log("hello", document.querySelector('.new-categ-overlay').value, document.getElementById('add-category').innerText);
+        formAddCategoryOverlay.classList.remove('category-overlay-active');
+        document.querySelector('.new-categ-overlay').value = '';
+    });
+}
+formAddCategoryBtn.addEventListener('click', addNewCategory)
+
 

@@ -18,8 +18,8 @@
         <main id="main-content" class="main-content">
             <div class="main-spacer"></div>
             <div class="main-menu">
-                <button class="menu-new" type="button">NEW</button>
                 <button class="menu-stock">STOCK</button>
+                <button class="menu-new" type="button">NEW</button>
             </div>
             <div class="main-categ"></div>
             <div class="main-stock"></div>
@@ -28,18 +28,26 @@
             <div class="main-items"></div>
             <div class="main-addon"></div>
 
+
+            <div class="form-add-category-overlay">
+                <div>Category: &nbsp
+                <input type="text" class="new-categ-overlay">
+                <button type="button" class="new-categ-submit">Add</button>
+                <button type="button" class="new-categ-cancel">Cancel</button>
+                </div>
+            </div>
             <div class="form-container">
                 <form id="add-form" class="add-product">
                         <div class="product-id">Product ID <div class="product-id-number">00001</div></div>
-                        <label for="add-category" class="add-categ">Category</label>
-                            <select id="add-category" name="category" autofocus>
-                                <option value="Drinks">Drinks</option>
-                                <option value="Cold Drinks">Cold Drinks</option>
-                                <option value="Brunch">Brunch</option>
-                                <option value="All Day">All Day Menu</option>
-                                <option value="Pastries">Pastries</option>
-                                <option value="Sweets">Sweets</option>
-                            </select>
+                        <div class="form-categ-display">
+                            <div class="form-categ-select">
+                                <label for="add-category" class="add-categ">Category</label>
+                                <select id="add-category" name="category" autofocus>
+
+                                </select>
+                            </div>
+                            <button type="button" class="form-add-category">New Category</button>
+                        </div>
                         <label for="product-name" class="add-name">Product Name</label>
                             <input id="product-name" class="input-form" type="text" name="product-name" autocomplete="off">
                     
