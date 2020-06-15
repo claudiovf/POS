@@ -64,6 +64,7 @@ $('#add-price').on('blur', function() {
     mainCateg.classList.remove('stock-active');
     stockLookupContainer.classList.remove('stock-lookup-container-active');
     document.querySelector('.stock-results').innerHTML = '';
+    document.querySelector('.stock-results-header').classList.remove('stock-results-header-active');
 }
 function startNewOrder() {
     mainCateg.classList.toggle('categ-active');
@@ -213,6 +214,7 @@ function displayForm() {
     orderItemsWrap.classList.remove('main-cart-active');
     mainAddon.classList.remove('addon-active');
     console.log(event.target.innerHTML);
+    document.querySelector('.stock-results-header').classList.remove('stock-results-header-active');
 }
 function displayLookup() {
     mainItems.innerHTML = '';
@@ -227,6 +229,7 @@ function displayLookup() {
     orderItemsWrap.classList.remove('main-cart-active');
     mainAddon.classList.remove('addon-active');
     console.log(event.target.innerHTML);
+    document.querySelector('.stock-results-header').classList.add('stock-results-header-active');
 }
 
 

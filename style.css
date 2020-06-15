@@ -597,12 +597,15 @@ START OF ADD NEW PRODUCT
     width: 54%;
     margin-left: 9.5%;
     margin-right: 5%;
-    display: flex;
+    display: none;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
     font-size: 1.3rem;
+}
+.stock-results-header-active {
+    display: flex;
 }
 .stock-results-header div{
     height: 5%;
