@@ -355,8 +355,8 @@ START OF ADD NEW PRODUCT
     grid-template-areas: 
         "spacer  spacer spacer spacer"
         "menu categ categ categ"
-        "none items items items"
-        "none items items items";
+        "items items items items"
+        "items items items items";
     justify-content: center;
     align-items: center;
     overflow: visible;
@@ -432,6 +432,8 @@ START OF ADD NEW PRODUCT
     background-color: rgb(134, 218, 197);
     height: 8rem;
     width: 70%;
+    padding-left: 2rem;
+    padding-right: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -442,7 +444,8 @@ START OF ADD NEW PRODUCT
 .form-add-category-overlay input{
     background-color: rgba(255, 255, 255, 0.849);
     height: 4rem;
-    width: 50%;
+    width: 45%;
+    margin-left: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -567,5 +570,88 @@ START OF ADD NEW PRODUCT
 .add-submit-btn:focus {
     outline: none;
     font-size: 2.2rem;
+}
+
+/* START OF STOCK LOOKUP */
+.stock-lookup-container {
+    height: 100%;
+    width: 100%;
+    grid-area: items;
+    /* background-color: rgba(255, 105, 180, 0.692); */
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.stock-lookup-container-active {
+    display: flex;
+}
+
+.stock-search {
+    height: 15%;
+    width: 100%;
+    /* background-color: rgba(76, 0, 130, 0.719); */
+}
+.stock-results-header {
+    height: 6rem;
+    width: 54%;
+    margin-left: 9.5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    font-size: 1.3rem;
+}
+.stock-results-header div{
+    height: 5%;
+    width: 25%;
+    display: block;
+  
+}
+.stock-results {
+    height: 100%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    box-shadow: gray 1px 1px 3px 1px;
+}
+.stock-results-item {
+    height: 5rem;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.3rem;
+    border-bottom: 2px solid rgb(48, 146, 85);
+}
+.stock-results-item div{
+    height: 100%;
+    width: 13%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.stock-results-item button{
+    height: 80%;
+    width: 13%;
+    background-color: rgb(34, 204, 162);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+.stock-results-item button:last-child {
+    background-color: rgba(228, 102, 53, 0.781);
 }
 

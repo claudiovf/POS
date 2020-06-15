@@ -17,10 +17,13 @@ let addNewBtn = document.querySelector('.categ');
 let formContainer = document.querySelector('.form-container');
 let formAddCategoryBtn = document.querySelector('.form-add-category');
 let formAddCategoryOverlay = document.querySelector('.form-add-category-overlay');
+let stockLookupContainer = document.querySelector('.stock-lookup-container');
+
 
 
 let productsList = [];
 let db = [];
+let oldDb = [];
 
 fetch('db.json')
     .then(res => res.json())
@@ -59,6 +62,8 @@ $('#add-price').on('blur', function() {
     mainCart.classList.remove('main-cart-active');
     mainItems.classList.remove('main-active');
     mainCateg.classList.remove('stock-active');
+    stockLookupContainer.classList.remove('stock-lookup-container-active');
+    document.querySelector('.stock-results').innerHTML = '';
 }
 function startNewOrder() {
     mainCateg.classList.toggle('categ-active');
@@ -70,28 +75,47 @@ function startNewOrder() {
     console.log(menuNew.textContent);
 }
 function createCategButtons() {
-    for (let i = 0; i < db.length; i++) {
-        let categ = db[i];
-        if(!(mainCateg.innerHTML.includes(db[i].category))) {    
+    let dbToSort = db;
+    let dbSortedBtCat = dbToSort.sort(function(a, b) {
+        var catA = a.category.toUpperCase(); // ignore upper and lowercase
+        var catB = b.category.toUpperCase(); // ignore upper and lowercase
+        if (catA < catB) {
+          return -1;
+        }
+        if (catA > catB) {
+            console.log(dbToSort);
+          return 1;
+        }
+    });
+    for (let i = 0; i < dbSortedBtCat.length; i++) {
+        let categ = dbSortedBtCat[i];
+        let exactName = ">" + dbSortedBtCat[i].category +  "&";
+        let inner = mainCateg.innerHTML.replace(/</g, "&lt;");
+        console.log(inner);
+
+
+        if(!(inner.includes(exactName))) {    
             let categButton = document.createElement('button');
             categButton.classList.add('categ');
             let categDisplay = document.createTextNode(categ.category);
             categButton.appendChild(categDisplay);
             mainCateg.appendChild(categButton);
+            console.log(categ);
+            console.log(mainCateg.innerHTML.textContent, exactName, mainCateg.getElementsByTagName('button').textContent);
         }
     }
 }
 
-function switchButtonName() {
+function switchOrderButtonName() {
     if(mainCateg.classList.contains('categ-active')) { 
         menuNew.innerHTML = "CANCEL ORDER";
         menuNew.style.color = "rgb(241, 173, 146)";
         menuStock.toggleAttribute('disabled');
         menuStock.style.color = "gray";
-        menuStock.style.opacity = 0.8;
+        menuStock.style.opacity = 0.4;
         
     }else{
-        menuNew.textContent = "NEW";
+        menuNew.textContent = "NEW ORDER";
         menuNew.style.color = "rgb(20, 204, 158)";
         mainPay.classList.remove('main-pay-active');
         orderItemsWrap.classList.remove('main-cart-active');
@@ -111,18 +135,45 @@ function categDisplay(){
     clearAll();
     startNewOrder();
     createCategButtons();
-    switchButtonName();
+    switchOrderButtonName();
 };
 menuNew.addEventListener('click', categDisplay);
 
 
+function switchStockButtonNameOn() {
+    // if(mainCateg.classList.contains('categ-active')) { 
+        menuStock.innerHTML = "CLOSE";
+        menuStock.style.color = "rgb(241, 173, 146)";
+        menuNew.toggleAttribute('disabled');
+        menuNew.style.color = "gray";
+        menuNew.style.opacity = 0.4;
+    
+}
+function switchStockButtonNameOff() {
+        menuStock.textContent = "STOCK";
+        menuStock.style.color = "rgb(20, 204, 158)";
+        // mainPay.classList.remove('main-pay-active');
+        // orderItemsWrap.classList.remove('main-cart-active');
+        // mainCart.classList.remove('main-cart-active');
+        // mainAddon.classList.remove('addon-active');
+        mainAddon.innerHTML = '';
+        mainItems.innerHTML = '';
+        orderItemsWrap.innerHTML = '';
+        orderPrice.innerHTML = '';
+        textTotal.innerHTML = '0';
+        menuNew.toggleAttribute('disabled');
+        menuNew.style.color = "rgb(20, 204, 158)";
+        menuNew.style.opacity = 1;
+    }
 
 function toggleStock() {
     if(mainCateg.classList.contains('stock-active')) {
         clearAll();
+        switchStockButtonNameOff();
     }else{
         mainCateg.classList.toggle('stock-active');
         mainItems.classList.toggle('main-active');
+        switchStockButtonNameOn();
     }
 }
 
@@ -151,8 +202,24 @@ menuStock.addEventListener('click', stockDisplay);
 
 function displayForm() {
     mainItems.innerHTML = '';
+    formAddCategoryOverlay.classList.remove('category-overlay-active');
     mainContent.classList.replace('main-content','main-content-form');
     formContainer.classList.add('form-container-active');
+    stockLookupContainer.classList.remove('stock-lookup-container-active');
+    mainAddon.innerHTML = '';
+    orderItemsWrap.innerHTML = '';
+    mainPay.classList.remove('main-pay-active');
+    mainCart.classList.remove('main-cart-active');
+    orderItemsWrap.classList.remove('main-cart-active');
+    mainAddon.classList.remove('addon-active');
+    console.log(event.target.innerHTML);
+}
+function displayLookup() {
+    mainItems.innerHTML = '';
+    document.querySelector('.stock-results').innerHTML = '';
+    mainContent.classList.replace('main-content','main-content-form');
+    stockLookupContainer.classList.add('stock-lookup-container-active');
+    formContainer.classList.remove('form-container-active');
     mainAddon.innerHTML = '';
     orderItemsWrap.innerHTML = '';
     mainPay.classList.remove('main-pay-active');
@@ -185,24 +252,157 @@ function categBoxSelect(event){
 
     mainContent.classList.replace('main-content-form', 'main-content');
 
+function addNewForm(){
+    for (let i = 0; i < db.length; i++) {
+        let item = db[i].category;
+
+         if(!(document.getElementById('add-category').innerHTML.includes(item))) {
+            let categOptionInForm = document.createElement('option');
+            categOptionInForm.textContent = item;
+            categOptionInForm.value = item;
+            document.getElementById('add-category').appendChild(categOptionInForm);
+            console.log("hello", item, categItems, document.getElementById('add-category').innerText);
+         }else{
+             console.log(item);
+         };
+    };
+}
+
+
+
+function stockLookupList() {
+    let dbToSort = db;
+    let dbSortedBtCat = dbToSort.sort(function(a, b) {
+        var catA = a.category.toUpperCase(); // ignore upper and lowercase
+        var catB = b.category.toUpperCase(); // ignore upper and lowercase
+        if (catA < catB) {
+          return -1;
+        }
+        if (catA > catB) {
+            console.log(dbToSort);
+          return 1;
+        }
+    });
+
+    for (let i = 0; i < dbSortedBtCat.length; i++) {
+        let itemOnDb = dbSortedBtCat[i];
+        let divOnList = document.createElement('div');
+        divOnList.classList.add('stock-results-item');
+        divOnList.id = itemOnDb.name;
+        let itemListName = document.createElement('div');
+        itemListName.textContent = itemOnDb.name;
+        let itemListCat = document.createElement('div');
+        itemListCat.textContent = itemOnDb.category;
+        let itemListPrice = document.createElement('div');
+        itemListPrice.textContent = itemOnDb.price;
+        let itemListCost = document.createElement('div');
+        itemListCost.textContent = itemOnDb.cost;
+
+        let itemListEdit = document.createElement('button');
+        itemListEdit.classList.add('list-edit');
+        itemListEdit.textContent = 'Edit';
+        itemListEdit.value = 'Edit';
+
+        let itemListDel = document.createElement('button');
+        itemListDel.classList.add('list-delete');
+        itemListDel.textContent = 'Delete';
+        itemListDel.value = 'Delete';
+
+        divOnList.appendChild(itemListName);
+        divOnList.appendChild(itemListCat);
+        divOnList.appendChild(itemListPrice);
+        divOnList.appendChild(itemListCost);
+        divOnList.appendChild(itemListEdit);
+        divOnList.appendChild(itemListDel);
+
+        document.querySelector('.stock-results').appendChild(divOnList);
+        console.log('Done');
+    }
+}
+function editAndDeleteButton(event) {
+        if(event.target.innerHTML == 'Delete') {
+            let itemName = event.path[1].childNodes[0].innerHTML
+            
+            function deleteItemConfirmation() {
+                
+
+                formAddCategoryOverlay.classList.add('category-overlay-active');
+                formAddCategoryOverlay.innerHTML = '';
+                let confirmDiv = document.createElement('div');
+                confirmDiv.textContent = "Delete " + itemName + " ?";
+                
+                let itemListYesBtn = document.createElement('button');
+                itemListYesBtn.classList.add('delete-yes');
+                itemListYesBtn.textContent = 'Yes';
+                itemListYesBtn.value = 'Yes';
+            
+                let itemListNoBtn = document.createElement('button');
+                itemListNoBtn.classList.add('delete-no');
+                itemListNoBtn.textContent = 'No';
+                itemListNoBtn.value = 'No';
+            
+                confirmDiv.appendChild(itemListYesBtn);
+                confirmDiv.appendChild(itemListNoBtn);
+                formAddCategoryOverlay.appendChild(confirmDiv);
+            
+                document.querySelector('.delete-no').addEventListener('click', function(){
+                    formAddCategoryOverlay.innerHTML = '';
+                    formAddCategoryOverlay.classList.remove('category-overlay-active');
+                    // stockLookupContainer.classList.remove('stock-lookup-container-active');  
+                    console.log(confirmDiv, formAddCategoryOverlay.classList)
+                })
+                document.querySelector('.delete-yes').addEventListener('click', function(event){
+                    if (event.target.innerHTML == "Yes") {
+                        for (let i = 0; i < db.length; i++) {
+                            let itemInList = db[i].name;
+
+                            if (itemInList == itemName) {
+                                let ItemToDelete = document.getElementById(itemName);
+                                
+                                console.log(ItemToDelete, itemName, itemInList);
+                                document.querySelector('.stock-results').removeChild(ItemToDelete);
+                                
+                                oldDb = db;
+                                db = oldDb.filter(oldDb => oldDb.name != ItemToDelete.id);
+                                console.log(oldDb, db, ItemToDelete.id);
+                                // let index = db.indexOf(itemName);
+                                // if (index > -1) {
+                                //    db.splice(index, 1);
+                                //    console.log(db);
+                                // }
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                    formAddCategoryOverlay.innerHTML = '';
+                    formAddCategoryOverlay.classList.remove('category-overlay-active'); 
+                    console.log(confirmDiv, formAddCategoryOverlay.classList)
+                })
+            
+            
+                
+            }
+            deleteItemConfirmation();
+
+            console.log(event.path[1].childNodes[0].innerHTML, itemName);
+
+        }else if(event.target.innerHTML == 'Edit') {
+            console.log('no Edit');
+        }
+}
+    document.querySelector('.stock-results').addEventListener('click', editAndDeleteButton);
+
+
 
     // Settings categ box options are added here
     if(event.target.innerHTML == 'ADD NEW') {
         displayForm();
-
-        for (let i = 0; i < db.length; i++) {
-            let item = db[i].category;
-
-             if(!(document.getElementById('add-category').innerHTML.includes(item))) {
-                let categOptionInForm = document.createElement('option');
-                categOptionInForm.textContent = item;
-                categOptionInForm.value = item;
-                document.getElementById('add-category').appendChild(categOptionInForm);
-                console.log("hello", item, categItems, document.getElementById('add-category').innerText);
-             }else{
-                 console.log(item);
-             };
-        };
+        addNewForm();
+    }else if(event.target.innerHTML == 'STOCK LOOKUP') {
+        displayLookup();
+        stockLookupList();
     }
     //--------------------------------
 
@@ -218,9 +418,9 @@ function categBoxSelect(event){
         itemButton.appendChild(itemDisplay);
         mainItems.appendChild(itemButton);
     }
+
 };
 categOption.addEventListener('click', categBoxSelect);
-
 
 
 
@@ -309,9 +509,6 @@ document.getElementById('add-price').value = '';
 document.getElementById('add-cost').value = '';
 
 event.preventDefault();
-
-
-
 }
 
 document.getElementById('add-submit').addEventListener('click', submitForm, false);
@@ -321,19 +518,49 @@ document.getElementById('add-submit').addEventListener('click', submitForm, fals
 
 function addNewCategory() {
     formAddCategoryOverlay.classList.add('category-overlay-active');
+    formAddCategoryOverlay.innerHTML = '';
+    let popUpDiv = document.createElement('div');
+    popUpDiv.textContent = "New Category";
+    popUpDiv.classList.add('new-categ-overlay');
+
+    let newCategInput = document.createElement('input');
+    newCategInput.type = "text";
+
+    let newCategSubmit = document.createElement('button');
+    newCategSubmit.classList.add('new-categ-submit');
+    newCategSubmit.textContent = 'Add';
+    newCategSubmit.value = 'Add';
+
+    let newCategCancel = document.createElement('button');
+    newCategCancel.classList.add('new-categ-cancel');
+    newCategCancel.textContent = 'Cancel';
+    newCategCancel.value = 'Cancel';
+
+    popUpDiv.appendChild(newCategInput);
+    popUpDiv.appendChild(newCategSubmit);
+    popUpDiv.appendChild(newCategCancel);
+    formAddCategoryOverlay.appendChild(popUpDiv);
+
     document.querySelector('.new-categ-cancel').addEventListener('click', function() {
         formAddCategoryOverlay.classList.remove('category-overlay-active');
     });
-    document.querySelector('.new-categ-submit').addEventListener('click', function() {
-        let categOptionInForm = document.createElement('option');
-                categOptionInForm.textContent = document.querySelector('.new-categ-overlay').value;
-                categOptionInForm.value = document.querySelector('.new-categ-overlay').value;;
+    
+    document.querySelector('.new-categ-submit').addEventListener('click', function(event) {
+        if(!(document.querySelector('.new-categ-overlay').value == '')) {
+            let categOptionInForm = document.createElement('option');
+                categOptionInForm.textContent = newCategInput.value;
+                categOptionInForm.value = newCategInput.value;
                 document.getElementById('add-category').appendChild(categOptionInForm);
                 console.log("hello", document.querySelector('.new-categ-overlay').value, document.getElementById('add-category').innerText);
         formAddCategoryOverlay.classList.remove('category-overlay-active');
         document.querySelector('.new-categ-overlay').value = '';
+        }else{
+            console.log("hello", document.querySelector('.new-categ-overlay').value, document.getElementById('add-category').innerText);
+        }
     });
 }
 formAddCategoryBtn.addEventListener('click', addNewCategory)
+
+
 
 
