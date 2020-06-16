@@ -351,15 +351,14 @@ START OF ADD NEW PRODUCT
     height: 100vh;
     display: grid;
     grid-template-columns: 30% 10%  50% 10%;
-    grid-template-rows: 5rem 8rem 1fr 0.1fr;
+    grid-template-rows: 5rem 8rem 75%;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
         "menu categ categ categ"
-        "items items items items"
         "items items items items";
     justify-content: center;
     align-items: center;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .form-container {
@@ -594,7 +593,7 @@ START OF ADD NEW PRODUCT
 }
 .stock-results-header {
     height: 6rem;
-    width: 54%;
+    width: 57%;
     margin-left: 9.5%;
     margin-right: 5%;
     display: none;
@@ -620,7 +619,7 @@ START OF ADD NEW PRODUCT
     margin-right: 5%;
     display: flex;
     flex-direction: column;
-    overflow-y: scroll;
+    overflow-y: auto;
     box-shadow: gray 1px 1px 3px 1px;
 }
 .stock-results-item {

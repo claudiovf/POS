@@ -23,12 +23,20 @@ let stockLookupContainer = document.querySelector('.stock-lookup-container');
 
 let productsList = [];
 let db = [];
-let oldDb = [];
 
 fetch('db.json')
     .then(res => res.json())
     .then(data => {
         db = data;
+        console.log(data)
+    })
+    .catch(err => console.error(err));
+
+let oldDb = [];
+    fetch('oldDb.json')
+    .then(res => res.json())
+    .then(data => {
+        oldDb = data;
         console.log(data)
     })
     .catch(err => console.error(err));
@@ -201,6 +209,7 @@ menuStock.addEventListener('click', stockDisplay);
 
 
 
+
 function displayForm() {
     mainItems.innerHTML = '';
     formAddCategoryOverlay.classList.remove('category-overlay-active');
@@ -215,6 +224,7 @@ function displayForm() {
     mainAddon.classList.remove('addon-active');
     console.log(event.target.innerHTML);
     document.querySelector('.stock-results-header').classList.remove('stock-results-header-active');
+    document.querySelector('.product-id-number').innerHTML = '';
 }
 function displayLookup() {
     mainItems.innerHTML = '';
@@ -292,6 +302,8 @@ function stockLookupList() {
         let divOnList = document.createElement('div');
         divOnList.classList.add('stock-results-item');
         divOnList.id = itemOnDb.name;
+        let itemListId = document.createElement('div');
+        itemListId.textContent = itemOnDb.id;
         let itemListName = document.createElement('div');
         itemListName.textContent = itemOnDb.name;
         let itemListCat = document.createElement('div');
@@ -311,6 +323,7 @@ function stockLookupList() {
         itemListDel.textContent = 'Delete';
         itemListDel.value = 'Delete';
 
+        divOnList.appendChild(itemListId);
         divOnList.appendChild(itemListName);
         divOnList.appendChild(itemListCat);
         divOnList.appendChild(itemListPrice);
@@ -324,7 +337,7 @@ function stockLookupList() {
 }
 function editAndDeleteButton(event) {
         if(event.target.innerHTML == 'Delete') {
-            let itemName = event.path[1].childNodes[0].innerHTML
+            let itemName = event.path[1].childNodes[1].innerHTML
             
             function deleteItemConfirmation() {
                 
@@ -365,14 +378,9 @@ function editAndDeleteButton(event) {
                                 console.log(ItemToDelete, itemName, itemInList);
                                 document.querySelector('.stock-results').removeChild(ItemToDelete);
                                 
-                                oldDb = db;
-                                db = oldDb.filter(oldDb => oldDb.name != ItemToDelete.id);
+                                let newDb = db;
+                                db = newDb.filter(newDb => newDb.name != ItemToDelete.id);
                                 console.log(oldDb, db, ItemToDelete.id);
-                                // let index = db.indexOf(itemName);
-                                // if (index > -1) {
-                                //    db.splice(index, 1);
-                                //    console.log(db);
-                                // }
                                 
                             }
                         }
@@ -389,7 +397,7 @@ function editAndDeleteButton(event) {
             }
             deleteItemConfirmation();
 
-            console.log(event.path[1].childNodes[0].innerHTML, itemName);
+            console.log(event.path[1].childNodes[1].innerHTML, itemName);
 
         }else if(event.target.innerHTML == 'Edit') {
             console.log('no Edit');
@@ -403,6 +411,7 @@ function editAndDeleteButton(event) {
     if(event.target.innerHTML == 'ADD NEW') {
         displayForm();
         addNewForm();
+
     }else if(event.target.innerHTML == 'STOCK LOOKUP') {
         displayLookup();
         stockLookupList();
@@ -481,28 +490,65 @@ mainItems.addEventListener('click', addToOrder);
 
 function submitForm(event) {
     let newProduct = {};
+        
         newProduct.category = document.getElementById('add-category').value;
         newProduct.name = document.getElementById('product-name').value;
         newProduct.price = document.getElementById('add-price').value;
         newProduct.cost = document.getElementById('add-cost').value;
+        newProduct.id = '';
 
+        function createProductId(){
+            let dbToSort = oldDb;
+            let dbSortedById = dbToSort.sort(function(a, b) {
+                var catA = a.id; // ignore upper and lowercase
+                var catB = b.id; // ignore upper and lowercase
+                if (catA < catB) {
+                return 1;
+                }
+                if (catA > catB) {
+                    console.log(dbToSort);
+                return -1;
+                }
+            });
+        
+                let index = Number(dbSortedById[0].id) + 1;
+                let indexString = index.toString().padStart(5, "0")
+                
+                newProduct.id = indexString
+            };
+        createProductId();
+
+   
 
 productsList.push(newProduct);
 db.push(newProduct);
+oldDb.push(newProduct);
 console.log(productsList);
 
-   // DownloadFuntion for manualy updating db
-    // function export2txt() {
+
+
+//    DownloadFuntion for manualy updating db
+//     function export2txt() {
         
-    //     const a = document.createElement("a");
-    //     a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
-    //         type: "text/plain"
-    //     }));
-    //     a.setAttribute("download", "db.json");
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    // }
+//         const a = document.createElement("a");
+//         a.href = URL.createObjectURL(new Blob([JSON.stringify(db)], {
+//             type: "text/plain"
+//         }));
+//         a.setAttribute("download", "db.json");
+//         document.body.appendChild(a);
+//         a.click();
+//         document.body.removeChild(a);
+
+//         let b = document.createElement("a");
+//         b.href = URL.createObjectURL(new Blob([JSON.stringify(oldDb)], {
+//             type: "text/plain"
+//         }));
+//         b.setAttribute("download", "oldDb.json");
+//         document.body.appendChild(b);
+//         b.click();
+//         document.body.removeChild(b);
+
+//     }
 // export2txt();
 
 
