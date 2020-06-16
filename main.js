@@ -400,6 +400,103 @@ function editAndDeleteButton(event) {
             console.log(event.path[1].childNodes[1].innerHTML, itemName);
 
         }else if(event.target.innerHTML == 'Edit') {
+            let itemName = event.path[1].childNodes[1].innerHTML;
+
+            function editItemBox() {
+                
+                formAddCategoryOverlay.classList.add('category-overlay-active');
+                formAddCategoryOverlay.innerHTML = '';
+
+                let editDiv = document.createElement('div');
+                editDiv.textContent = "Edit";
+            
+                let editDivName = document.createElement('div');
+                editDivName.classList.add('edit-item-box');
+                editDivName.textContent = "Name";
+                let nameInput = document.createElement('input');
+                nameInput.type = "text";
+                nameInput.value = itemName;
+
+                let editDivCat = document.createElement('div');
+                editDivCat.classList.add('edit-item-box');
+                editDivCat.textContent = "Category";
+                let catInput = document.createElement('select');
+                catInput.type = "select";
+                catInput.value = itemName;
+
+                let editDivPrice = document.createElement('div');
+                editDivPrice.classList.add('edit-item-box');
+                editDivPrice.textContent = "Price";
+                let priceInput = document.createElement('input');
+                priceInput.type = "text";
+                priceInput.value = 0;
+
+                let editDivCost = document.createElement('div');
+                editDivCost.classList.add('edit-item-box');
+                editDivCost.textContent = "Cost";
+                let costInput = document.createElement('input');
+                costInput.type = "text";
+                costInput.value = 0;
+                
+                let saveButton = document.createElement('button');
+                saveButton.classList.add('edit-save');
+                saveButton.textContent = 'Save';
+                saveButton.value = 'Save';
+            
+                let cancelButton = document.createElement('button');
+                cancelButton.classList.add('edit-cancel');
+                cancelButton.textContent = 'Cancel';
+                cancelButton.value = 'Cancel';
+            
+                editDivName.appendChild(nameInput);
+                editDivCat.appendChild(catInput);
+                editDivPrice.appendChild(priceInput);
+                editDivCost.appendChild(costInput);
+                editDiv.appendChild(editDivName);
+                editDiv.appendChild(editDivCat);
+                editDiv.appendChild(editDivPrice);
+                editDiv.appendChild(editDivCost);
+                editDiv.appendChild(saveButton);
+                editDiv.appendChild(cancelButton);
+                formAddCategoryOverlay.appendChild(editDiv);
+            
+            
+                document.querySelector('.edit-cancel').addEventListener('click', function(){
+                    formAddCategoryOverlay.innerHTML = '';
+                    formAddCategoryOverlay.classList.remove('category-overlay-active');
+                    // stockLookupContainer.classList.remove('stock-lookup-container-active');  
+                    console.log(confirmDiv, formAddCategoryOverlay.classList)
+                })
+                document.querySelector('.edit-save').addEventListener('click', function(event){
+                    if (event.target.innerHTML == "Yes") {
+                        // for (let i = 0; i < db.length; i++) {
+                        //     let itemInList = db[i].name;
+
+                        //     if (itemInList == itemName) {
+                        //         let ItemToDelete = document.getElementById(itemName);
+                                
+                        //         console.log(ItemToDelete, itemName, itemInList);
+                        //         document.querySelector('.stock-results').removeChild(ItemToDelete);
+                                
+                        //         let newDb = db;
+                        //         db = newDb.filter(newDb => newDb.name != ItemToDelete.id);
+                        //         console.log(oldDb, db, ItemToDelete.id);
+                                
+                        //     }
+                        // }
+                        
+                    }
+                    
+                    formAddCategoryOverlay.innerHTML = '';
+                    formAddCategoryOverlay.classList.remove('category-overlay-active'); 
+                    console.log(confirmDiv, formAddCategoryOverlay.classList)
+                })
+            
+            
+                
+            }
+            editItemBox();
+
             console.log('no Edit');
         }
 }

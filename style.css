@@ -4,6 +4,7 @@
 html {
     font-size: 10px;
     display: block;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -429,12 +430,11 @@ START OF ADD NEW PRODUCT
 
 .form-add-category-overlay div{
     background-color: rgb(134, 218, 197);
-    height: 8rem;
-    width: 70%;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    height: auto;
+    width: auto;
+    padding: 2rem;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
@@ -443,13 +443,15 @@ START OF ADD NEW PRODUCT
 .form-add-category-overlay input{
     background-color: rgba(255, 255, 255, 0.849);
     height: 4rem;
-    width: 45%;
+    width: 100%;
     margin-left: 1rem;
+    margin-right: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     border: 2px solid rgb(34, 204, 162);
+    font-size: 2rem;
 }
 
 .form-add-category-overlay input:focus{
@@ -657,3 +659,14 @@ START OF ADD NEW PRODUCT
     background-color: rgba(228, 102, 53, 0.781);
 }
 
+.edit-item-box {
+    height: auto;
+    width: auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: none !important;
+}
