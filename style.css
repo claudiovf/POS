@@ -81,7 +81,7 @@ body button:active {
 @media screen and (max-width: 500px) {
     .main-content {
         grid-template-columns: 30% 10%  50% 10%;
-        grid-template-rows: 5rem 8rem 10rem 1fr 1fr;
+        grid-template-rows: 5rem 6rem 6rem 1fr 1fr;
         grid-template-areas: 
             "spacer  spacer spacer spacer"
             "menu menu menu menu"
@@ -212,16 +212,17 @@ body button:active {
         display: flex;
         overflow: auto;
     }
+  
     .main-items button {
-        height: 8rem;
-        width: 46%;
+        height: 7rem;
+        width: 47%;
         margin: 0.5rem 0rem 1rem 1rem;
         background-color: #2e7f8a1c;
         border: none;
         color: #2e7f8a;
         cursor: pointer;
         border-radius: 8px;
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         text-shadow: black 2px 2px 2px 2px;
         box-shadow: gray 1px 1px 3px 1px;
     }
@@ -285,6 +286,12 @@ body button:active {
     font-size: 2rem;
     background-color: rgba(20, 204, 158, 0.233);
     color: rgba(0, 0, 0, 0.774);
+}
+@media screen and (max-width: 500px){
+    .order { 
+        height: 5rem;
+        font-size: 1.5rem;
+    }
 }
 .order-items-wrap {
     min-height: 75%;
