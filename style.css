@@ -708,7 +708,7 @@ START OF ADD NEW PRODUCT
     }
     .stock-results {
         overflow: auto;
-        height: 100%;
+        height: 72vh;
     }
 }
 .stock-results-item {
