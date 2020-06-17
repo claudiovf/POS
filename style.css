@@ -96,11 +96,10 @@ body button:active {
     height: 5rem;
     width: 8rem;;
     margin: 1rem;
-    color: rgb(20, 204, 158);
-    background-color: rgba(5, 75, 57, 0.801);
+    color: rgb(49, 134, 113);
+    background-color: rgba(17, 158, 123, 0);
     border: none;
     box-shadow: gray 1px 1px 3px 1px;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.1s ease;
 }

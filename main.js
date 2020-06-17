@@ -125,7 +125,7 @@ function switchOrderButtonName() {
         
     }else{
         menuNew.textContent = "NEW ORDER";
-        menuNew.style.color = "rgb(20, 204, 158)";
+        menuNew.style.color = "rgb(49, 134, 113)";
         mainPay.classList.remove('main-pay-active');
         orderItemsWrap.classList.remove('main-cart-active');
         mainCart.classList.remove('main-cart-active');
@@ -136,7 +136,7 @@ function switchOrderButtonName() {
         orderPrice.innerHTML = '';
         textTotal.innerHTML = '0';
         menuStock.toggleAttribute('disabled');
-        menuStock.style.color = "rgb(20, 204, 158)";
+        menuStock.style.color = "rgb(49, 134, 113)";
         menuStock.style.opacity = 1;
     }
 }
@@ -160,7 +160,7 @@ function switchStockButtonNameOn() {
 }
 function switchStockButtonNameOff() {
         menuStock.textContent = "STOCK";
-        menuStock.style.color = "rgb(20, 204, 158)";
+        menuStock.style.color = "rgb(49, 134, 113)";
         // mainPay.classList.remove('main-pay-active');
         // orderItemsWrap.classList.remove('main-cart-active');
         // mainCart.classList.remove('main-cart-active');
@@ -171,7 +171,7 @@ function switchStockButtonNameOff() {
         orderPrice.innerHTML = '';
         textTotal.innerHTML = '0';
         menuNew.toggleAttribute('disabled');
-        menuNew.style.color = "rgb(20, 204, 158)";
+        menuNew.style.color = "rgb(49, 134, 113)";
         menuNew.style.opacity = 1;
     }
 
