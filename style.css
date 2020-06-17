@@ -7,6 +7,7 @@ html {
     scroll-behavior: smooth;
 }
 
+
 body {
     background-color: rgba(229, 229, 229, 0.692);
     width: 100vw;
@@ -74,8 +75,22 @@ body button:active {
         "cart items items items";
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow: auto;
 }
+
+@media screen and (max-width: 500px) {
+    .main-content {
+        grid-template-columns: 30% 10%  50% 10%;
+        grid-template-rows: 5rem 8rem 10rem 1fr 1fr;
+        grid-template-areas: 
+            "spacer  spacer spacer spacer"
+            "menu menu menu menu"
+            "categ categ categ categ"
+            "items items items items"
+            "cart cart cart cart";
+    }
+}
+
 .main-spacer {
     grid-area: spacer;
     /* background-color: rgba(32, 178, 171, 0.705); */
@@ -115,8 +130,9 @@ body button:active {
     visibility: none;
     border-bottom: 1px solid rgb(212, 209, 209);
     box-shadow: rgb(207, 206, 206) 1px 1px 2px;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
+
 
 .categ-active {
     visibility: visible;
@@ -168,7 +184,7 @@ body button:active {
     height: 11rem;
     width: 18%;
     margin: 0.5rem 0rem 1rem 1rem;
-    background-color: #2e7f8a;
+    background-color: #83bdc5fb;
     border: none;
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
@@ -176,6 +192,39 @@ body button:active {
     font-size: 1.5rem;
     text-shadow: black 2px 2px 2px 2px;
     box-shadow: gray 1px 1px 3px 1px;
+}
+@media screen and (max-width: 500px){
+    .main-items {
+        grid-area: items;
+        /* background-color: rgba(178, 156, 32, 0.705); */
+        height: 95%;
+        margin-top: 1%;
+        margin-left: 1%;
+        width: 95%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+        align-content: flex-start;
+        display: none;
+    }
+    .main-active {
+        display: flex;
+        overflow: auto;
+    }
+    .main-items button {
+        height: 8rem;
+        width: 46%;
+        margin: 0.5rem 0rem 1rem 1rem;
+        background-color: #2e7f8a1c;
+        border: none;
+        color: #2e7f8a;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 1.5rem;
+        text-shadow: black 2px 2px 2px 2px;
+        box-shadow: gray 1px 1px 3px 1px;
+    }
 }
 
 .main-addon {
@@ -357,10 +406,22 @@ START OF ADD NEW PRODUCT
         "menu categ categ categ"
         "items items items items";
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     overflow: hidden;
 }
 
+@media screen and (max-width: 500px) {
+    .main-content-form {
+        grid-template-columns: 30% 10%  50% 10%;
+        grid-template-rows: 5rem 8rem 8rem 1fr;
+        grid-template-areas: 
+            "spacer  spacer spacer spacer"
+            "menu menu menu menu"
+            "categ categ categ categ"
+            "items items items items";
+        overflow: auto;
+    }
+}
 .form-container {
     background-color: rgba(165, 147, 147, 0);
     grid-area: items;
@@ -574,24 +635,24 @@ START OF ADD NEW PRODUCT
 
 /* START OF STOCK LOOKUP */
 .stock-lookup-container {
-    height: 100%;
+    height: 90%;
     width: 100%;
     grid-area: items;
     /* background-color: rgba(255, 105, 180, 0.692); */
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 .stock-lookup-container-active {
     display: flex;
 }
 
-.stock-search {
+/* .stock-search {
     height: 15%;
     width: 100%;
-    /* background-color: rgba(76, 0, 130, 0.719); */
-}
+    background-color: rgba(76, 0, 130, 0.719);
+} */
 .stock-results-header {
     height: 6rem;
     width: 57%;
@@ -608,11 +669,11 @@ START OF ADD NEW PRODUCT
     display: flex;
 }
 .stock-results-header div{
-    height: 5%;
+    height: auto;
     width: 25%;
     display: block;
-  
 }
+
 .stock-results {
     height: 100%;
     width: 90%;
@@ -620,8 +681,28 @@ START OF ADD NEW PRODUCT
     margin-right: 5%;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
+    overflow: scroll;
     box-shadow: gray 1px 1px 3px 1px;
+}
+@media screen and (max-width: 500px){
+    .stock-results-header {
+        width: 59%;
+        margin-left: 6%;
+        margin-right: 5%;
+        font-size: 1rem;
+    }
+    .stock-results-header-active {
+        display: flex;
+    }
+    .stock-results-header div{
+        height: auto;
+        width: 25%;
+        display: block;
+    }
+    .stock-results {
+        overflow: auto;
+        height: 100%;
+    }
 }
 .stock-results-item {
     height: 5rem;
@@ -642,6 +723,7 @@ START OF ADD NEW PRODUCT
     justify-content: flex-start;
     align-items: center;
 }
+
 .stock-results-item button{
     height: 80%;
     width: 13%;
@@ -653,6 +735,19 @@ START OF ADD NEW PRODUCT
     border: none;
     margin-left: 1rem;
     cursor: pointer;
+}
+@media screen and (max-width: 500px){
+    .stock-results-item {
+        height: 5rem;
+        width: 98%;
+        margin-left: 1%;
+        margin-right: 1%;
+        font-size: 1rem;
+    }
+    .stock-results-item div{
+        height: 100%;
+        width: 13%;
+    }
 }
 .stock-results-item button:last-child {
     background-color: rgba(228, 102, 53, 0.781);
