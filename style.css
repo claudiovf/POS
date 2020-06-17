@@ -670,3 +670,28 @@ START OF ADD NEW PRODUCT
     border: none;
     box-shadow: none !important;
 }
+.edit-item-cat {
+    height: auto;
+    width: 87% !important;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 2rem !important;
+}
+.edit-item-cat select {
+    font-size: 2rem !important;
+    height: 5rem !important;
+    width: 100%;
+}
+.button-box {
+    display: flex;
+    flex-direction: row !important;
+    width: 100%;
+    border: none !important;
+    box-shadow: none !important;
+    font-size: 2rem !important;
+}

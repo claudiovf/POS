@@ -274,7 +274,6 @@ function addNewForm(){
             categOptionInForm.textContent = item;
             categOptionInForm.value = item;
             document.getElementById('add-category').appendChild(categOptionInForm);
-            console.log("hello", item, categItems, document.getElementById('add-category').innerText);
          }else{
              console.log(item);
          };
@@ -347,6 +346,9 @@ function editAndDeleteButton(event) {
                 let confirmDiv = document.createElement('div');
                 confirmDiv.textContent = "Delete " + itemName + " ?";
                 
+                let buttonBox = document.createElement('div');
+                buttonBox.classList.add('button-box');
+
                 let itemListYesBtn = document.createElement('button');
                 itemListYesBtn.classList.add('delete-yes');
                 itemListYesBtn.textContent = 'Yes';
@@ -357,8 +359,9 @@ function editAndDeleteButton(event) {
                 itemListNoBtn.textContent = 'No';
                 itemListNoBtn.value = 'No';
             
-                confirmDiv.appendChild(itemListYesBtn);
-                confirmDiv.appendChild(itemListNoBtn);
+                buttonBox.appendChild(itemListYesBtn);
+                buttonBox.appendChild(itemListNoBtn);
+                confirmDiv.appendChild(buttonBox);
                 formAddCategoryOverlay.appendChild(confirmDiv);
             
                 document.querySelector('.delete-no').addEventListener('click', function(){
@@ -418,11 +421,26 @@ function editAndDeleteButton(event) {
                 nameInput.value = itemName;
 
                 let editDivCat = document.createElement('div');
-                editDivCat.classList.add('edit-item-box');
+                editDivCat.classList.add('edit-item-cat');
                 editDivCat.textContent = "Category";
                 let catInput = document.createElement('select');
-                catInput.type = "select";
-                catInput.value = itemName;
+                function addCategs(){
+                    for (let i = 0; i < db.length; i++) {
+                        let item = db[i].category;
+                        
+                
+                         if(!(catInput.innerHTML.includes(item))) {
+                            let categDrop = document.createElement('option');
+                            categDrop.textContent = item;
+                            categDrop.value = item;
+                            catInput.appendChild(categDrop);
+                         }else{
+                             console.log(item);
+                         };
+                    };
+                };
+                addCategs();
+            
 
                 let editDivPrice = document.createElement('div');
                 editDivPrice.classList.add('edit-item-box');
@@ -438,6 +456,9 @@ function editAndDeleteButton(event) {
                 costInput.type = "text";
                 costInput.value = 0;
                 
+                let buttonBox = document.createElement('div');
+                buttonBox.classList.add('button-box');
+
                 let saveButton = document.createElement('button');
                 saveButton.classList.add('edit-save');
                 saveButton.textContent = 'Save';
@@ -456,11 +477,14 @@ function editAndDeleteButton(event) {
                 editDiv.appendChild(editDivCat);
                 editDiv.appendChild(editDivPrice);
                 editDiv.appendChild(editDivCost);
-                editDiv.appendChild(saveButton);
-                editDiv.appendChild(cancelButton);
+                buttonBox.appendChild(saveButton);
+                buttonBox.appendChild(cancelButton);
+                editDiv.appendChild(buttonBox);
                 formAddCategoryOverlay.appendChild(editDiv);
             
-            
+                
+                
+
                 document.querySelector('.edit-cancel').addEventListener('click', function(){
                     formAddCategoryOverlay.innerHTML = '';
                     formAddCategoryOverlay.classList.remove('category-overlay-active');
@@ -496,8 +520,7 @@ function editAndDeleteButton(event) {
                 
             }
             editItemBox();
-
-            console.log('no Edit');
+            
         }
 }
     document.querySelector('.stock-results').addEventListener('click', editAndDeleteButton);
@@ -527,7 +550,6 @@ function editAndDeleteButton(event) {
         itemButton.appendChild(itemDisplay);
         mainItems.appendChild(itemButton);
     }
-
 };
 categOption.addEventListener('click', categBoxSelect);
 
@@ -672,6 +694,9 @@ function addNewCategory() {
     let newCategInput = document.createElement('input');
     newCategInput.type = "text";
 
+    let buttonBox = document.createElement('div');
+    buttonBox.classList.add('button-box');
+
     let newCategSubmit = document.createElement('button');
     newCategSubmit.classList.add('new-categ-submit');
     newCategSubmit.textContent = 'Add';
@@ -683,8 +708,9 @@ function addNewCategory() {
     newCategCancel.value = 'Cancel';
 
     popUpDiv.appendChild(newCategInput);
-    popUpDiv.appendChild(newCategSubmit);
-    popUpDiv.appendChild(newCategCancel);
+    buttonBox.appendChild(newCategSubmit);
+    buttonBox.appendChild(newCategCancel);
+    popUpDiv.appendChild(buttonBox);
     formAddCategoryOverlay.appendChild(popUpDiv);
 
     document.querySelector('.new-categ-cancel').addEventListener('click', function() {
