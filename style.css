@@ -25,9 +25,9 @@ body button:active {
     outline: none;
 }
 .header {
-    background-color: rgb(10, 78, 61);
+    background-color: rgb(39, 87, 81);
     width: 100vw;
-    height: 5rem;
+    height: 4rem;
     position: fixed;
     display: flex;
     flex-direction: row;
@@ -67,10 +67,11 @@ body button:active {
     height: 100vh;
     display: grid;
     grid-template-columns: 30% 10%  50% 10%;
-    grid-template-rows: 5rem 8rem 1fr 0.1fr;
+    grid-template-rows: 4rem 6rem 6rem 1fr 0.1fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
-        "menu categ categ categ"
+        "menu menu menu menu"
+        "cart categ categ categ"
         "cart items items items"
         "cart items items items";
     justify-content: center;
@@ -81,7 +82,7 @@ body button:active {
 @media screen and (max-width: 500px) {
     .main-content {
         grid-template-columns: 30% 10%  50% 10%;
-        grid-template-rows: 5rem 6rem 6rem 1fr 1fr;
+        grid-template-rows: 4rem 6rem 6rem 1fr 1fr;
         grid-template-areas: 
             "spacer  spacer spacer spacer"
             "menu menu menu menu"
@@ -100,22 +101,32 @@ body button:active {
 .main-menu {
     grid-area: menu;
     /* background-color: rgba(178, 32, 129, 0.705); */
-    height: 80%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
+    box-shadow: gray 1px 1px 3px;
 }
 .main-menu button {
     height: 5rem;
     width: 8rem;;
     margin: 1rem;
     color: rgb(49, 134, 113);
-    background-color: rgba(17, 158, 123, 0);
     border: none;
-    box-shadow: gray 1px 1px 3px 1px;
     cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.1s ease;
+}
+.main-menu button:last-child {
+    height: 5rem;
+    width: 8rem;;
+    margin: 1rem;
+    color: rgb(49, 134, 113);
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
     transition: background-color 0.1s ease;
 }
 .main-categ {
@@ -128,12 +139,10 @@ body button:active {
     justify-content: flex-start;
     align-items: center;
     visibility: none;
-    border-bottom: 1px solid rgb(212, 209, 209);
-    box-shadow: rgb(207, 206, 206) 1px 1px 2px;
+    /* border-bottom: 1px solid rgb(212, 209, 209); */
+    /* box-shadow: rgb(207, 206, 206) 1px 1px 2px; */
     overflow-x: auto;
 }
-
-
 .categ-active {
     visibility: visible;
     display: flex;
@@ -141,14 +150,15 @@ body button:active {
 .stock-active {
     visibility: visible;
     display: flex;
+    justify-content: flex-end;
 }
-.active {
+/* .active {
     background-color: rgb(129, 53, 22);
-}
+} */
 
 .main-categ button {
     height: 100%;
-    width: auto;
+    width: 10rem;
     padding: 0 2rem 0 2rem;
     margin: 0.4rem 0.5rem 0.4rem 0.5rem;
     background-color: transparent;
@@ -161,7 +171,7 @@ body button:active {
 }
 
 .main-categ button:hover {
-    border-bottom: 4px solid rgba(5, 75, 57, 0.568);
+    border-bottom: 2px solid rgba(5, 75, 57, 0.568);
 }
 .main-items {
     grid-area: items;
@@ -184,14 +194,28 @@ body button:active {
     height: 11rem;
     width: 18%;
     margin: 0.5rem 0rem 1rem 1rem;
-    background-color: #83bdc5fb;
+    background-color: #8f8f8fb0;
     border: none;
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
-    border-radius: 8px;
     font-size: 1.5rem;
     text-shadow: black 2px 2px 2px 2px;
-    box-shadow: gray 1px 1px 3px 1px;
+    /* box-shadow: gray 1px 1px 3px 1px; */
+}
+.main-items button:last-child {
+    height: 11rem;
+    width: 18%;
+    margin: 0.5rem 0rem 1rem 1rem;
+    background-color: #8f8f8fb0;
+    border: none;
+    color: rgba(255, 255, 255, 0.856);
+    cursor: pointer;
+    font-size: 1.5rem;
+    text-shadow: black 2px 2px 2px 2px;
+    /* box-shadow: gray 1px 1px 3px 1px; */
+}
+.main-items button:hover {
+    font-size: 1.6rem;
 }
 @media screen and (max-width: 500px){
     .main-items {
@@ -228,40 +252,6 @@ body button:active {
     }
 }
 
-.main-addon {
-    height: 100%;
-    width: 100%;
-    grid-area: addon;
-    /* background-color: rgba(148, 148, 148, 0.685); */
-    display: none;
-}
-.addon-active {
-    display: flex;
-}
-.main-pay {
-    grid-area: pay;
-    /* background-color: rgba(178, 32, 64, 0.705); */
-    height: 100%;
-    width: 100%;
-    flex-flow: row wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    border-bottom: 2px solid rgba(5, 75, 57, 0.8);
-    display: none;
-}
-.main-pay-active {
-    display: flex;
-}
-
-.main-pay button {
-    height: 5rem;
-    width: 48%;
-    margin: 0.3rem 0rem 0rem 0.3rem;
-    border: 1px solid rgb(179, 74, 32);
-    background-color: rgb(26, 26, 26);
-    color: rgb(179, 74, 32);
-}
 .main-cart {
     grid-area: cart;
     /* background-color: rgba(35, 99, 22, 0.705); */
@@ -284,7 +274,7 @@ body button:active {
     text-align: center;
     align-content: center;
     font-size: 2rem;
-    background-color: rgba(20, 204, 158, 0.233);
+    background-color: rgba(32, 255, 199, 0.103);
     color: rgba(0, 0, 0, 0.774);
 }
 @media screen and (max-width: 500px){
@@ -300,7 +290,7 @@ body button:active {
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: flex-start;
-    background-color: rgba(20, 204, 158, 0.233);
+    background-color: rgba(32, 255, 199, 0.103);
     display: none;
 }
 .main-cart-active {
@@ -324,7 +314,8 @@ body button:active {
     align-items: flex-start;
     height: 0rem;
     font-family: monospace;
-    font-size: 12px;
+    font-style: italic;
+    font-size: 1rem;
 }
 .order-items-name {
     list-style: none;
@@ -369,7 +360,7 @@ body button:active {
     height: 20%;
     width: 100%;
     color: rgb(20, 204, 158);
-    background-color: rgb(5, 75, 57);
+    background-color: rgb(39, 87, 81);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -407,10 +398,11 @@ START OF ADD NEW PRODUCT
     height: 100vh;
     display: grid;
     grid-template-columns: 30% 10%  50% 10%;
-    grid-template-rows: 5rem 8rem 75%;
+    grid-template-rows: 4rem 6rem 6rem 1fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
-        "menu categ categ categ"
+        "menu menu menu menu"
+        "categ categ categ categ"
         "items items items items";
     justify-content: center;
     align-items: flex-start;
@@ -420,7 +412,7 @@ START OF ADD NEW PRODUCT
 @media screen and (max-width: 500px) {
     .main-content-form {
         grid-template-columns: 30% 10%  50% 10%;
-        grid-template-rows: 5rem 8rem 8rem 1fr;
+        grid-template-rows: 4rem 8rem 8rem 1fr;
         grid-template-areas: 
             "spacer  spacer spacer spacer"
             "menu menu menu menu"
@@ -432,8 +424,9 @@ START OF ADD NEW PRODUCT
 .form-container {
     background-color: rgba(165, 147, 147, 0);
     grid-area: items;
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 50%;
+    margin: 0 25% 0 25%;
     display: none;
     flex-direction: column;
     font-size: 1rem;
@@ -464,7 +457,7 @@ START OF ADD NEW PRODUCT
 }
 
 .product-id div {
-    color: rgb(20, 204, 158);
+    color: rgb(39, 87, 81);
 }
 
 .add-product input {
@@ -496,50 +489,56 @@ START OF ADD NEW PRODUCT
 }
 
 .form-add-category-overlay div{
-    background-color: rgb(134, 218, 197);
+    background-color: white;
     height: auto;
     width: auto;
-    padding: 2rem;
+    padding: 1rem 2rem 1rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
-    box-shadow: gray 1px 1px 10px 1px;
+    /* border-radius: 5px; */
+    box-shadow: gray 1px 1px 2rem 1px;
+    color: rgba(3, 3, 3, 0.726);
 }
 .form-add-category-overlay input{
-    background-color: rgba(255, 255, 255, 0.849);
-    height: 4rem;
+    background-color: rgba(255, 255, 255, 0);
+    height: 3rem;
     width: 100%;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: 2px solid rgb(34, 204, 162);
+    border: none;
+    border-bottom: 2px solid rgb(20, 204, 158);
     font-size: 2rem;
 }
 
 .form-add-category-overlay input:focus{
     outline: none;
     font-size: 2rem;
+    background-color: transparent;
 }
 
+
 .form-add-category-overlay button{
-    background-color: rgb(34, 204, 162);
-    height: 4.5rem;
-    width: 5rem;
+    background-color: rgb(20, 204, 158);
+    height: 5rem;
+    width: 9rem;
+    margin: 1rem;
+    border: 2px solid rgb(20, 204, 158);
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    border: none;
-    margin-left: 1rem;
     cursor: pointer;
+    font-size: 1.5rem;
 }
 .form-add-category-overlay button:last-child {
-    background-color: rgba(228, 102, 53, 0.781);
+    background-color: transparent;
+    color: rgb(104, 104, 104);
+    border: 2px solid rgb(128, 128, 128);
 }
 
 .add-product input:focus {
@@ -682,13 +681,13 @@ START OF ADD NEW PRODUCT
 }
 
 .stock-results {
-    height: 100%;
+    height: 70vh;
     width: 90%;
     margin-left: 5%;
     margin-right: 5%;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
     box-shadow: gray 1px 1px 3px 1px;
 }
 @media screen and (max-width: 500px){
