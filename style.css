@@ -828,3 +828,117 @@ START OF ADD NEW PRODUCT
     box-shadow: none !important;
     font-size: 2rem !important;
 }
+
+
+/* START OF PIN PAGE */
+
+.main-pin-content {
+    background-color: rgb(34, 34, 34);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+
+.pin-container {
+    min-height: 60%;
+    width: 50%;
+    display: grid;
+    gap: 2px;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 20% 20% 20% 20% 20%;
+    grid-template-areas: 
+        "pin pin pin pin"
+        "seven eight nine clear"
+        "four five six confirm"
+        "one two three confirm"
+        "zer zer zer confirm";
+    justify-content: center;
+}
+.pin-hidden{
+    grid-area: pin;
+    background-color: rgba(87, 87, 87, 0.486);  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: rgba(255, 255, 255, 0.856);
+    font-size: 4rem;
+}
+.pin-container button {
+    background-color: rgba(87, 87, 87, 0.486);
+    border: none;
+    color: rgba(255, 255, 255, 0.856);
+    font-size: 2rem;
+}
+
+.padseven {grid-area: seven;}
+.padeight {grid-area: eight;}
+.padnine {grid-area: nine;}
+.padclear {grid-area: clear;}
+.padfour {grid-area: four;}
+.padfive {grid-area: five;}
+.padsix {grid-area: six;}
+.padenter {grid-area: confirm; background-color: rgb(34, 204, 162)!important;}
+.padone {grid-area: one;}
+.padtwo {grid-area: two;}
+.padthree {grid-area: three;}
+.padzero {grid-area: zer;}
+
+.main-content-users {
+    background-color: rgb(34, 34, 34);
+    width: 100%;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 4rem 6rem 1fr;
+    grid-template-areas: 
+        "spacer spacer"
+        "menu menu"
+        "items categ";
+    justify-content: center;
+    overflow: auto;
+}
+
+
+.users-container {
+    background-color: rgba(192, 39, 39, 0.137);
+    grid-area: items;
+    height: 95%;
+    width: 95%;
+    margin: 2%;
+    display: none;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2rem;
+    position: relative;
+    color: rgba(255, 255, 255, 0.856);
+}
+.users-container-active {
+    display: flex;
+}
+.users-container-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: auto;
+    width: 100%;
+    position: relative;
+}
+.users-container-header div{
+    margin: 1rem 6rem 1rem 1rem;
+}
+.users-list-result {
+    background-color: rgba(255, 99, 71, 0.596);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

@@ -18,8 +18,8 @@ let formContainer = document.querySelector('.form-container');
 let formAddCategoryBtn = document.querySelector('.form-add-category');
 let formAddCategoryOverlay = document.querySelector('.form-add-category-overlay');
 let stockLookupContainer = document.querySelector('.stock-lookup-container');
-
-
+let usersContainer = document.querySelector('.users-container');
+let usersListContainer = document.querySelector('.user-list-container');
 
 let productsList = [];
 let db = [];
@@ -39,6 +39,16 @@ let oldDb = [];
         oldDb = data;
         console.log(data)
     })
+    .catch(err => console.error(err));
+
+let userList = [];
+let activeUserList = [];
+    fetch('active-user-list.json')
+        .then(res => res.json)
+        .then(json => {
+            userList = json;
+            console.log(userList);
+        })
     .catch(err => console.error(err));
 
 
@@ -64,7 +74,9 @@ $('#add-price').on('blur', function() {
 
 function clearAll() {
     mainCateg.classList.remove('stock-active');
-    mainContent.classList.replace('main-content-form', 'main-content');
+    mainContent.classList.remove('main-content-form');
+    mainContent.classList.remove('main-content');
+    mainContent.classList.remove('main-content-users');
     formContainer.classList.remove('form-container-active');
     orderItemsWrap.classList.remove('main-cart-active');
     mainCart.classList.remove('main-cart-active');
@@ -77,8 +89,10 @@ function clearAll() {
     document.getElementById('product-name').value = '';
     document.getElementById('add-price').value = '';
     document.getElementById('add-cost').value = '';
+    usersContainer.classList.remove('users-container-active');
 }
 function startNewOrder() {
+    mainContent.classList.add('main-content');
     mainCateg.classList.toggle('categ-active');
     mainItems.classList.add('main-active');
     mainCart.classList.add('main-cart-active');
@@ -165,6 +179,7 @@ function switchStockButtonNameOn() {
 function switchStockButtonNameOff() {
         menuStock.textContent = "STOCK";
         menuStock.style.color = "rgb(49, 134, 113)";
+        mainContent.classList.add('main-content');
         // mainPay.classList.remove('main-pay-active');
         orderItemsWrap.classList.remove('main-cart-active');
         mainCart.classList.remove('main-cart-active');
@@ -203,54 +218,58 @@ function lookupStockButton(){
     stockLookButton.innerHTML = 'STOCK LOOKUP';
     mainCateg.appendChild(stockLookButton);
 }
-
+function userMgmtButton(){
+    let userMgmtButton = document.createElement('button');
+    userMgmtButton.classList.add('user-mgmt-btn');
+    userMgmtButton.innerHTML = 'USERS';
+    mainCateg.appendChild(userMgmtButton);
+}
 function stockDisplay(){
     toggleStock();
     addNewStockButton();
     lookupStockButton();
+    userMgmtButton();
 }
 menuStock.addEventListener('click', stockDisplay);
-
-
-
-
-function displayForm() {
+function clearMain() {
     mainItems.innerHTML = '';
     formAddCategoryOverlay.classList.remove('category-overlay-active');
-    mainContent.classList.replace('main-content','main-content-form');
-    formContainer.classList.add('form-container-active');
+    mainContent.classList.remove('main-content-form');
+    mainContent.classList.remove('main-content');
+    mainContent.classList.remove('main-content-users');
     stockLookupContainer.classList.remove('stock-lookup-container-active');
-    mainAddon.innerHTML = '';
+    formContainer.classList.remove('form-container-active');
     orderItemsWrap.innerHTML = '';
-    mainPay.classList.remove('main-pay-active');
     mainCart.classList.remove('main-cart-active');
     orderItemsWrap.classList.remove('main-cart-active');
-    mainAddon.classList.remove('addon-active');
     console.log(event.target.innerHTML);
     document.querySelector('.stock-results-header').classList.remove('stock-results-header-active');
-    document.querySelector('.product-id-number').innerHTML = '';
+    usersContainer.classList.remove('users-container-active');
+    
+}
+function displayForm() {
+    mainItems.innerHTML = '';
+    mainContent.classList.add('main-content-form');
+    formAddCategoryOverlay.classList.remove('category-overlay-active');
+    mainContent.classList.add('main-content-form');
+    formContainer.classList.add('form-container-active');
 }
 function displayLookup() {
     mainItems.innerHTML = '';
     document.querySelector('.stock-results').innerHTML = '';
-    mainContent.classList.replace('main-content','main-content-form');
+    mainContent.classList.add('main-content-form');
     stockLookupContainer.classList.add('stock-lookup-container-active');
-    formContainer.classList.remove('form-container-active');
-    mainAddon.innerHTML = '';
-    orderItemsWrap.innerHTML = '';
-    mainPay.classList.remove('main-pay-active');
-    mainCart.classList.remove('main-cart-active');
-    orderItemsWrap.classList.remove('main-cart-active');
-    mainAddon.classList.remove('addon-active');
-    console.log(event.target.innerHTML);
     document.querySelector('.stock-results-header').classList.add('stock-results-header-active');
 }
-
-
 function prepareItemsArea(){
     mainPay.classList.add('main-pay-active');
     mainCart.classList.add('main-cart-active');
     orderItemsWrap.classList.add('main-cart-active');
+}
+function displayUserMgmt() {
+    mainItems.innerHTML = '';
+    mainContent.classList.add('main-content-users');
+    usersContainer.classList.add('users-container-active');
 }
 
 
@@ -283,9 +302,6 @@ function addNewForm(){
          };
     };
 }
-
-
-
 function stockLookupList() {
     let dbToSort = db;
     let dbSortedBtCat = dbToSort.sort(function(a, b) {
@@ -527,18 +543,27 @@ function editAndDeleteButton(event) {
             
         }
 }
-    document.querySelector('.stock-results').addEventListener('click', editAndDeleteButton);
+function userMgmtList() {
+  
 
+}
+document.querySelector('.stock-results').addEventListener('click', editAndDeleteButton);
 
     prepareItemsArea();
     // Settings categ box options are added here
     if(event.target.innerHTML == 'ADD NEW') {
+        clearMain();
         displayForm();
         addNewForm();
 
     }else if(event.target.innerHTML == 'STOCK LOOKUP') {
+        clearMain();
         displayLookup();
         stockLookupList();
+    }else if(event.target.innerHTML == 'USERS') {
+        clearMain();
+        displayUserMgmt();
+        userMgmtList();
     }
     //--------------------------------
 
@@ -556,9 +581,6 @@ function editAndDeleteButton(event) {
     }
 };
 categOption.addEventListener('click', categBoxSelect);
-
-
-
 
 function addToOrder(event) {
     //item Selection
@@ -738,6 +760,9 @@ function addNewCategory() {
     });
 }
 formAddCategoryBtn.addEventListener('click', addNewCategory)
+
+
+
 
 
 
