@@ -81,16 +81,18 @@ body button:active {
 
 @media screen and (max-width: 500px) {
     .main-content {
-        grid-template-columns: 30% 10%  50% 10%;
-        grid-template-rows: 4rem 6rem 6rem 1fr 1fr;
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 4rem 3fr 3fr 6rem 6rem;
         grid-template-areas: 
-            "spacer spacer spacer spacer"
-            "menu menu menu menu"
-            "categ categ categ categ"
-            "items items items items"
-            "cart cart cart cart";
+            "spacer spacer"
+            "cart cart"
+            "items items"
+            "categ categ"
+            "menu menu";
     }
 }
+
+
 input,
 textarea,
 button,
@@ -227,19 +229,12 @@ a {
         display: flex;
         overflow: auto;
     }
-  
-    .main-items button {
-        height: 7rem;
-        width: 47%;
-        margin: 0.5rem 0rem 1rem 1rem;
-        background-color: #2e7f8a1c;
-        border: none;
-        color: #2e7f8a;
-        cursor: pointer;
-        border-radius: 8px;
-        font-size: 1.7rem;
-        text-shadow: black 2px 2px 2px 2px;
-        box-shadow: gray 1px 1px 3px 1px;
+    .main-categ {
+        flex-flow: row nowrap;
+    }
+    .main-items button{
+        height: 10rem;
+        width: 10rem;
     }
 }
 
@@ -251,13 +246,13 @@ a {
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     display: none;
     box-shadow: gray 1px 2px 2px 0px; 
 }
 
 .order {
-    height: 10%;
+    height: auto;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -267,12 +262,7 @@ a {
     font-size: 2rem;
     color: rgba(255, 255, 255, 0.856);
 }
-@media screen and (max-width: 500px){
-    .order { 
-        height: 5rem;
-        font-size: 1.5rem;
-    }
-}
+
 .order-items-wrap {
     min-height: 75%;
     height: 100%;
@@ -286,8 +276,6 @@ a {
 }
 .main-cart-active {
     display: flex;
-    height: 100%;
-    min-height: 70%;
     overflow: auto;
 }
 .order-items {
@@ -360,7 +348,43 @@ a {
     align-items: center;
     margin: 0;
 }
-
+@media screen and (max-width: 500px){
+    .order { 
+        min-height: 3rem;
+        font-size: 1.3rem;
+    }
+    .order-items-wrap {
+        min-height: 75%;
+        height: 70%;
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        display: none;
+        color: rgba(255, 255, 255, 0.856);
+        font-size: 1.3rem;
+    }
+    .order-items {
+        list-style: none;
+        margin: 5%;
+        
+    }
+    .main-cart-active {
+        display: flex;
+        height: 100%;
+        overflow: auto;
+    }
+    .order-total {
+        font-size: 1.2rem;
+        min-height: 5rem;
+    }
+    .order-total div{
+        font-size: 1.5rem;
+    }
+    .order-total p{
+        font-size: 1.5rem;
+    }
+}
 
 
 
@@ -386,18 +410,7 @@ START OF ADD NEW PRODUCT
     overflow: auto;
 }
 
-@media screen and (max-width: 500px) {
-    .main-content-form {
-        grid-template-columns: 30% 10%  50% 10%;
-        grid-template-rows: 4rem 8rem 8rem 1fr;
-        grid-template-areas: 
-            "spacer  spacer spacer spacer"
-            "menu menu menu menu"
-            "categ categ categ categ"
-            "items items items items";
-        overflow: auto;
-    }
-}
+
 .form-container {
     background-color: rgba(165, 147, 147, 0);
     grid-area: items;
@@ -414,6 +427,32 @@ START OF ADD NEW PRODUCT
     display: flex;
 }
 
+@media screen and (max-width: 500px) {
+    .main-content-form {
+        grid-template-columns: 3fr 1fr;
+        grid-template-rows: 4rem 1fr 6rem 6rem;
+        grid-template-areas: 
+            "spacer spacer"
+            "items items"
+            "categ categ"
+            "menu menu";
+    }
+    .form-container {
+        background-color: rgba(165, 147, 147, 0);
+        grid-area: items;
+        height: 100%;
+        width: 80%;
+        margin: 0;
+        display: none;
+        flex-direction: column;
+        font-size: 1rem;
+        position: relative;
+    }
+    .form-container-active {
+        display: flex;
+    }
+
+}
 
 .add-product {
     height: 100%;
@@ -551,6 +590,12 @@ START OF ADD NEW PRODUCT
     border: none;
     cursor: pointer;
     background-color: rgb(20, 204, 158);
+}
+@media screen and (max-width: 500px) {
+    .form-add-category {
+        font-size: 1.2rem;
+    }
+
 }
 #add-category {
     width: 100%;

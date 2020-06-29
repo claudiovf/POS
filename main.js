@@ -166,8 +166,8 @@ function switchStockButtonNameOff() {
         menuStock.textContent = "STOCK";
         menuStock.style.color = "rgb(49, 134, 113)";
         // mainPay.classList.remove('main-pay-active');
-        // orderItemsWrap.classList.remove('main-cart-active');
-        // mainCart.classList.remove('main-cart-active');
+        orderItemsWrap.classList.remove('main-cart-active');
+        mainCart.classList.remove('main-cart-active');
         // mainAddon.classList.remove('addon-active');
         mainAddon.innerHTML = '';
         mainItems.innerHTML = '';
@@ -530,7 +530,7 @@ function editAndDeleteButton(event) {
     document.querySelector('.stock-results').addEventListener('click', editAndDeleteButton);
 
 
-
+    prepareItemsArea();
     // Settings categ box options are added here
     if(event.target.innerHTML == 'ADD NEW') {
         displayForm();
@@ -542,7 +542,7 @@ function editAndDeleteButton(event) {
     }
     //--------------------------------
 
-    prepareItemsArea();
+    
 
     // Create and Display Item Buttons
     mainItems.innerHTML = '';
