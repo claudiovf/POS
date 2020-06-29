@@ -62,7 +62,7 @@ $('#add-price').on('blur', function() {
 
 
 
-  function clearAll() {
+function clearAll() {
     mainCateg.classList.remove('stock-active');
     mainContent.classList.replace('main-content-form', 'main-content');
     formContainer.classList.remove('form-container-active');
@@ -73,6 +73,10 @@ $('#add-price').on('blur', function() {
     stockLookupContainer.classList.remove('stock-lookup-container-active');
     document.querySelector('.stock-results').innerHTML = '';
     document.querySelector('.stock-results-header').classList.remove('stock-results-header-active');
+    document.getElementById('add-category').value = 'Select One';
+    document.getElementById('product-name').value = '';
+    document.getElementById('add-price').value = '';
+    document.getElementById('add-cost').value = '';
 }
 function startNewOrder() {
     mainCateg.classList.toggle('categ-active');
@@ -672,9 +676,11 @@ console.log(productsList);
 
 
 //Clear Form
+document.getElementById('add-category').value = 'Select One';
 document.getElementById('product-name').value = '';
 document.getElementById('add-price').value = '';
 document.getElementById('add-cost').value = '';
+
 
 event.preventDefault();
 }
