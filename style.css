@@ -350,7 +350,7 @@ a {
 }
 @media screen and (max-width: 500px){
     .order { 
-        min-height: 3rem;
+        min-height: 3.2rem;
         font-size: 1.3rem;
     }
     .order-items-wrap {
@@ -377,6 +377,7 @@ a {
     .order-total {
         font-size: 1.2rem;
         min-height: 5rem;
+
     }
     .order-total div{
         font-size: 1.5rem;
