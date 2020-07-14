@@ -69,11 +69,10 @@ body button:active {
     margin:0 1% 1% 1%;
     display: grid;
     grid-template-columns: 30% 12%  48% 10%;
-    grid-template-rows: 4rem 6rem 6rem 1fr 0.1fr;
+    grid-template-rows: 4rem 6rem 1rem 2fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
         "menu menu menu menu"
-        "cart addon items categ"
         "cart addon items categ"
         "cart addon items categ";
     justify-content: center;
@@ -135,11 +134,11 @@ a {
     /* background-color: rgba(85, 85, 85, 0.548); */
     height: 100%;
     width: 100%;
-    display: none;
+    display: flex;
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
-    visibility: none;
+    /* visibility: none; */
     /* border-bottom: 1px solid rgb(212, 209, 209); */
     /* box-shadow: rgb(207, 206, 206) 1px 1px 2px; */
     overflow-x: auto;
@@ -189,7 +188,7 @@ a {
     justify-content: flex-start;
     align-items: flex-start;
     align-content: flex-start;
-    display: none;
+    display: flex;
 }
 .main-active {
     display: flex;
@@ -268,7 +267,7 @@ a {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    display: none;
+    display: flex;
 }
 
 .order {

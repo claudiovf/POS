@@ -1,1 +1,268 @@
-[{"id":"00032","category":"Wraps","name":"Falafel Wrap","price":"13.00","cost":"11.00"},{"category":"Wraps","name":"Chicken Wrap","price":"13.90","cost":"11.50","id":"00030"},{"category":"Cold Drinks","name":"Kombucha","price":"5.00","cost":"4.00","id":"00029"},{"category":"Sweets","name":"Alfajor","price":"4.50","cost":"3.50","id":"00028"},{"category":"Drinks","name":"Tea","price":"3.50","cost":"2.90","id":"00027"},{"category":"Brunch","name":"Arepas","price":"8.90","cost":"5.50","id":"00026"},{"category":"Pastries","name":"Empanada","price":"4.50","cost":"3.40","id":"00025"},{"category":"Sweets","name":"Danish","price":"3.50","cost":"3.00","id":"00024"},{"category":"Sweets","name":"Vegan Cupcake","price":"3.50","cost":"3.30","id":"00023"},{"category":"Sweets","name":"Coconut Friand","price":"3.20","cost":"3.00","id":"00022"},{"category":"Sweets","name":"Choc Cupcake","price":"3.50","cost":"3.10","id":"00021"},{"category":"Pastries","name":"Almond Croissant","price":"4.20","cost":"4.00","id":"00020"},{"category":"Pastries","name":"Croissant","price":"3.80","cost":"3.40","id":"00019"},{"category":"All Day","name":"Daily Soup","price":"7.90","cost":"5.00","id":"00018"},{"category":"All Day","name":"Daily Salad","price":"9.90","cost":"6.00","id":"00017"},{"category":"All Day","name":"Veggie Sandwich","price":"14.90","cost":"11.00","id":"00016"},{"category":"All Day","name":"Chicken Sandwich","price":"14.90","cost":"13.00","id":"00015"},{"category":"Brunch","name":"Eggs Benny","price":"15.90","cost":"12.80","id":"00014"},{"category":"Brunch","name":"Veggie Fritters","price":"11.90","cost":"7.50","id":"00013"},{"category":"Brunch","name":"Pancakes","price":"12.90","cost":"9.40","id":"00012"},{"category":"Brunch","name":"Muesli","price":"8.90","cost":"7.20","id":"00011"},{"category":"Brunch","name":"Avo on Toast","price":"13.90","cost":"10.50","id":"00010"},{"category":"Brunch","name":"Poached Eggs","price":"13.90","cost":"11.00","id":"00009"},{"category":"Cold Drinks","name":"Orange Juice","price":"4.00","cost":"3.20","id":"00008"},{"category":"Cold Drinks","name":"Cold Brew","price":"4.20","cost":"3.80","id":"00007"},{"category":"Cold Drinks","name":"Ice Latte","price":"4.50","cost":"4.10","id":"00006"},{"category":"Drinks","name":"Pour Over","price":"4.50","cost":"3.50","id":"00005"},{"category":"Drinks","name":"Flat White","price":"4.20","cost":"4.00","id":"00004"},{"category":"Drinks","name":"Long Black","price":"3.50","cost":"3.00","id":"00003"},{"category":"Drinks","name":"Capuccino","price":"4.20","cost":"4.00","id":"00002"},{"category":"Drinks","name":"Latte","price":"4.50","cost":"4.00","id":"00001"},{"category":"Wraps","name":"New Falafel Wrap","price":"13.00","cost":"11.00","id":"00033"}]
+[
+  {
+    "category": "All Day",
+    "name": "Daily Soup",
+    "price": "7.90",
+    "id": "00018",
+    "type": "Food"
+  },
+  {
+    "category": "All Day",
+    "name": "Daily Salad",
+    "price": "9.90",
+    "id": "00017",
+    "type": "Food"
+  },
+  {
+    "category": "All Day",
+    "name": "Veggie Sandwich",
+    "price": "14.90",
+    "id": "00016",
+    "type": "Food"
+  },
+  {
+    "category": "All Day",
+    "name": "Chicken Sandwich",
+    "price": "14.90",
+    "id": "00015",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Arepas",
+    "price": "8.90",
+    "id": "00026",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Eggs Benny",
+    "price": "15.90",
+    "id": "00014",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Veggie Fritters",
+    "price": "11.90",
+    "id": "00013",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Pancakes",
+    "price": "12.90",
+    "id": "00012",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Muesli",
+    "price": "8.90",
+    "id": "00011",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Avo on Toast",
+    "price": "13.90",
+    "id": "00010",
+    "type": "Food"
+  },
+  {
+    "category": "Brunch",
+    "name": "Poached Eggs",
+    "price": "13.90",
+    "id": "00009",
+    "type": "Food"
+  },
+  {
+    "category": "Cold Drinks",
+    "name": "Kombucha",
+    "price": "5.00",
+    "id": "00029",
+    "type": "Drinks"
+  },
+  {
+    "category": "Cold Drinks",
+    "name": "Orange Juice",
+    "price": "4.00",
+    "id": "00008",
+    "type": "Drinks"
+  },
+  {
+    "category": "Cold Drinks",
+    "name": "Cold Brew",
+    "price": "4.20",
+    "id": "00007",
+    "type": "Drinks"
+  },
+  {
+    "category": "Cold Drinks",
+    "name": "Ice Latte",
+    "price": "4.50",
+    "id": "00006",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Tea",
+    "price": "3.50",
+    "id": "00027",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Pour Over",
+    "price": "4.50",
+    "id": "00005",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Flat White",
+    "price": "4.20",
+    "id": "00004",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Long Black",
+    "price": "3.50",
+    "id": "00003",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Capuccino",
+    "price": "4.20",
+    "id": "00002",
+    "type": "Drinks"
+  },
+  {
+    "category": "Drinks",
+    "name": "Latte",
+    "price": "4.50",
+    "id": "00001",
+    "type": "Drinks"
+  },
+  {
+    "category": "Pastries",
+    "name": "Empanada",
+    "price": "4.50",
+    "id": "00025",
+    "type": "Food"
+  },
+  {
+    "category": "Pastries",
+    "name": "Almond Croissant",
+    "price": "4.20",
+    "id": "00020",
+    "type": "Food"
+  },
+  {
+    "category": "Pastries",
+    "name": "Croissant",
+    "price": "3.80",
+    "id": "00019",
+    "type": "Food"
+  },
+  {
+    "category": "Sweets",
+    "name": "Alfajor",
+    "price": "4.50",
+    "id": "00028",
+    "type": "Food"
+  },
+  {
+    "category": "Sweets",
+    "name": "Danish",
+    "price": "3.50",
+    "id": "00024",
+    "type": "Food"
+  },
+  {
+    "category": "Sweets",
+    "name": "Vegan Cupcake",
+    "price": "3.50",
+    "id": "00023",
+    "type": "Food"
+  },
+  {
+    "category": "Sweets",
+    "name": "Coconut Friand",
+    "price": "3.20",
+    "id": "00022",
+    "type": "Food"
+  },
+  {
+    "category": "Sweets",
+    "name": "Choc Cupcake",
+    "price": "3.50",
+    "id": "00021",
+    "type": "Food"
+  },
+  {
+    "category": "Wraps",
+    "name": "Chicken Wrap",
+    "price": "13.90",
+    "id": "00030",
+    "type": "Food"
+  },
+  {
+    "category": "Wraps",
+    "name": "New Falafel Wrap",
+    "price": "13.00",
+    "id": "00033",
+    "type": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Almond Milk",
+    "price": "0.50",
+    "id": "00034",
+    "subcategory": "Drinks"
+  },
+  {
+    "category": "Sides",
+    "name": "Soy Milk",
+    "price": "0.50",
+    "id": "00035",
+    "subcategory": "Drinks"
+  },
+  {
+    "category": "Sides",
+    "name": "Coconut Milk",
+    "price": "0.50",
+    "id": "00036",
+    "subcategory": "Drinks"
+  },
+  {
+    "category": "Sides",
+    "name": "Iced",
+    "price": "0.50",
+    "id": "00037",
+    "subcategory": "Drinks"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Shot",
+    "price": "0.50",
+    "id": "00038",
+    "subcategory": "Drinks"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Egg",
+    "price": "3.00",
+    "id": "00039",
+    "subcategory": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Cheese",
+    "price": "0.50",
+    "id": "00040",
+    "subcategory": "Food"
+  }
+]
