@@ -52,23 +52,7 @@ let activeUserList = [];
     .catch(err => console.error(err));
 
 
-$('#add-price').on('blur', function() {
-    const value = this.value.replace(/,/g, '');
-    this.value = parseFloat(value).toLocaleString('en-US', {
-      style: 'decimal',
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2
-    });
-  });
 
-  $('#add-cost').on('blur', function() {
-    const value = this.value.replace(/,/g, '');
-    this.value = parseFloat(value).toLocaleString('en-US', {
-      style: 'decimal',
-      maximumFractionDigits: 2,
-      minimumFractionDigits: 2
-    });
-  });
 
 
 
@@ -632,7 +616,23 @@ mainItems.addEventListener('click', addToOrder);
 // START OF ADD NEW PRODUCT FORM
 
 
+$('#add-price').on('blur', function() {
+    const value = this.value.replace(/,/g, '');
+    this.value = parseFloat(value).toLocaleString('en-US', {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    });
+  });
 
+  $('#add-cost').on('blur', function() {
+    const value = this.value.replace(/,/g, '');
+    this.value = parseFloat(value).toLocaleString('en-US', {
+      style: 'decimal',
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    });
+  });
 function submitForm(event) {
     let newProduct = {};
         
