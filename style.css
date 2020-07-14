@@ -5,11 +5,12 @@ html {
     font-size: 10px;
     display: block;
     scroll-behavior: smooth;
+    background-color: rgb(34, 34, 34);
 }
 
 
 body {
-    background-color: rgba(229, 229, 229, 0.692);
+    background-color: rgba(100, 100, 255, 0.1);
     width: 100vw;
     height: auto;
     margin: 0;
@@ -25,7 +26,7 @@ body button:active {
     outline: none;
 }
 .header {
-    background-color: rgb(39, 87, 81);
+    background-color: transparent;
     width: 100vw;
     height: 4rem;
     position: fixed;
@@ -37,7 +38,7 @@ body button:active {
     box-shadow: 2px 2px 1px 0.2px rgba(0, 0, 0, 0.041);
     margin: 0;
     font-size: 1.5rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(20, 204, 158);
 }
 .nav-menu {
     height: 100%;
@@ -62,18 +63,19 @@ body button:active {
 }
 
 .main-content {
-    background-color: rgb(34, 34, 34);
-    width: 100vw;
-    height: 100vh;
+    background-color: transparent;
+    width: 98vw;
+    height: 99vh;
+    margin:0 1% 1% 1%;
     display: grid;
-    grid-template-columns: 30% 10%  50% 10%;
+    grid-template-columns: 30% 12%  48% 10%;
     grid-template-rows: 4rem 6rem 6rem 1fr 0.1fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
         "menu menu menu menu"
-        "cart items items categ"
-        "cart items items categ"
-        "cart items items categ";
+        "cart addon items categ"
+        "cart addon items categ"
+        "cart addon items categ";
     justify-content: center;
     align-items: center;
     overflow: auto;
@@ -116,7 +118,6 @@ a {
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    box-shadow: gray 1px 1px 3px;
 }
 .main-menu button {
     height: 5rem;
@@ -160,14 +161,13 @@ a {
     height: 100%;
     width: 10rem;
     padding: 0 2rem 0 2rem;
-    margin: 0.4rem 0.5rem 0.4rem 0.5rem;
-    background-color: transparent;
-    border: none;
-    /*border-radius: 5px;
-    box-shadow: gray 1px 1px 3px 1px; */
+    margin: 0rem 0rem 1rem 0rem;
+    background-color: rgba(250,100,250, 0.2);
+    border: 2px solid rgba(250,100,250);
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
     font-size: 1.7rem;
+    border-radius: 10px;
 }
 
 .main-categ button:hover {
@@ -180,8 +180,8 @@ a {
 }
 .main-items {
     grid-area: items;
-    height: 95%;
-    margin-top: 1%;
+    height: 100%;
+    margin-top: 0%;
     margin-left: 1%;
     width: 95%;
     display: flex;
@@ -195,16 +195,15 @@ a {
     display: flex;
 }
 .main-items button {
-    height: 11rem;
-    width: 11rem;
-    margin: 0.5rem 0rem 1rem 1rem;
-    background-color: rgba(20, 204, 158, 0.856);
-    border: none;
+    height: 10rem;
+    width: 10rem;
+    margin: 0rem 0rem 1rem 1rem;
+    background-color: rgba(20, 204, 158, 0.2);
+    border: 2px solid rgba(20, 204, 158);
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
     font-size: 1.8rem;
-    text-shadow: black 2px 2px 2px 2px;
-    /* box-shadow: gray 1px 1px 3px 1px; */
+    border-radius: 10px;
 }
 
 .main-items button:active {
@@ -238,17 +237,38 @@ a {
     }
 }
 
+.main-addon {
+    height: 100%;
+    width: 100%;
+    grid-area: addon;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.main-addon button {
+    height: 10rem;
+    width: 10rem;
+    margin: 0rem 0rem 1rem 1rem;
+    background-color: rgba(255, 110, 110, 0.2);
+    border: 2px solid rgba(255, 110, 110);
+    color: rgba(255, 255, 255, 0.856);
+    cursor: pointer;
+    font-size: 1.8rem;
+    border-radius: 10px;
+}
 .main-cart {
     grid-area: cart;
-    background-color: rgba(87, 87, 87, 0.486);
-    height: 100%;
+    background-color: rgba(100, 50, 200, 0.1);
+    border-top: 2px solid rgba(100, 50, 200);
+    border-radius: 10px;
+    height: 99%;
     max-height: 100%;
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     display: none;
-    box-shadow: gray 1px 2px 2px 0px; 
 }
 
 .order {
@@ -325,7 +345,7 @@ a {
     height: 20%;
     width: 100%;
     color: rgb(20, 204, 158);
-    background-color: rgb(39, 87, 81);
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
