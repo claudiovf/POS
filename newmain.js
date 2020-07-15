@@ -171,7 +171,6 @@ function addToItemBox(name, price, type) {
 
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
-    
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name = event.target.innerHTML) {
@@ -188,7 +187,9 @@ function addToOrder(event) {
             }
         }
     }
-    addToItemBox(itemNameSel, itemPrice(), itemType());
+    if( itemNameSel.length > 0 && itemNameSel.length < 40) {
+        addToItemBox(itemNameSel, itemPrice(), itemType());
+    };
 }
 
 
