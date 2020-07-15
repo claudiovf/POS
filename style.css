@@ -68,7 +68,7 @@ body button:active {
     height: 99vh;
     margin:0 1% 1% 1%;
     display: grid;
-    grid-template-columns: 30% 12%  48% 10%;
+    grid-template-columns: 30% 20%  40% 10%;
     grid-template-rows: 4rem 6rem 1rem 2fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
@@ -123,12 +123,17 @@ a {
     width: 8rem;;
     margin: 1rem;
     color: rgb(49, 134, 113);
-    border: none;
+    border: 2px solid rgb(49, 134, 113);
     cursor: pointer;
-    background-color: transparent;
-    transition: background-color 0.1s ease;
+    background-color: rgb(49, 134, 113, 0.05);
+    border-radius: 10px;
+    transition: background-color 0.5s ease;
 }
-
+.cancel-button {
+    background-color: rgba(255, 99, 71, 0.104) !important;
+    color: tomato !important;
+    border: 2px solid tomato !important;
+}
 .main-categ {
     grid-area: categ;
     /* background-color: rgba(85, 85, 85, 0.548); */
@@ -138,6 +143,7 @@ a {
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: center;
+    align-content: flex-start;
     /* visibility: none; */
     /* border-bottom: 1px solid rgb(212, 209, 209); */
     /* box-shadow: rgb(207, 206, 206) 1px 1px 2px; */
@@ -157,15 +163,15 @@ a {
 } */
 
 .main-categ button {
-    height: 100%;
-    width: 10rem;
+    height: 9rem;
+    width: 9rem;
     padding: 0 2rem 0 2rem;
-    margin: 0rem 0rem 1rem 0rem;
+    margin: 0rem 0rem 0.5rem 0rem;
     background-color: rgba(250,100,250, 0.2);
     border: 2px solid rgba(250,100,250);
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     border-radius: 10px;
 }
 
@@ -177,6 +183,7 @@ a {
     border-bottom: 2px solid rgb(20, 204, 158);
     background-color: rgba(255, 255, 255, 0.253);
 }
+
 .main-items {
     grid-area: items;
     height: 100%;
@@ -194,14 +201,14 @@ a {
     display: flex;
 }
 .main-items button {
-    height: 10rem;
-    width: 10rem;
-    margin: 0rem 0rem 1rem 1rem;
+    height: 9rem;
+    width: 9rem;
+    margin: 0rem 0rem 0.5rem 0.5rem;
     background-color: rgba(20, 204, 158, 0.2);
     border: 2px solid rgba(20, 204, 158);
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     border-radius: 10px;
 }
 
@@ -241,19 +248,20 @@ a {
     width: 100%;
     grid-area: addon;
     display: flex;
-    flex-direction: column;
+    flex-flow: row wrap;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
+    align-content: flex-start;
 }
 .main-addon button {
-    height: 10rem;
-    width: 10rem;
-    margin: 0rem 0rem 1rem 1rem;
+    height: 9rem;
+    width: 9rem;
+    margin: 0rem 0rem 0.5rem 0.5rem;
     background-color: rgba(255, 110, 110, 0.2);
     border: 2px solid rgba(255, 110, 110);
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     border-radius: 10px;
 }
 .main-cart {
@@ -267,7 +275,7 @@ a {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    display: flex;
+    display: none;
 }
 
 .order {
@@ -289,11 +297,11 @@ a {
     flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: flex-start;
-    display: none;
+    display: flex;
     color: rgba(255, 255, 255, 0.856);
     font-size: 1.7rem;
 }
-.main-cart-active {
+.active {
     display: flex;
     overflow: auto;
 }
@@ -306,18 +314,23 @@ a {
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 1fr auto;
     grid-template-areas: 
-        "item-name item-price"
-        "addons blank";
+        "qty      item-name item-price"
+        "blank    addon-name    addon-price";
     justify-content: center;
     align-items: flex-start;
-    height: 0rem;
-    font-family: monospace;
+    height: 5rem;
+    font-family: monospace; 
     font-style: italic;
 }
+.item-qty {
+    grid-area: qty;
+}
 .order-items-name {
+    grid-area: item-name;
+}
+.item-qty .order-items-name {
     list-style: none;
     margin: 0;
-    grid-area: item-name;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

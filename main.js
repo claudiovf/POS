@@ -665,7 +665,6 @@ function submitForm(event) {
 
    
 
-productsList.push(newProduct);
 db.push(newProduct);
 oldDb.push(newProduct);
 console.log(productsList);
