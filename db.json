@@ -172,35 +172,35 @@
     "name": "Alfajor",
     "price": "4.50",
     "id": "00028",
-    "type": "Food"
+    "type": "Sweet"
   },
   {
     "category": "Sweets",
     "name": "Danish",
     "price": "3.50",
     "id": "00024",
-    "type": "Food"
+    "type": "Sweet"
   },
   {
     "category": "Sweets",
     "name": "Vegan Cupcake",
     "price": "3.50",
     "id": "00023",
-    "type": "Food"
+    "type": "Sweet"
   },
   {
     "category": "Sweets",
     "name": "Coconut Friand",
     "price": "3.20",
     "id": "00022",
-    "type": "Food"
+    "type": "Sweet"
   },
   {
     "category": "Sweets",
     "name": "Choc Cupcake",
     "price": "3.50",
     "id": "00021",
-    "type": "Food"
+    "type": "Sweet"
   },
   {
     "category": "Wraps",
@@ -254,15 +254,43 @@
   {
     "category": "Sides",
     "name": "Extra Egg",
-    "price": "3.00",
+    "price": "2.00",
     "id": "00039",
     "subcategory": "Food"
   },
   {
     "category": "Sides",
     "name": "Extra Cheese",
-    "price": "0.50",
+    "price": "2.50",
     "id": "00040",
     "subcategory": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Toast",
+    "price": "2.00",
+    "id": "00041",
+    "subcategory": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Bacon",
+    "price": "2.00",
+    "id": "00042",
+    "subcategory": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Extra Meat",
+    "price": "3.00",
+    "id": "00043",
+    "subcategory": "Food"
+  },
+  {
+    "category": "Sides",
+    "name": "Large",
+    "price": "0.50",
+    "id": "00043",
+    "subcategory": "Drinks"
   }
 ]

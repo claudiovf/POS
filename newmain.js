@@ -6,7 +6,10 @@ let mainCateg = document.querySelector('.main-categ')
 let mainItems = document.querySelector('.main-items');
 let mainAddon = document.querySelector('.main-addon');
 let mainCart = document.querySelector('.main-cart');
-let orderItemsWrap = document.querySelector('.order-items-wrap');
+let orderItemsWrap = document.querySelector('.order-items-wrap');    
+let orderTotal = document.querySelector('#order-total-div');
+let orderGst = document.querySelector('#order-gst-div');
+let orderSubtotal = document.querySelector('#order-subtotal-div');
 
 let productsList = [];
 
@@ -91,6 +94,7 @@ function startNewOrder(event) {
     menuCancelButton()
 
     mainCateg.innerHTML = '';
+
     let categProm = Promise.resolve(sortMyListBy(db, "category"));
 
     categProm.then(updateButtons(listSorted, "category", "categButton", mainCateg));
@@ -103,22 +107,28 @@ function clearThisAreas(...areas) {
     let areasToClean = [...areas];
     areasToClean.forEach(element => {
         element.innerHTML = '';
-        element.classList.remove('active');
     });
 }
 function menuCancelButton(){
     let cancelButton = [{"name": "CANCEL"}]
-    updateButtons(cancelButton, "name", "cancel-button", mainMenu);
+    updateButtons(cancelButton, "name", "cancel-button", mainMenu, );
 }
 mainMenu.addEventListener('click', function(event){
     if (event.target.innerHTML == "CANCEL") {
-        clearThisAreas(mainCateg, mainItems, mainAddon, mainCart);
+        mainCart.classList.remove('active');
+        clearThisAreas(mainCateg, mainItems, 
+            mainAddon, orderItemsWrap);
+            [orderSubtotal, orderGst, orderTotal].forEach(element => {
+                let zero = 0;
+                element.textContent = zero.toFixed(2);
+            });
         enableMenuButtons(menuNew, menuStock);
         mainMenu.removeChild(event.target);
     }
 })
 function categSelection(event){
     mainItems.innerHTML = '';
+    mainCart.classList.add('active'); //needs active for everything
     let categ = event.target.innerHTML;
     let categItems = listSorted.filter(function(item){
         return item.category == categ;
@@ -142,10 +152,18 @@ mainCateg.addEventListener('click', categSelection);
 
 
 
+function updateTotals(itemPrice) {
+    let totalNumber = Number(orderTotal.textContent) + Number(itemPrice);
+    orderTotal.textContent = totalNumber.toFixed(2);
 
-function addToItemBox(name, price, type) {
+    orderGst.textContent = (totalNumber * 0.1).toFixed(2);
+    let subtotalNumber = totalNumber - Number(orderGst.textContent);
 
-    if(type == 'Food' || type == 'Drinks') {
+    orderSubtotal.textContent = subtotalNumber.toFixed(2);
+}
+function addToItemBox(name, price, selectFrom) {
+
+    if(selectFrom == "main-items") {
         let itemQtyDiv = document.createElement('div');
         itemQtyDiv.classList.add('item-qty');
         itemQtyDiv.textContent = "1 x"
@@ -166,33 +184,45 @@ function addToItemBox(name, price, type) {
         [itemQtyDiv, itemNameDiv, itemPriceDiv].forEach((element) => {
             addedItemBox.appendChild(element)
         });
-    }
-}
+    }else if(selectFrom == "main-addon"){
+        let addonNameDiv = document.createElement('div');
+        addonNameDiv.classList.add('order-addon-name');
+        addonNameDiv.textContent = '-' + name;
 
+        let addonPriceDiv = document.createElement('div');
+        addonPriceDiv.classList.add('order-addon-price');
+        addonPriceDiv.textContent = price;
+
+        let addedItemBox = document.createElement('div');
+        addedItemBox.classList.add('order-items');
+        orderItemsWrap.appendChild(addedItemBox); 
+        console.log(name, price); 
+
+        [addonNameDiv, addonPriceDiv].forEach((element) => {
+            addedItemBox.appendChild(element)
+        }); 
+    }
+    updateTotals(price)
+}
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
-            if(db[i].name = event.target.innerHTML) {
-                console.log(event.target.innerHTML, db[i].price, db[i].type);
+            if(db[i].name == event.target.innerHTML) {
+                console.log(db[i].price);
                 return db[i].price
             }
         }
     }
-    let itemType = function() {
-        for (let i = 0; i < db.length; i++) {
-            if(db[i].name = event.target.innerHTML) {
-                console.log(event.target.innerHTML, db[i].price, db[i].type);
-                return db[i].type
-            }
-        }
-    }
+    
+    let selectFrom = event.path[1].className;
     if( itemNameSel.length > 0 && itemNameSel.length < 40) {
-        addToItemBox(itemNameSel, itemPrice(), itemType());
+        console.log(event.path[1].className); 
+        addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
 }
-
-
-
-
 mainItems.addEventListener('click', addToOrder);
+mainAddon.addEventListener('click', addToOrder);
+
+
+
