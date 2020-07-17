@@ -502,8 +502,8 @@ a {
     width: 20%;
     margin-right: 8.4%;
 }
-.stock-results-item button,
-.stock-results-item button:last-child  {
+.action-button-green,
+.action-button-red {
     height: 4rem;
     width: 60px;
     color: rgba(255, 255, 255, 0.856);
@@ -511,16 +511,53 @@ a {
     font-size: 1.2rem;
     border-radius: 10px;
 }
-.stock-results-item button {
+
+.action-button-green {
     background-color: rgb(20, 204, 158, 0.1);
     border: 1px solid rgb(20, 204, 158);
 }
-.stock-results-item button:last-child {
+.action-button-red {
     background-color: rgb(240, 58, 25, 0.1);
     border: 1px solid rgb(240, 58, 25);
     margin-left: 1%;
 }
 
+
+
+/*START OF POPUP*/
+.pop-up-overlay {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(50, 50, 50, 0.5);
+}
+.pop-up-box {
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(18, 10, 34);
+    color: white;
+    font-size: 1.6rem;
+    border-radius: 10px;
+    border: 2px solid rgb(20, 204, 158);
+}
+.pop-up-box div {
+    margin: 2rem 4rem 2rem 4rem;
+}
+.pop-up-box div:last-child {
+    width: 15rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
 /* START OF PIN PAGE */
 
 .main-pin-content {

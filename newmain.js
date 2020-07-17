@@ -217,7 +217,46 @@ function addToOrder(event) {
 mainItems.addEventListener('click', addToOrder);
 mainAddon.addEventListener('click', addToOrder);
 
+function popUpOverlay() {
+    let popUpOverlay = document.createElement('div');
+        popUpOverlay.classList.add('pop-up-overlay');
 
+    let popUpBox = document.createElement('div');
+        popUpBox.classList.add('pop-up-box');
+        popUpOverlay.appendChild(popUpBox);
+        mainContent.appendChild(popUpOverlay);
+}
+function displayDeletePopUp(name, list) {
+    let popUpProm = Promise.resolve(popUpOverlay());  
+    popUpProm.then(function() {
+        let popUpBoxTitle = document.createElement('div');
+        popUpBoxTitle.textContent = 'Delete ' + name + '?';
+
+            let newButtons = document.createElement('div');
+
+            let newButtonYes = document.createElement('button');
+            newButtonYes.classList.add('action-button-green');
+            newButtonYes.textContent = 'Yes';
+            
+            let newButtonNo = document.createElement('button');
+            newButtonNo.classList.add('action-button-red');
+            newButtonNo.textContent = 'Cancel';
+
+            [newButtonYes, newButtonNo].forEach(element => {
+                newButtons.appendChild(element);
+            });
+            [popUpBoxTitle, newButtons].forEach(element => {
+                document.querySelector('.pop-up-box').appendChild(element);
+
+        
+        });
+    });
+}
+
+
+// function displayEditBox(item) {
+//     console.log('Waiting code')
+// }
 function displayListResult(list){
     
     list.forEach(element => {
@@ -236,13 +275,25 @@ function displayListResult(list){
 
         let editButton = document.createElement('button');
         editButton.textContent = 'Edit';
+        editButton.classList.add('action-button-green')
+    
 
         let deleteButton = document.createElement('button');
         deleteButton.textContent = 'Delete';
-
+        deleteButton.classList.add('action-button-red')
+        
+        deleteButton.addEventListener('click', function(event){
+            console.log(event.target.innerHTML)
+                if(event.target.innerHTML == 'Delete'){
+                    displayDeletePopUp(element.name, db)
+                }  
+            });   
+        
         [itemName, itemCategory, itemPrice, editButton, deleteButton].forEach(element => {
             listItem.appendChild(element);
+        
         });
+        
     });
 }
 
@@ -259,6 +310,7 @@ function goToStock(event) {
     
 }
 menuStock.addEventListener('click', goToStock);
+
 
 
 
