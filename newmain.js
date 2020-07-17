@@ -10,6 +10,8 @@ let orderItemsWrap = document.querySelector('.order-items-wrap');
 let orderTotal = document.querySelector('#order-total-div');
 let orderGst = document.querySelector('#order-gst-div');
 let orderSubtotal = document.querySelector('#order-subtotal-div');
+let stockLookupContainer = document.querySelector('.stock-container');
+let stockResults = document.querySelector('.stock-results');
 
 let productsList = [];
 
@@ -35,7 +37,6 @@ fetch('oldDb.json')
 let listSorted = [];
 function sortMyListBy(list, criteria) {
     let listToSort = list;
-    console.log(listToSort);
 
     listSorted = listToSort.sort(function(a, b) {
         var itemA = a[criteria].toUpperCase();
@@ -91,15 +92,14 @@ function enableMenuButtons(...button1) {
 
 function startNewOrder(event) {
     disableMenuButtons(menuNew, menuStock);
-    menuCancelButton()
+    let cancelButton = [{"name": "CANCEL"}]
+    updateButtons(cancelButton, "name", "close-active-tab", mainMenu, );
 
     mainCateg.innerHTML = '';
 
     let categProm = Promise.resolve(sortMyListBy(db, "category"));
 
     categProm.then(updateButtons(listSorted, "category", "categButton", mainCateg));
-    
-    console.log("Done: Categ Buttons");
 };
 menuNew.addEventListener('click', startNewOrder);
 
@@ -109,23 +109,26 @@ function clearThisAreas(...areas) {
         element.innerHTML = '';
     });
 }
-function menuCancelButton(){
-    let cancelButton = [{"name": "CANCEL"}]
-    updateButtons(cancelButton, "name", "cancel-button", mainMenu, );
-}
-mainMenu.addEventListener('click', function(event){
-    if (event.target.innerHTML == "CANCEL") {
+
+function closeActiveTab(event){
+    if (event.target.className == "close-active-tab") {
         mainCart.classList.remove('active');
-        clearThisAreas(mainCateg, mainItems, 
-            mainAddon, orderItemsWrap);
-            [orderSubtotal, orderGst, orderTotal].forEach(element => {
+        stockLookupContainer.classList.remove('active');
+        if (!(mainContent.className =='main-content')) {
+            mainContent.classList.replace('main-content-mgmt', 'main-content');
+        };
+        clearThisAreas(mainCateg, mainItems, mainAddon, orderItemsWrap);
+        
+        [orderSubtotal, orderGst, orderTotal].forEach(element => {
                 let zero = 0;
                 element.textContent = zero.toFixed(2);
             });
         enableMenuButtons(menuNew, menuStock);
         mainMenu.removeChild(event.target);
     }
-})
+}
+mainMenu.addEventListener('click', closeActiveTab)
+
 function categSelection(event){
     mainItems.innerHTML = '';
     mainCart.classList.add('active'); //needs active for everything
@@ -143,23 +146,17 @@ function categSelection(event){
     });
     mainAddon.innerHTML = '';
     updateButtons(addonList, "name", "items", mainAddon);
-    console.log("Done: Items Button")
-    console.log("Done: Addons Button")
 
     mainCart.classList.add('active');
 };
 mainCateg.addEventListener('click', categSelection);
 
-
-
 function updateTotals(itemPrice) {
     let totalNumber = Number(orderTotal.textContent) + Number(itemPrice);
     orderTotal.textContent = totalNumber.toFixed(2);
-
-    orderGst.textContent = (totalNumber * 0.1).toFixed(2);
-    let subtotalNumber = totalNumber - Number(orderGst.textContent);
-
-    orderSubtotal.textContent = subtotalNumber.toFixed(2);
+    
+    orderSubtotal.textContent = (totalNumber / 1.1).toFixed(2);
+    orderGst.textContent = (orderSubtotal.textContent * 0.1).toFixed(2);
 }
 function addToItemBox(name, price, selectFrom) {
 
@@ -179,7 +176,6 @@ function addToItemBox(name, price, selectFrom) {
         let addedItemBox = document.createElement('div');
         addedItemBox.classList.add('order-items');
         orderItemsWrap.appendChild(addedItemBox);   
-        console.log(name, price); 
         
         [itemQtyDiv, itemNameDiv, itemPriceDiv].forEach((element) => {
             addedItemBox.appendChild(element)
@@ -196,7 +192,6 @@ function addToItemBox(name, price, selectFrom) {
         let addedItemBox = document.createElement('div');
         addedItemBox.classList.add('order-items');
         orderItemsWrap.appendChild(addedItemBox); 
-        console.log(name, price); 
 
         [addonNameDiv, addonPriceDiv].forEach((element) => {
             addedItemBox.appendChild(element)
@@ -209,7 +204,6 @@ function addToOrder(event) {
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                console.log(db[i].price);
                 return db[i].price
             }
         }
@@ -217,12 +211,54 @@ function addToOrder(event) {
     
     let selectFrom = event.path[1].className;
     if( itemNameSel.length > 0 && itemNameSel.length < 40) {
-        console.log(event.path[1].className); 
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
 }
 mainItems.addEventListener('click', addToOrder);
 mainAddon.addEventListener('click', addToOrder);
+
+
+function displayListResult(list){
+    
+    list.forEach(element => {
+        let listItem = document.createElement('div');
+        listItem.classList.add('stock-results-item');
+        stockResults.appendChild(listItem);
+
+        let itemName = document.createElement('div');
+        itemName.textContent = element.name;
+
+        let itemCategory = document.createElement('div');
+        itemCategory.textContent = element.category;
+
+        let itemPrice = document.createElement('div');
+        itemPrice.textContent = element.price; 
+
+        let editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+
+        let deleteButton = document.createElement('button');
+        deleteButton.textContent = 'Delete';
+
+        [itemName, itemCategory, itemPrice, editButton, deleteButton].forEach(element => {
+            listItem.appendChild(element);
+        });
+    });
+}
+
+function goToStock(event) {
+    disableMenuButtons(menuNew, menuStock)
+    let doneButton = [{"name": "DONE"}]
+    updateButtons(doneButton, "name", "close-active-tab", mainMenu, );
+    mainContent.classList.replace('main-content', 'main-content-mgmt');
+    stockLookupContainer.classList.add('active');
+
+    let listProm = Promise.resolve(sortMyListBy(db, "category"));
+
+    listProm.then(displayListResult(listSorted));
+    
+}
+menuStock.addEventListener('click', goToStock);
 
 
 

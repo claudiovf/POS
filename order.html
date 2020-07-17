@@ -17,7 +17,7 @@
         <main id="main-content" class="main-content">
             <div class="main-spacer"></div>
             <div class="main-menu">
-                <button class="menu-stock">SETTINGS</button>
+                <button class="menu-stock">STOCK</button>
                 <button class="menu-new" type="button">NEW ORDER</button>
             </div>
             <div class="main-categ"></div>
@@ -58,59 +58,18 @@
             <div class="form-add-category-overlay">
                 
             </div>
-            <div class="form-container">
-                <form id="add-form" class="add-product">
-                        <div class="product-id">Product ID <div class="product-id-number"></div></div>
-                        <div class="form-categ-display">
-                            <div class="form-categ-select">
-                                <label for="add-category" class="add-categ">Category</label>
-                                <select id="add-category" name="category" autofocus>
-                                    <option>Select One</option>
-                                </select>
-                            </div>
-                            <button type="button" class="form-add-category">New Category</button>
-                        </div>
-                        <label for="product-name" class="add-name"></label>
-                            <div class="product-name-div">&nbspProduct Name
-                                <input id="product-name" class="input-form" type="text" name="product-name" autocomplete="off">
-                            </div>
-                    <div class="price-cost">
-                        <label for="add-price" class="add-price" name="price"> </label>
-                        <div class="price-div">&nbspPrice $
-                            <input id="add-price" class="input-form" type="number"> 
-                        </div>
-                        <label for="add-cost" class="add-cost" name="cost"></label>
-                        <div class="cost-div">&nbspCost $
-                            <input id="add-cost" class="input-form" type="number"> 
-                        </div>
-                    </div>
-                    <label for="add-submit" class="add-submit" name="add-submit"></label>
-                    <button id="add-submit" type="submit" class="add-submit-btn" >ADD</button>
-                </form>
-            </div>
-            <div class="stock-lookup-container">
-                <div class="stock-search"></div>
-                <div class="stock-results-header">
-                    <div>Product ID</div>
-                    <div>Name</div>
-                    <div>Category</div>
-                    <div>Price</div>
-                    <div>Cost</div>
+            <div class="stock-container">
+                <div class="stock-nav">
+                        <input type="text" class="stock-search" value="Seach Products">
+                        <button class="stock-product-add">Add New</button>
                 </div>
                 <div class="stock-results">
-
-                </div>
-            </div>
-            <div class = "users-container">
-                <div class="users-container-header">
-                    <div>First Name</div>
-                    <div>Last Name</div>
-                    <div>User Type</div>
-                    <div>Mobile</div>
-                    <div>Email</div>
-                </div>
-                <div class="users-list-result">
-
+                    <div class="stock-results-header">
+                        <div>Name</div>
+                        <div>Category</div>
+                        <div>Price</div>
+                    </div>
+                    <div class="stock-header-spacer"></div>
                 </div>
             </div>
         </main>
