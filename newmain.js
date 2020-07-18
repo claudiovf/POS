@@ -210,6 +210,7 @@ function addToOrder(event) {
     }
     
     let selectFrom = event.path[1].className;
+    console.log(selectFrom);
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
