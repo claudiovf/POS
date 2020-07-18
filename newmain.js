@@ -161,6 +161,7 @@ function updateTotals(itemPrice) {
 function addToItemBox(name, price, selectFrom) {
     
     if(selectFrom == "main-items") {
+        console.log(name, price, selectFrom);
         let itemQtyDiv = document.createElement('div');
         itemQtyDiv.classList.add('item-qty');
         itemQtyDiv.textContent = "1 x"
