@@ -200,10 +200,11 @@ function addToItemBox(name, price, selectFrom) {
     updateTotals(price)
 };
 function addToOrder(event) {
-   
+    menuNew.textContent = "TEST1";
     let itemNameSel = event.target.innerHTML;
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
+            menuNew.textContent = "TEST2";
             if(db[i].name == event.target.innerHTML) {
                 return db[i].price;
             };
@@ -211,7 +212,7 @@ function addToOrder(event) {
     };
     
     let selectFrom = event.path[1].className;
-        menuNew.textContent = "TEST2";
+        
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
         menuNew.textContent = "TEST3";
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
