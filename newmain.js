@@ -203,7 +203,7 @@ function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     
     
-    let itemPrice = function() {
+    var itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 itemPrice = db[i].price;
