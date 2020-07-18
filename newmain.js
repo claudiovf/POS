@@ -209,11 +209,10 @@ function addToOrder(event) {
             };
         };
     };
-    console.log(itemPrice());
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        itemPrice.then(addToItemBox(itemNameSel, itemPrice(), selectFrom));
+        itemPrice.then(addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
 };
 mainItems.addEventListener('click', addToOrder);
