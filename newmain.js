@@ -203,7 +203,7 @@ function addToOrder(event) {
     menuNew.textContent = "TEST1";
     let itemNameSel = event.target.innerHTML;
     menuNew.textContent = event.target.innerHTML;
-    let itemPrice = function() {
+    let itemPrice = () => {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 return db[i].price;
