@@ -201,10 +201,10 @@ function addToItemBox(name, price, selectFrom) {
 };
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
-    console.log(event.path[1].className);
+    
     
     let itemPrice = '';
-        function() {
+       function findPrice() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 itemPrice = db[i].price;
@@ -212,6 +212,8 @@ function addToOrder(event) {
             }
         }
     };
+    findPrice();
+    console.log(event.path[1].className, itemPrice);
     
     let selectFrom = event.path[1].className;
         
