@@ -205,16 +205,15 @@ function addToOrder(event) {
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                menuNew.textContent = "TEST";
-                return db[i].price
+                return db[i].price;
             };
         };
     };
     
     let selectFrom = event.path[1].className;
-    
+        menuNew.textContent = "TEST2";
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        
+        menuNew.textContent = "TEST3";
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
 };
