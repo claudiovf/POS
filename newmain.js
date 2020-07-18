@@ -209,7 +209,7 @@ function addToOrder(event) {
             };
         };
     };
-    console.log(itemPrice);
+    console.log(itemPrice());
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
