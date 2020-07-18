@@ -200,12 +200,13 @@ function addToItemBox(name, price, selectFrom) {
     updateTotals(price)
 };
 function addToOrder(event) {
-    menuNew.textContent = "Test";
+   
     let itemNameSel = event.target.innerHTML;
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 return db[i].price
+                menuNew.textContent = "TEST";
             };
         };
     };
