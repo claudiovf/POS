@@ -212,7 +212,7 @@ function addToOrder(event) {
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        addToItemBox(itemNameSel, itemPrice(), selectFrom);
+        addToItemBox(itemNameSel, itemPrice, selectFrom);
     };
 };
 mainItems.addEventListener('click', addToOrder);
