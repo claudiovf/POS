@@ -205,8 +205,8 @@ function addToOrder(event) {
     let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                return db[i].price
                 menuNew.textContent = "TEST";
+                return db[i].price
             };
         };
     };
