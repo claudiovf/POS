@@ -203,8 +203,7 @@ function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     
     
-    let itemPrice = '';
-       function findPrice() {
+    let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 itemPrice = db[i].price;
@@ -212,13 +211,12 @@ function addToOrder(event) {
             }
         }
     };
-    findPrice();
     console.log(event.path[1].className, itemPrice);
     
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        addToItemBox(itemNameSel, itemPrice, selectFrom);
+        addToItemBox(itemNameSel, itemPrice(), selectFrom);
     }
 };
 mainItems.addEventListener('click', addToOrder);
