@@ -159,7 +159,6 @@ function updateTotals(itemPrice) {
     orderGst.textContent = (orderSubtotal.textContent * 0.1).toFixed(2);
 };
 function addToItemBox(name, price, selectFrom) {
-console.log(name, price, selectFrom);
     
     if(selectFrom == "main-items") {
         let itemQtyDiv = document.createElement('div');
@@ -202,9 +201,7 @@ console.log(name, price, selectFrom);
 };
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
-    
-
-    var itemPrice = function() {
+    let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 
@@ -213,11 +210,9 @@ function addToOrder(event) {
         }
     };
     
-    
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-       
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     }
 };
