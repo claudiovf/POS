@@ -46,7 +46,7 @@ function sortMyListBy(list, criteria) {
         }
         if(itemA > itemB) {
             return 1;
-        }
+        };
     });
     return listSorted;
 };
@@ -66,8 +66,8 @@ function updateButtons(list, criteria, buttonClass, gridArea) {
             newButton.appendChild(buttonShows);
             gridArea.appendChild(newButton);
             
-        }
-    }
+        };
+    };
 };
 function disableMenuButtons(...button1) {
     let buttonList = [...button1];
@@ -88,7 +88,7 @@ function enableMenuButtons(...button1) {
         element.style.color = "rgb(49, 134, 113)";
         element.style.border = "2px solid rgb(49, 134, 113)";
     });
-}
+};
 
 function startNewOrder(event) {
     disableMenuButtons(menuNew, menuStock);
@@ -108,7 +108,7 @@ function clearThisAreas(...areas) {
     areasToClean.forEach(element => {
         element.innerHTML = '';
     });
-}
+};
 
 function closeActiveTab(event){
     if (event.target.className == "close-active-tab") {
@@ -125,8 +125,8 @@ function closeActiveTab(event){
             });
         enableMenuButtons(menuNew, menuStock);
         mainMenu.removeChild(event.target);
-    }
-}
+    };
+};
 mainMenu.addEventListener('click', closeActiveTab)
 
 function categSelection(event){
@@ -157,7 +157,7 @@ function updateTotals(itemPrice) {
     
     orderSubtotal.textContent = (totalNumber / 1.1).toFixed(2);
     orderGst.textContent = (orderSubtotal.textContent * 0.1).toFixed(2);
-}
+};
 function addToItemBox(name, price, selectFrom) {
 
     if(selectFrom == "main-items") {
@@ -196,9 +196,9 @@ function addToItemBox(name, price, selectFrom) {
         [addonNameDiv, addonPriceDiv].forEach((element) => {
             addedItemBox.appendChild(element)
         }); 
-    }
+    };
     updateTotals(price)
-}
+};
 function addToOrder(event) {
     menuNew.textContent = "Test";
     let itemNameSel = event.target.innerHTML;
@@ -206,9 +206,9 @@ function addToOrder(event) {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 return db[i].price
-            }
-        }
-    }
+            };
+        };
+    };
     
     let selectFrom = event.path[1].className;
     
@@ -216,7 +216,7 @@ function addToOrder(event) {
         
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
-}
+};
 mainItems.addEventListener('click', addToOrder);
 mainAddon.addEventListener('click', addToOrder);
 
@@ -228,7 +228,7 @@ function popUpOverlay() {
         popUpBox.classList.add('pop-up-box');
         popUpOverlay.appendChild(popUpBox);
         mainContent.appendChild(popUpOverlay);
-}
+};
 function displayDeletePopUp(name, list) {
     let popUpProm = Promise.resolve(popUpOverlay());  
     popUpProm.then(function() {
@@ -254,7 +254,7 @@ function displayDeletePopUp(name, list) {
         
         });
     });
-}
+};
 
 
 // function displayEditBox(item) {
@@ -289,7 +289,7 @@ function displayListResult(list){
             console.log(event.target.innerHTML)
                 if(event.target.innerHTML == 'Delete'){
                     displayDeletePopUp(element.name, db)
-                }  
+                };
             });   
         
         [itemName, itemCategory, itemPrice, editButton, deleteButton].forEach(element => {
@@ -298,7 +298,7 @@ function displayListResult(list){
         });
         
     });
-}
+};
 
 function goToStock(event) {
     disableMenuButtons(menuNew, menuStock)
@@ -311,7 +311,7 @@ function goToStock(event) {
 
     listProm.then(displayListResult(listSorted));
     
-}
+};
 menuStock.addEventListener('click', goToStock);
 
 
