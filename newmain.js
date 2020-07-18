@@ -210,9 +210,9 @@ function addToOrder(event) {
     }
     
     let selectFrom = event.path[1].className;
-    
+    menuNew.textContent = "Test";
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        menuNew.textContent = "Test";
+        
         addToItemBox(itemNameSel, itemPrice(), selectFrom);
     };
 }
