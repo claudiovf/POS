@@ -202,12 +202,13 @@ function addToItemBox(name, price, selectFrom) {
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     console.log(event.path[1].className);
-    console.log(event.target.path[1].className);
     
-    let itemPrice = function() {
+    let itemPrice = '';
+        function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                return db[i].price;
+                itemPrice = db[i].price;
+                return itemPrice;
             }
         }
     };
@@ -215,7 +216,7 @@ function addToOrder(event) {
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        addToItemBox(itemNameSel, itemPrice(), selectFrom);
+        addToItemBox(itemNameSel, itemPrice, selectFrom);
     }
 };
 mainItems.addEventListener('click', addToOrder);
