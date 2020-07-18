@@ -211,11 +211,12 @@ function addToOrder(event) {
             }
         }
     });
-    console.log(event.path[1].className, itemPrice);
+    
     
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
+        console.log(event.path[1].className, itemPriceToSend);
         itemPrice.then(addToItemBox(itemNameSel, itemPriceToSend, selectFrom));
     }
 };
