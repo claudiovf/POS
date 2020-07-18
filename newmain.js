@@ -202,18 +202,17 @@ function addToItemBox(name, price, selectFrom) {
 function addToOrder(event) {
     menuNew.textContent = "TEST1";
     let itemNameSel = event.target.innerHTML;
-    let itemPrice = Promise.resolve(function() {
+    let itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
                 return db[i].price;
             };
         };
-    });
-    
+    };
+    console.log(itemPrice);
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        menuNew.textContent = itemPrice;
         itemPrice.then(addToItemBox(itemNameSel, itemPrice(), selectFrom));
     };
 };
