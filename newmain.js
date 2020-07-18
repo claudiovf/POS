@@ -159,7 +159,7 @@ function updateTotals(itemPrice) {
     orderGst.textContent = (orderSubtotal.textContent * 0.1).toFixed(2);
 };
 function addToItemBox(name, price, selectFrom) {
-
+console.log(name, price, selectFrom);
     if(selectFrom == "main-items") {
         let itemQtyDiv = document.createElement('div');
         itemQtyDiv.classList.add('item-qty');
@@ -216,7 +216,7 @@ function addToOrder(event) {
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        console.log(event.path[1].className, itemPriceToSend);
+       
         itemPrice.then(addToItemBox(itemNameSel, itemPriceToSend, selectFrom));
     }
 };
