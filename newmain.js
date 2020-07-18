@@ -213,8 +213,8 @@ function addToOrder(event) {
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        menuNew.textContent = "TEST3";
-        itemPrice.then(addToItemBox(itemNameSel, itemPrice, selectFrom));
+        menuNew.textContent = itemPrice();
+        itemPrice.then(addToItemBox(itemNameSel, itemPrice(), selectFrom));
     };
 };
 mainItems.addEventListener('click', addToOrder);
