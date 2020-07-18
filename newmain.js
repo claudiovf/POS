@@ -202,21 +202,21 @@ function addToItemBox(name, price, selectFrom) {
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     
-    
-    var itemPrice = function() {
+    let itemPriceToSend = '';
+    var itemPrice = Promise.resolve (function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                itemPrice = db[i].price;
-                return itemPrice;
+                itemPriceToSend = db[i].price;
+                return itemPriceToSend;
             }
         }
-    };
+    });
     console.log(event.path[1].className, itemPrice);
     
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
-        addToItemBox(itemNameSel, itemPrice(), selectFrom);
+        itemPrice.then(addToItemBox(itemNameSel, itemPriceToSend, selectFrom));
     }
 };
 mainItems.addEventListener('click', addToOrder);
