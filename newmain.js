@@ -160,6 +160,7 @@ function updateTotals(itemPrice) {
 };
 function addToItemBox(name, price, selectFrom) {
 console.log(name, price, selectFrom);
+    
     if(selectFrom == "main-items") {
         let itemQtyDiv = document.createElement('div');
         itemQtyDiv.classList.add('item-qty');
@@ -202,22 +203,22 @@ console.log(name, price, selectFrom);
 function addToOrder(event) {
     let itemNameSel = event.target.innerHTML;
     
-    let itemPriceToSend = '';
-    var itemPrice = Promise.resolve (function() {
+
+    var itemPrice = function() {
         for (let i = 0; i < db.length; i++) {
             if(db[i].name == event.target.innerHTML) {
-                itemPriceToSend = db[i].price;
-                return itemPriceToSend;
+                itemPrice = db[i].price;
+                return itemPrice;
             }
         }
-    });
+    };
     
     
     let selectFrom = event.path[1].className;
         
     if( itemNameSel.length > 0 && itemNameSel.length < 60) {
        
-        itemPrice.then(addToItemBox(itemNameSel, itemPriceToSend, selectFrom));
+        itemPrice.then(addToItemBox(itemNameSel, itemPrice(), selectFrom));
     }
 };
 mainItems.addEventListener('click', addToOrder);
