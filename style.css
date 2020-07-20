@@ -66,10 +66,10 @@ body button:active {
 .main-content {
     background-color: transparent;
     width: 99vw;
-    max-height: 98.5vh;
+    min-height: 99%;
     margin:0 1% 1% 1%;
     display: grid;
-    grid-template-columns: 30% 20%  40% 9%;
+    grid-template-columns: 30% 20%  39% 10%;
     grid-template-rows: 4rem 6rem 1fr;
     grid-template-areas: 
         "spacer  spacer spacer spacer"
@@ -77,7 +77,7 @@ body button:active {
         "cart addon items categ";
     justify-content: center;
     align-items: center;
-    overflow: auto;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 500px) {
@@ -129,6 +129,13 @@ a {
     border-radius: 10px;
     transition: background-color 0.5s ease;
 }
+.menu-cancel {
+    transform: translateX(100%);
+    transition: transform 0.5s ease;
+}
+.menu-cancel-after {
+    transform: translateX(0%);
+}
 .close-active-tab {
     background-color: rgba(255, 99, 71, 0.104) !important;
     color: tomato !important;
@@ -138,7 +145,7 @@ a {
 .main-categ {
     grid-area: categ;
     /* background-color: rgba(85, 85, 85, 0.548); */
-    max-height: 97%;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -149,11 +156,6 @@ a {
     overflow-x: auto;
 }
 
-.stock-active {
-    visibility: visible;
-    display: flex;
-    justify-content: flex-end;
-}
 /* .active {
     background-color: rgb(129, 53, 22);
 } */
@@ -410,8 +412,8 @@ a {
 
 .main-content-mgmt {
     background-color: transparent;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 4rem 6rem 1fr;
@@ -419,8 +421,8 @@ a {
         "spacer"
         "menu"
         "mgmt";
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: flex-start;
+    align-items: flex-start;
     overflow: auto;
 }
 
@@ -452,7 +454,7 @@ a {
     border-radius: 10px;
     color: white;
 }
-.stock-product-add {
+.stock-add-new {
     height: 4rem;
     width: 130px;
     background-color: rgba(100, 50, 200, 0.15);
@@ -465,6 +467,7 @@ a {
     width: 80%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     overflow: auto;
 }
 .stock-results-header {
@@ -499,13 +502,13 @@ a {
     border-bottom: 1px solid rgb(17, 7, 36);
 }
 .stock-results-item div {
-    width: 20%;
+    min-width: 20%;
     margin-right: 8.4%;
 }
 .action-button-green,
 .action-button-red {
     height: 4rem;
-    width: 60px;
+    width: 6rem;
     color: rgba(255, 255, 255, 0.856);
     cursor: pointer;
     font-size: 1.2rem;
@@ -547,17 +550,53 @@ a {
     font-size: 1.6rem;
     border-radius: 10px;
     border: 2px solid rgb(20, 204, 158);
+    padding: 2rem 4rem 2rem 4rem;
 }
-.pop-up-box div {
-    margin: 2rem 4rem 2rem 4rem;
-}
-.pop-up-box div:last-child {
+
+.pop-up-box-button-case {
     width: 15rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 2rem;
 }
+
+/*START OF ADD NEW FORM */
+.add-form-container {
+    display: flex;
+    flex-flow: row wrap;
+    height: auto;
+    max-width: 400px;
+    justify-content: center;
+    align-items: center;
+}
+.add-form-label {
+    width: 30%;
+    height: 3.5rem;
+    margin: 1rem 0 1rem 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.add-form-select {
+    width: 50%;
+    height: 3rem;
+    margin: 1rem 0 1rem 0;
+    background-color: transparent;
+    color: rgb(20, 204, 158);
+    border: 1px solid rgb(20, 204, 158);
+    border-radius: 10px;
+}
+.add-form-input {
+    width: 65%;
+    height: 3rem;
+    margin: 1rem 0 1rem 0;
+    background-color: transparent;
+    border: 1px solid rgb(20, 204, 158);
+    border-radius: 10px;
+}
+
 /* START OF PIN PAGE */
 
 .main-pin-content {
