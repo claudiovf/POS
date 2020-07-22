@@ -7,18 +7,21 @@ html {
     scroll-behavior: smooth;
     background-color: rgb(34, 34, 34);
     scroll-behavior: smooth;
+    width: 100vw;
+    height: 100vh;
 }
 
 
 body {
     background-color: rgba(100, 100, 255, 0.1);
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
     scroll-behavior: smooth;
     font-family: "lato";
+    overflow: hidden;
 }
 body button:focus {
     outline: none;
@@ -66,7 +69,7 @@ body button:active {
 .main-content {
     background-color: transparent;
     width: 99vw;
-    min-height: 99%;
+    max-height: 99%;
     margin:0 1% 1% 1%;
     display: grid;
     grid-template-columns: 30% 20%  39% 10%;
@@ -101,7 +104,12 @@ select,
 a {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
-
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
 .main-spacer {
     grid-area: spacer;
     /* background-color: rgba(32, 178, 171, 0.705); */
@@ -129,17 +137,44 @@ a {
     border-radius: 10px;
     transition: background-color 0.5s ease;
 }
-.menu-cancel {
-    transform: translateX(100%);
-    transition: transform 0.5s ease;
+@keyframes slideIn {
+    0% {
+        transform: translateX(30%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0%);
+        opacity: 1;
+    }
 }
-.menu-cancel-after {
-    transform: translateX(0%);
+@keyframes bounceOut {
+    0% {
+        transform: scale(0.1);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
+@keyframes bounceIn {
+    0% {
+        transform: scale(1);
+    }
+    80% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(0.1);
+    }
+}
+
 .close-active-tab {
     background-color: rgba(255, 99, 71, 0.104) !important;
     color: tomato !important;
     border: 2px solid tomato !important;
+    animation: slideIn 0.3s ease-in-out;
 }
 
 .main-categ {
@@ -171,6 +206,7 @@ a {
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: 10px;
+    animation: slideIn 0.2s;
 }
 
 .main-items {
@@ -198,6 +234,8 @@ a {
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: 10px;
+    animation: slideIn 0.2s;
+
 }
 
 @media screen and (max-width: 500px){
@@ -250,6 +288,7 @@ a {
     cursor: pointer;
     font-size: 1.5rem;
     border-radius: 10px;
+    animation: slideIn 0.2s;
 }
 .main-cart {
     grid-area: cart;
@@ -441,8 +480,9 @@ a {
 .stock-nav {
     min-height: 10rem;
     width: 80%;
+    height: 20rem;
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     justify-content: space-between;
     align-items: center;
 }
@@ -469,27 +509,25 @@ a {
     flex-direction: column;
     justify-content: space-between;
     overflow: auto;
+    animation: slideIn 0.2s;
 }
 .stock-results-header {
     min-height: 5rem;
-    width: 80%;
+    width: 100%;
+    margin-top: 2rem;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+    align-self: flex-end;
     font-size: 1.5rem;
     border-bottom: 1px solid rgb(20, 204, 158);
-    position: fixed;
     background-color: rgb(18, 10, 34);
 }
 .stock-results-header div {
     width: 20%;
     margin-right: 8%;
     text-align: start;
-}
-.stock-header-spacer {
-    display: block;
-    min-height: 5rem;
 }
 .stock-results-item {
     min-height: 5rem;
@@ -516,12 +554,12 @@ a {
 }
 
 .action-button-green {
-    background-color: rgb(20, 204, 158, 0.1);
+    background-color: rgb(20, 204, 158);
     border: 1px solid rgb(20, 204, 158);
 }
 .action-button-red {
-    background-color: rgb(240, 58, 25, 0.1);
-    border: 1px solid rgb(240, 58, 25);
+    background-color: rgb(233, 81, 54);
+    border: 1px solid rgb(233, 81, 54);
     margin-left: 1%;
 }
 
@@ -536,8 +574,9 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(50, 50, 50, 0.5);
+    background-color: rgba(7, 7, 19, 0.815);
 }
+
 .pop-up-box {
     height: auto;
     width: auto;
@@ -545,14 +584,16 @@ a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(18, 10, 34);
+    background-color: rgb(30, 15, 50);
     color: white;
     font-size: 1.6rem;
     border-radius: 10px;
-    border: 2px solid rgb(20, 204, 158);
+    border: none;
+    border-top: 1rem solid rgb(20, 204, 158);
+    /* box-shadow: 0px 0px 10px white; */
     padding: 2rem 4rem 2rem 4rem;
+    animation: bounceOut 0.15s;
 }
-
 .pop-up-box-button-case {
     width: 15rem;
     display: flex;
@@ -572,15 +613,16 @@ a {
     align-items: center;
 }
 .add-form-label {
-    width: 30%;
+    width: 20%;
     height: 3.5rem;
     margin: 1rem 0 1rem 0;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    animation: bounceOut 0.1s;
 }
 .add-form-select {
-    width: 50%;
+    width: 60%;
     height: 3rem;
     margin: 1rem 0 1rem 0;
     background-color: transparent;
@@ -588,13 +630,49 @@ a {
     border: 1px solid rgb(20, 204, 158);
     border-radius: 10px;
 }
-.add-form-input {
-    width: 65%;
+.add-form-type-select {
+    width: 60%;
     height: 3rem;
     margin: 1rem 0 1rem 0;
     background-color: transparent;
+    color: rgb(20, 204, 158);
     border: 1px solid rgb(20, 204, 158);
+    border-radius: 10px;    
+    animation: bounceOut 0.1s;
+}
+.add-form-sides-select{
+    width: 60%;
+    height: 3rem;
+    margin: 1rem 0 1rem 0;
+    background-color: transparent;
+    color: rgb(20, 204, 158);
+    border: 1px solid rgb(20, 204, 158);
+    border-radius: 10px; 
+    animation: bounceOut 0.1s;
+}
+.add-form-category {
+    background-color: rgb(20, 204, 158);
+    width: 10%;
+    height: 3rem;
+    margin: 1rem 0 1rem 2.5rem;
+    border: none;
     border-radius: 10px;
+    font-size: 2rem;
+}
+.add-form-input {
+    width: 75%;
+    height: 3rem;
+    margin: 1rem 0 1rem 0;
+    /* background-color: rgb(20, 204, 158, 1); */
+    border: 1px solid white;
+    border-radius: 10px;
+    color: rgb(58, 57, 57);
+    font-size: 1.5rem;
+}
+
+.add-form-input:active {
+    border: none;
+    box-shadow: none;
 }
 
 /* START OF PIN PAGE */

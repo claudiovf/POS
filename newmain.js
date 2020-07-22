@@ -245,8 +245,17 @@ function displayDeletePopUp(item, list) {
       document.querySelector(".pop-up-box").appendChild(element);
     });
 
-    popUpActionButtons("Yes", "Cancel", item, list);
+    popUpProm.then(popUpActionButtons("Yes", "Cancel", item, list)).then(function(){
+        document.querySelector('.pop-up-box-button-case').addEventListener('click', function(event) {
+            if (event.target.innerHTML == "Yes") {
+                deleteItem(item, list);
+                cancelPopUp();
+                displayListResult(list);
+            }
+        })
+    });
   });
+
 }
 
 function displayListResult(list) {
@@ -324,23 +333,66 @@ function displayAddNewPopUp(...args) {
           selectBox.appendChild(selectOption);
         }
       });
-      [newField, selectBox].forEach((element) => {
+      let addCategButton = document.createElement("button");
+      addCategButton.classList.add("add-form-category");
+      addCategButton.textContent = '+';
+      [newField, selectBox, addCategButton].forEach((element) => {
         formContainer.appendChild(element);
       });
-    } else {
+    } else if(element == "Name"){
       let newField = document.createElement("div");
       newField.textContent = element;
       newField.classList.add("add-form-label");
       let newInput = document.createElement("input");
       newInput.classList.add("add-form-input");
+      newInput.classList.add('field-name');
       newInput.type = "text";
       [newField, newInput].forEach((element) => {
         formContainer.appendChild(element);
       });
+    }else if(element == "Price"){
+        let newField = document.createElement("div");
+        newField.textContent = element;
+        newField.classList.add("add-form-label");
+        let newInput = document.createElement("input");
+        newInput.classList.add("add-form-input");
+        newInput.classList.add('field-price');
+        newInput.type = "text";
+        [newField, newInput].forEach((element) => {
+          formContainer.appendChild(element);
+        });
     }
   });
 
   document.querySelector(".pop-up-box").appendChild(formContainer);
+  document.querySelector('.add-form-select').addEventListener('change', function(){
+      if(document.querySelector('.add-form-select').value == "Sides") {
+    
+        let newType = document.createElement("div");
+        newType.textContent = "Sub Category";
+        newType.classList.add("add-form-label");
+        newType.classList.add("label-sub");
+    
+        let newSelect = document.createElement("select");
+        newSelect.classList.add("add-form-sides-select");
+        newSelect.style.width = '75%';
+        ['Food', 'Drinks'].forEach(element => {
+            let newOption = document.createElement('option');
+            newOption.textContent = element;
+            newSelect.appendChild(newOption);
+        });
+        [newSelect, newType].forEach((element) => {
+            document.querySelector('.add-form-container').insertBefore(element, document.querySelector('.add-form-container').childNodes[3]);
+        });
+      }else{
+          if(!(document.querySelector('.label-sub') == null)) {
+            document.querySelector('.add-form-container').removeChild(document.querySelector('.add-form-container').childNodes[3]);
+            document.querySelector('.add-form-container').removeChild(document.querySelector('.add-form-container').childNodes[3]);
+          }
+         
+      }
+  })
+
 }
 function popUpActionButtons(confirm, cancel, item, list) {
   let newButtons = document.createElement("div");
@@ -361,27 +413,96 @@ function popUpActionButtons(confirm, cancel, item, list) {
   document.querySelector(".pop-up-box").appendChild(newButtons);
 
   newButtonNo.addEventListener("click", cancelPopUp);
-
-  newButtonYes.addEventListener("click", function (event) {
-    if (event.target.innerHTML == "Yes") {
-      deleteItem(item, list);
-      cancelPopUp();
-      displayListResult(list);
-    } else if (event.target.innerHTML == "Add") {
-      console.log(item.name);
-      cancelPopUp();
-    }
-  });
 }
+function addNewItemToList() {
+    let newItem = {};
+    if(!(document.querySelector('.add-form-select') == null) ) {
+        newItem.category = document.querySelector('.add-form-select').value;
+    }else{
+        newItem.category = document.querySelector('.field-category').value;
+    
+    }
+    newItem.name = document.querySelector('.field-name').value;
+    newItem.price = Number(document.querySelector('.field-price').value).toFixed(2);
+    newItem.id = Number(oldDb.length + 1);
+    if(!(document.querySelector('.add-form-type-select') == null)){
+        newItem.type = document.querySelector('.add-form-type-select').value;
+    }else if(!(document.querySelector('.add-form-select').value == "Sides")){
+        for (let i = 0; i < db.length; i++) {
+            if(db[i].category == newItem.category) {
+                newItem.type = db[i].type;
+                break;
+            }
+        }
+    }else if(document.querySelector('.add-form-select').value == "Sides") {
+        newItem.subcategory = document.querySelector('.add-form-sides-select').value;
+    }
+    
+    db.push(newItem);
+    oldDb.push(newItem);
+  
+    console.table(newItem);
+}
+
+function addCategoryToSelect() {
+    let activeForm = document.querySelector('.add-form-container');
+    if(!(document.querySelector('.label-sub') == null)) {
+        activeForm.removeChild(activeForm.childNodes[3]);
+        activeForm.removeChild(activeForm.childNodes[3]);
+      }
+    activeForm.removeChild(activeForm.childNodes[0])
+    activeForm.removeChild(activeForm.childNodes[0])
+    activeForm.removeChild(activeForm.childNodes[0])
+    
+    let newField = document.createElement("div");
+    newField.textContent = "New Category";
+    newField.classList.add("add-form-label");
+    let newInput = document.createElement("input");
+    newInput.classList.add("add-form-input");
+    newInput.classList.add("field-category");
+    newInput.type = "text";
+
+    let newType = document.createElement("div");
+    newType.textContent = "Type";
+    newType.classList.add("add-form-label");
+
+    let newSelect = document.createElement("select");
+    newSelect.classList.add("add-form-type-select");
+    newSelect.style.width = '75%';
+    ['Food', 'Drinks', 'Sweet'].forEach(element => {
+        let newOption = document.createElement('option');
+        newOption.textContent = element;
+        newSelect.appendChild(newOption);
+    });
+
+    [newInput, newField, newSelect, newType].forEach((element) => {
+        activeForm.insertBefore(element, activeForm.childNodes[0]);
+    });
+}
+
+
 stockAddNewButton.addEventListener("click", function () {
   let popUpProm = Promise.resolve(popUpOverlay());
   let formProm = Promise.resolve(
     displayAddNewPopUp("Category", "Name", "Price")
   );
-  let newItem = { name: "New Item" };
   let buttonsProm = Promise.resolve(
-    popUpActionButtons("Add", "Cancel", newItem)
+    popUpActionButtons("Add", "Cancel")
   );
 
-  popUpProm.then(formProm).then(buttonsProm);
+  popUpProm.then(formProm).then(buttonsProm).then(function() {
+    document.querySelector('.add-form-category').addEventListener('click', addCategoryToSelect)
+    document.querySelector('.pop-up-box-button-case').addEventListener('click', function(event) {
+    if (event.target.innerHTML == "Add") {
+        addNewItemToList()
+        cancelPopUp();
+        let listProm = Promise.resolve(sortMyListBy(db, "category"));
+
+        listProm.then(displayListResult(listSorted));
+        }
+    })
+  });
 });
+
+
+
