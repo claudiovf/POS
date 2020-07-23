@@ -10,7 +10,11 @@ html {
     height: 100vh;
     overflow: hidden;
 }
-
+@media screen and (max-width: 500px) {
+    html {
+        font-size: 5px;
+    }
+}
 
 body {
     background-color: rgba(100, 100, 255, 0.1);
@@ -53,6 +57,7 @@ body button:active {
     justify-content: center;
     align-items: center;
 }
+
 .logo {
     height: 3rem;
     width: 3rem;
@@ -62,6 +67,7 @@ body button:active {
     background-color: rgba(20, 204, 158);
     border-radius: 50%;
 }
+
 .logo-img {
     width: auto;
     height: 70%;
@@ -125,6 +131,7 @@ button:focus {
     cursor: pointer;
     background-color: rgba(49, 134, 113, 0.1);
     border-radius: 10px;
+    font-size: 1.2rem;
 }
 @keyframes slideIn {
     0% {

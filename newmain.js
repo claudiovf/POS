@@ -91,6 +91,7 @@ function enableMenuButtons(...button1) {
 }
 
 function startNewOrder(event) {
+    document.querySelector('.logo').style.animation = "logoIn 0.1s";
   disableMenuButtons(menuNew, menuStock);
   let cancelButton = [{ name: "CANCEL" }];
   updateButtons(cancelButton, "name", "close-active-tab", mainMenu);
