@@ -85,8 +85,8 @@ function enableMenuButtons(...button1) {
   buttonList.forEach((element) => {
     element.disabled = false;
     element.style["background-color"] = "rgba(150, 150, 150, 0.1)";
-    element.style.color = "rgb(49, 134, 113)";
-    element.style.border = "2px solid rgb(49, 134, 113)";
+    element.style.color = "rgba(20, 204, 158)";
+    element.style.border = "2px solid rgba(20, 204, 158)";
   });
 }
 
@@ -102,6 +102,9 @@ function startNewOrder(event) {
   categProm.then(
     updateButtons(listSorted, "category", "categButton", mainCateg)
   );
+  
+  categSelection();
+
 }
 menuNew.addEventListener("click", startNewOrder);
 
@@ -111,7 +114,15 @@ function clearThisAreas(...areas) {
     element.innerHTML = "";
   });
 }
-
+function createNewElement(args){
+    let newElement = document.createElement(args[0]);
+    newElement.textContent = args[1];
+    newElement.classList.add(args[2])
+    if(!(args[3] == null)) {
+        newElement.classList.add(args[3]);
+    }
+    return newElement;
+}
 function closeActiveTab(event) {
   if (event.target.className == "close-active-tab") {
     mainCart.classList.remove("active");
@@ -134,7 +145,13 @@ mainMenu.addEventListener("click", closeActiveTab);
 function categSelection(event) {
   mainItems.innerHTML = "";
   mainCart.classList.add("active"); //needs active for everything
-  let categ = event.target.innerHTML;
+  let categ = '';
+  if(event == null) {
+    categ = db[0].category;
+  }else{
+      categ = event.target.innerHTML;
+  }
+  
   let categItems = listSorted.filter(function (item) {
     return item.category == categ;
   });
@@ -159,38 +176,24 @@ function updateTotals(itemPrice) {
   orderSubtotal.textContent = (totalNumber / 1.1).toFixed(2);
   orderGst.textContent = (orderSubtotal.textContent * 0.1).toFixed(2);
 }
+
 function addToItemBox(name, price, selectFrom) {
   if (selectFrom == "items") {
-    let itemQtyDiv = document.createElement("div");
-    itemQtyDiv.classList.add("item-qty");
-    itemQtyDiv.textContent = "1 x";
-
-    let itemNameDiv = document.createElement("div");
-    itemNameDiv.classList.add("order-items-name");
-    itemNameDiv.textContent = name;
-
-    let itemPriceDiv = document.createElement("div");
-    itemPriceDiv.classList.add("order-price");
-    itemPriceDiv.textContent = price;
-
-    let addedItemBox = document.createElement("div");
-    addedItemBox.classList.add("order-items");
+    let addedItemBox = createNewElement(["div", '', "order-items"]);
     orderItemsWrap.appendChild(addedItemBox);
 
+    let itemQtyDiv = createNewElement(["div", "1 x", "item-qty"]);
+    let itemNameDiv = createNewElement(["div", name, "order-items-name"]);
+    let itemPriceDiv = createNewElement(["div", price, "order-price"]);
     [itemQtyDiv, itemNameDiv, itemPriceDiv].forEach((element) => {
       addedItemBox.appendChild(element);
     });
   } else if (selectFrom == "addons") {
-    let addonNameDiv = document.createElement("div");
-    addonNameDiv.classList.add("order-addon-name");
-    addonNameDiv.textContent = "-" + name;
+    
+    let addonNameDiv = createNewElement(["div", "-" + name, "order-addon-name"]);
+    let addonPriceDiv = createNewElement(["div", price, "order-addon-price"]);
+    let addedItemBox = createNewElement(["div", '', "order-items"]);
 
-    let addonPriceDiv = document.createElement("div");
-    addonPriceDiv.classList.add("order-addon-price");
-    addonPriceDiv.textContent = price;
-
-    let addedItemBox = document.createElement("div");
-    addedItemBox.classList.add("order-items");
     orderItemsWrap.appendChild(addedItemBox);
 
     [addonNameDiv, addonPriceDiv].forEach((element) => {
@@ -208,7 +211,6 @@ function addToOrder(event) {
       }
     }
   };
-
   let selectFrom = event.target.className;
   if (itemNameSel.length > 0 && itemNameSel.length < 40) {
     addToItemBox(itemNameSel, itemPrice(), selectFrom);
@@ -218,11 +220,9 @@ mainItems.addEventListener("click", addToOrder);
 mainAddon.addEventListener("click", addToOrder);
 
 function popUpOverlay() {
-  let popUpOverlay = document.createElement("div");
-  popUpOverlay.classList.add("pop-up-overlay");
+  let popUpOverlay = createNewElement(["div", '', "pop-up-overlay"]);
+  let popUpBox = createNewElement(["div", '', "pop-up-box"]);
 
-  let popUpBox = document.createElement("div");
-  popUpBox.classList.add("pop-up-box");
   popUpOverlay.appendChild(popUpBox);
   mainContent.appendChild(popUpOverlay);
 }
@@ -238,12 +238,8 @@ function deleteItem(item, list) {
 function displayDeletePopUp(item, list) {
   let popUpProm = Promise.resolve(popUpOverlay());
   popUpProm.then(function () {
-    let popUpBoxTitle = document.createElement("div");
-    popUpBoxTitle.textContent = "Delete " + item.name + "?";
-
-    [popUpBoxTitle].forEach((element) => {
-      document.querySelector(".pop-up-box").appendChild(element);
-    });
+    let popUpBoxTitle = createNewElement(["div", "Delete " + item.name + "?"]);
+    document.querySelector(".pop-up-box").appendChild(popUpBoxTitle);
 
     popUpProm.then(popUpActionButtons("Yes", "Cancel", item, list)).then(function(){
         document.querySelector('.pop-up-box-button-case').addEventListener('click', function(event) {
@@ -255,34 +251,74 @@ function displayDeletePopUp(item, list) {
         })
     });
   });
-
 }
 
 function displayListResult(list) {
   (stockResults.innerHTML = ""),
     list.forEach((item) => {
-      let listItem = document.createElement("div");
-      listItem.classList.add("stock-results-item");
+      let listItem = createNewElement(["div", '', "stock-results-item"]);
       stockResults.appendChild(listItem);
 
-      let itemName = document.createElement("div");
-      itemName.textContent = item.name;
+      let itemName = createNewElement(["div", item.name]);
+      let itemCategory = createNewElement(["div", item.category]);
+      let itemPrice = createNewElement(["div", item.price]);
+      let editButton = createNewElement(["button", '', "action-button-green"]);
+      let editIcon = createNewElement(["img", '', 'edit-img']);
+      editIcon.src = "images/edit.png";
+      editIcon.style.height = "2rem";
+      editButton.appendChild(editIcon);
+      let deleteButton = createNewElement(["button", '', "action-button-red"]);
+      let deleteIcon = createNewElement(["img", '', 'delete-img']);
+      deleteIcon.src = "images/bin.png";
+      deleteIcon.style.height = "2rem";
+      deleteButton.appendChild(deleteIcon);
 
-      let itemCategory = document.createElement("div");
-      itemCategory.textContent = item.category;
+      editButton.addEventListener('click', function(event){
+          console.log(event.target)
+        if (event.target.className == "action-button-green" || event.target.className == "edit-img") {
+            let popUpProm = Promise.resolve(popUpOverlay());
+            let formProm = Promise.resolve(
+                displayAddNewPopUp("Category", "Name", "Price")
+            );
+            let buttonsProm = Promise.resolve(
+                popUpActionButtons("Save", "Cancel")
+            );
 
-      let itemPrice = document.createElement("div");
-      itemPrice.textContent = item.price;
+            popUpProm.then(formProm).then(buttonsProm).then(function() {
+                document.querySelector('.add-form-category').disabled = true;
+                document.querySelector('.add-form-category').style.opacity = 0.1;
+                document.querySelector('.field-name').value = item.name;
+                document.querySelector('.field-price').value = item.price;
+                document.querySelector('.add-form-select').value = item.category;
+                console.log(item.id);
 
-      let editButton = document.createElement("button");
-      editButton.textContent = "Edit";
-      editButton.classList.add("action-button-green");
+                document.querySelector('.add-form-category').addEventListener('click', addCategoryToSelect)
+                document.querySelector('.pop-up-box-button-case').addEventListener('click', function(event) {
+                if (event.target.innerHTML == "Save") {
 
-      let deleteButton = document.createElement("button");
-      deleteButton.textContent = "Delete";
-      deleteButton.classList.add("action-button-red");
+                    for (let i = 0; i < db.length; i++) {
+                        if(item.id == db[i].id) {
+                            item.name = document.querySelector('.field-name').value;
+                            item.price = document.querySelector('.field-price').value;
+                            item.category = document.querySelector('.add-form-select').value;  
+                            if(!(document.querySelector('.add-form-sides-select') == null)) {
+                                item.subcategory = document.querySelector('.add-form-sides-select').value;
+                                delete item.type;
+                            }
+                            console.table(item)
+                        }
+                    }
+                    cancelPopUp();
+                    let listProm = Promise.resolve(sortMyListBy(db, "category"));
+
+                    listProm.then(displayListResult(listSorted));
+                    }
+                })
+            });
+        }
+      })
       deleteButton.addEventListener("click", function (event) {
-        if (event.target.innerHTML == "Delete") {
+        if (event.target.className == "action-button-red" || event.target.className == "delete-img") {
           displayDeletePopUp(item, db);
         }
       });
@@ -304,60 +340,45 @@ function goToStock(event) {
   stockLookupContainer.classList.add("active");
 
   let listProm = Promise.resolve(sortMyListBy(db, "category"));
-
   listProm.then(displayListResult(listSorted));
 }
 menuStock.addEventListener("click", goToStock);
 
 function displayAddNewPopUp(...args) {
-  let formContainer = document.createElement("div");
-  formContainer.classList.add("add-form-container");
+  let formContainer = createNewElement(["div", '', "add-form-container"]);
 
   let fieldNames = [...args];
   fieldNames.forEach((element) => {
     if (element == "Category") {
-      let newField = document.createElement("div");
-      newField.textContent = element;
-      newField.classList.add("add-form-label");
-      let selectBox = document.createElement("select");
-      selectBox.classList.add("add-form-select");
-      let optionsList = [];
-      let selectOption = document.createElement("option");
-      selectOption.textContent = "Select One";
+      let newField = createNewElement(["div", element, "add-form-label"]);
+      let selectBox = createNewElement(["select", '', "add-form-select"]);
+      let selectOption = createNewElement(["option", "Select One"]);
       selectBox.appendChild(selectOption);
+      
+      let optionsList = [];
       db.forEach((element) => {
         if (!optionsList.includes(element.category)) {
           optionsList.push(element.category);
-          let selectOption = document.createElement("option");
-          selectOption.textContent = element.category;
+          let selectOption = createNewElement(["option", element.category]);
           selectBox.appendChild(selectOption);
         }
       });
-      let addCategButton = document.createElement("button");
-      addCategButton.classList.add("add-form-category");
-      addCategButton.textContent = '+';
+      let addCategButton = createNewElement(["button", "+", "add-form-category"]);
+   
       [newField, selectBox, addCategButton].forEach((element) => {
         formContainer.appendChild(element);
       });
     } else if(element == "Name"){
-      let newField = document.createElement("div");
-      newField.textContent = element;
-      newField.classList.add("add-form-label");
-      let newInput = document.createElement("input");
-      newInput.classList.add("add-form-input");
-      newInput.classList.add('field-name');
-      newInput.type = "text";
+      let newField = createNewElement(["div", element, "add-form-label"]);
+      let newInput = createNewElement(["input", '', "add-form-input", "field-name"]);
+
       [newField, newInput].forEach((element) => {
         formContainer.appendChild(element);
       });
     }else if(element == "Price"){
-        let newField = document.createElement("div");
-        newField.textContent = element;
-        newField.classList.add("add-form-label");
-        let newInput = document.createElement("input");
-        newInput.classList.add("add-form-input");
-        newInput.classList.add('field-price');
-        newInput.type = "text";
+        let newField = createNewElement(["div", element, "add-form-label"]);
+        let newInput = createNewElement(["input", '', "add-form-input", "field-price"]);
+      
         [newField, newInput].forEach((element) => {
           formContainer.appendChild(element);
         });
@@ -367,17 +388,12 @@ function displayAddNewPopUp(...args) {
   document.querySelector(".pop-up-box").appendChild(formContainer);
   document.querySelector('.add-form-select').addEventListener('change', function(){
       if(document.querySelector('.add-form-select').value == "Sides") {
+        let newType = createNewElement(["div", "Sub Category", "add-form-label", "label-sub"]);
     
-        let newType = document.createElement("div");
-        newType.textContent = "Sub Category";
-        newType.classList.add("add-form-label");
-        newType.classList.add("label-sub");
-    
-        let newSelect = document.createElement("select");
-        newSelect.classList.add("add-form-sides-select");
+        let newSelect = createNewElement(["select", '', "add-form-sides-select"]);
         newSelect.style.width = '75%';
         ['Food', 'Drinks'].forEach(element => {
-            let newOption = document.createElement('option');
+            let newOption = createNewElement(["option", element]);
             newOption.textContent = element;
             newSelect.appendChild(newOption);
         });
@@ -389,29 +405,19 @@ function displayAddNewPopUp(...args) {
             document.querySelector('.add-form-container').removeChild(document.querySelector('.add-form-container').childNodes[3]);
             document.querySelector('.add-form-container').removeChild(document.querySelector('.add-form-container').childNodes[3]);
           }
-         
       }
   })
-
 }
 function popUpActionButtons(confirm, cancel, item, list) {
-  let newButtons = document.createElement("div");
-
-  let newButtonYes = document.createElement("button");
-  newButtonYes.classList.add("action-button-green");
-  newButtonYes.textContent = confirm;
-
-  let newButtonNo = document.createElement("button");
-  newButtonNo.classList.add("action-button-red");
-  newButtonNo.textContent = cancel;
-
+  let newButtons = createNewElement(["div", '', "pop-up-box-button-case"]);
+  let newButtonYes = createNewElement(["button", confirm, "action-button-green"]);
+  let newButtonNo = createNewElement(["button", cancel, "action-button-red"]);
+  
   [newButtonYes, newButtonNo].forEach((element) => {
     newButtons.appendChild(element);
-    newButtons.classList.add("pop-up-box-button-case");
   });
 
   document.querySelector(".pop-up-box").appendChild(newButtons);
-
   newButtonNo.addEventListener("click", cancelPopUp);
 }
 function addNewItemToList() {
@@ -420,7 +426,6 @@ function addNewItemToList() {
         newItem.category = document.querySelector('.add-form-select').value;
     }else{
         newItem.category = document.querySelector('.field-category').value;
-    
     }
     newItem.name = document.querySelector('.field-name').value;
     newItem.price = Number(document.querySelector('.field-price').value).toFixed(2);
@@ -437,10 +442,8 @@ function addNewItemToList() {
     }else if(document.querySelector('.add-form-select').value == "Sides") {
         newItem.subcategory = document.querySelector('.add-form-sides-select').value;
     }
-    
     db.push(newItem);
     oldDb.push(newItem);
-  
     console.table(newItem);
 }
 
@@ -454,24 +457,14 @@ function addCategoryToSelect() {
     activeForm.removeChild(activeForm.childNodes[0])
     activeForm.removeChild(activeForm.childNodes[0])
     
-    let newField = document.createElement("div");
-    newField.textContent = "New Category";
-    newField.classList.add("add-form-label");
-    let newInput = document.createElement("input");
-    newInput.classList.add("add-form-input");
-    newInput.classList.add("field-category");
-    newInput.type = "text";
+    let newField = createNewElement(["div", "New Category", "add-form-label"]);
+    let newInput = createNewElement(["input", '', "add-form-input", "field-category"]);
+    let newType = createNewElement(["div", "Type", "add-form-label"]);
 
-    let newType = document.createElement("div");
-    newType.textContent = "Type";
-    newType.classList.add("add-form-label");
-
-    let newSelect = document.createElement("select");
-    newSelect.classList.add("add-form-type-select");
+    let newSelect = createNewElement(["select", '', "add-form-type-select"]);
     newSelect.style.width = '75%';
     ['Food', 'Drinks', 'Sweet'].forEach(element => {
-        let newOption = document.createElement('option');
-        newOption.textContent = element;
+        let newOption = createNewElement(["option", element]);
         newSelect.appendChild(newOption);
     });
 
@@ -479,7 +472,6 @@ function addCategoryToSelect() {
         activeForm.insertBefore(element, activeForm.childNodes[0]);
     });
 }
-
 
 stockAddNewButton.addEventListener("click", function () {
   let popUpProm = Promise.resolve(popUpOverlay());

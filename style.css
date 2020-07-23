@@ -3,19 +3,21 @@
 
 html {
     font-size: 10px;
-    display: block;
-    scroll-behavior: smooth;
+    display: flexbox;
     background-color: rgb(34, 34, 34);
     scroll-behavior: smooth;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
+    overflow: hidden;
 }
 
 
 body {
     background-color: rgba(100, 100, 255, 0.1);
-    width: 100vw;
+    width: 100%;
+    max-width: 100vw;
     height: 100%;
+    max-height: 100vh;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -30,10 +32,10 @@ body button:active {
     outline: none;
 }
 .header {
+    grid-area: spacer;
     background-color: transparent;
-    width: 100vw;
+    width: 100%;
     height: 4rem;
-    position: fixed;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -52,11 +54,17 @@ body button:active {
     align-items: center;
 }
 .logo {
-    height: 100%;
-    width: 20rem;
+    height: 3rem;
+    width: 3rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: rgba(20, 204, 158);
+    border-radius: 50%;
+}
+.logo-img {
+    width: auto;
+    height: 70%;
 }
 .nav-user {
     height: 100%;
@@ -68,8 +76,9 @@ body button:active {
 
 .main-content {
     background-color: transparent;
-    width: 99vw;
-    max-height: 99%;
+    width: 98%;
+    height: 99%;
+    max-height: 100vh;
     margin:0 1% 1% 1%;
     display: grid;
     grid-template-columns: 30% 20%  39% 10%;
@@ -80,22 +89,8 @@ body button:active {
         "cart addon items categ";
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: hidden;
 }
-
-@media screen and (max-width: 500px) {
-    .main-content {
-        grid-template-columns: 3fr 1fr;
-        grid-template-rows: 4rem 3fr 3fr 6rem 6rem;
-        grid-template-areas: 
-            "spacer spacer"
-            "cart cart"
-            "items items"
-            "categ categ"
-            "menu menu";
-    }
-}
-
 
 input,
 textarea,
@@ -110,12 +105,7 @@ textarea:focus,
 button:focus {
     outline: none;
 }
-.main-spacer {
-    grid-area: spacer;
-    /* background-color: rgba(32, 178, 171, 0.705); */
-    height: 100%;
-    width: 100%;
-}
+
 .main-menu {
     grid-area: menu;
     /* background-color: rgba(178, 32, 129, 0.705); */
@@ -130,12 +120,11 @@ button:focus {
     height: 4rem;
     width: 8rem;;
     margin: 1rem;
-    color: rgb(49, 134, 113);
-    border: 2px solid rgb(49, 134, 113);
+    color: rgba(20, 204, 158);
+    border: 2px solid rgba(20, 204, 158);
     cursor: pointer;
-    background-color: rgb(49, 134, 113, 0.05);
+    background-color: rgba(49, 134, 113, 0.1);
     border-radius: 10px;
-    transition: background-color 0.5s ease;
 }
 @keyframes slideIn {
     0% {
@@ -179,7 +168,6 @@ button:focus {
 
 .main-categ {
     grid-area: categ;
-    /* background-color: rgba(85, 85, 85, 0.548); */
     height: 100%;
     width: 100%;
     display: flex;
@@ -188,12 +176,8 @@ button:focus {
     align-items: center;
     align-content: flex-start;
     align-self: flex-start;
-    overflow-x: auto;
+    overflow: auto;
 }
-
-/* .active {
-    background-color: rgb(129, 53, 22);
-} */
 
 .main-categ button {
     height: 9rem;
@@ -238,33 +222,6 @@ button:focus {
 
 }
 
-@media screen and (max-width: 500px){
-    .main-items {
-        grid-area: items;
-        /* background-color: rgba(178, 156, 32, 0.705); */
-        height: 95%;
-        margin-top: 1%;
-        margin-left: 1%;
-        width: 95%;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: flex-start;
-        align-items: flex-start;
-        align-content: flex-start;
-        display: none;
-    }
-    .main-active {
-        display: flex;
-        overflow: auto;
-    }
-    .main-categ {
-        flex-flow: row nowrap;
-    }
-    .main-items button{
-        height: 10rem;
-        width: 10rem;
-    }
-}
 
 .main-addon {
     height: 97%;
@@ -295,7 +252,8 @@ button:focus {
     background-color: rgba(100, 50, 200, 0.1);
     border-top: 2px solid rgba(100, 50, 200);
     border-radius: 10px;
-    height: 97%;
+    height: 100%;
+    max-height: 85vh;
     width: 100%;
     flex-direction: column;
     justify-content: flex-start;
@@ -462,7 +420,7 @@ button:focus {
         "mgmt";
     justify-content: flex-start;
     align-items: flex-start;
-    overflow: auto;
+    overflow: hidden;
 }
 
 
@@ -488,7 +446,7 @@ button:focus {
 }
 .stock-search {
     height: 4rem;
-    width: 50%;
+    width: 70%;
     background-color: transparent;
     border: 2px solid rgb(20, 204, 158);
     border-radius: 10px;
@@ -663,11 +621,12 @@ button:focus {
     width: 75%;
     height: 3rem;
     margin: 1rem 0 1rem 0;
-    /* background-color: rgb(20, 204, 158, 1); */
-    border: 1px solid white;
+    background-color: rgb(152, 219, 201);
+    border: none;
     border-radius: 10px;
-    color: rgb(58, 57, 57);
-    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.801);
+    font-size: 2rem;
+    text-align: center;
 }
 
 .add-form-input:active {
